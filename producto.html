@@ -672,7 +672,7 @@ footer{border-top:1px solid var(--line);padding:32px;font-family:var(--mono);fon
         <div class="rfq-feat"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Sin compromiso</div>
       </div>
     </div>
-    <form class="rfq-form" onsubmit="event.preventDefault()">
+    <form class="rfq-form" onsubmit="event.preventDefault(); submitRFQ(this)">
       <div class="rfq-row">
         <div class="rfq-group"><label class="rfq-field-label">Nombre</label><input type="text" class="rfq-input" placeholder="Tu nombre" required></div>
         <div class="rfq-group"><label class="rfq-field-label">Empresa</label><input type="text" class="rfq-input" placeholder="Nombre de tu empresa"></div>
@@ -815,5 +815,72 @@ calcROI();
   setTimeout(() => { fill.style.width = '73%'; }, 400);
 })();
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+const SUPA_URL = 'https://qsirhluidhpmrpnejwdp.supabase.co';
+const SUPA_KEY = 'sb_publishable_1kOHBeoCsSY1ufV1_1DjKw_GNt60bPd';
+const supa = supabase.createClient(SUPA_URL, SUPA_KEY);
+
+async function submitRFQ(form) {
+  const btn = form.querySelector('.rfq-submit');
+  const origText = btn.textContent;
+  btn.textContent = 'Enviando...';
+  btn.disabled = true;
+
+  const data = {
+    client_name: form.querySelector('input[placeholder="Tu nombre"]').value,
+    client_company: form.querySelector('input[placeholder="Nombre de tu empresa"]').value,
+    client_email: form.querySelector('input[placeholder="email@empresa.com"]').value,
+    client_phone: form.querySelector('input[placeholder="+54 11..."]').value,
+    products_description: form.querySelectorAll('select.rfq-input')[0].value,
+    notes: form.querySelector('textarea').value,
+    origin_country: 'China',
+    transport_type: 'maritime',
+    status: 'pendiente',
+    priority: 'normal',
+    source: 'shop'
+  };
+
+  try {
+    const { error } = await supa.from('quote_requests').insert([data]);
+    if (error) throw error;
+    btn.textContent = '✓ Solicitud enviada!';
+    btn.style.background = '#88CE02';
+    form.reset();
+    setTimeout(() => { btn.textContent = origText; btn.disabled = false; btn.style.background = ''; }, 4000);
+  } catch(e) {
+    console.error(e);
+    btn.textContent = 'Error, intenta de nuevo';
+    btn.style.background = '#ff6b6b';
+    setTimeout(() => { btn.textContent = origText; btn.disabled = false; btn.style.background = ''; }, 3000);
+  }
+}
+
+async function loadContainerGauge() {
+  try {
+    const { data, error } = await supa.rpc('get_public_container_status');
+    if (error || !data) return; // keep hardcoded values as fallback
+
+    const fill = document.getElementById('ctn-fill');
+    const pct = document.getElementById('ctn-pct');
+    if (!fill || !pct) return;
+
+    const percent = Math.min(Math.round(data.percent_full), 100);
+    pct.textContent = percent + '%';
+    fill.style.width = '0%';
+    fill.querySelector('.ctn-bar-label').textContent = data.used_cbm.toFixed(1) + ' / ' + data.capacity_cbm.toFixed(0) + ' CBM';
+    setTimeout(() => { fill.style.width = percent + '%'; }, 400);
+
+    // Update meta
+    const metaItems = document.querySelectorAll('.ctn-meta-item');
+    if (data.nombre && metaItems[0]) {
+      metaItems[0].innerHTML = '<svg viewBox="0 0 24 24" stroke-linecap="round"><rect x="1" y="3" width="22" height="14" rx="2"/></svg>' + data.nombre;
+    }
+  } catch(e) { console.log('Gauge: using fallback data'); }
+}
+loadContainerGauge();
+</script>
+
 </body>
 </html>
