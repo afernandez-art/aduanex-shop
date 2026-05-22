@@ -356,6 +356,14 @@ async function handleRegister() {
       } catch(e) { /* non-blocking */ }
     }
 
+    // If session exists, email confirm is disabled — redirect immediately
+    if (data.session) {
+      showMsg('Cuenta creada. Redirigiendo...', 'success');
+      setTimeout(() => { window.location.href = _redirect; }, 800);
+      return;
+    }
+
+    // Otherwise email confirm is required
     showMsg('Cuenta creada. Revisa tu email para confirmar tu cuenta.', 'success');
     btn.textContent = 'Cuenta creada';
     document.getElementById('register-form').reset();
