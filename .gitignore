@@ -1,0 +1,7 @@
+# Media (symlinks to Downloads)
+aduanex-frames-opt
+aduanex-hero-bg-opt.mp4
+
+# System
+.DS_Store
+.vercel

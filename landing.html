@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aduanex — Importar de China</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root {
+  --bg: #000000;
+  --bg-elev: #0E100F;
+  --bg-card: #161816;
+  --text: #F3F4F1;
+  --text-dim: #8B8E89;
+  --text-mute: #5C5F5A;
+  --line: rgba(243,244,241,0.08);
+  --line-strong: rgba(243,244,241,0.16);
+  --accent: #88CE02;
+  --accent-soft: rgba(136,206,2,0.12);
+  --sans: 'Geist', -apple-system, sans-serif;
+  --mono: 'Geist Mono', monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased}
+html{background:var(--bg);scroll-behavior:smooth;overflow-x:hidden}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:400;line-height:1.5}
+::selection{background:var(--accent);color:var(--bg)}
+
+.loader{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:9999;transition:opacity .5s}
+.loader.done{opacity:0;pointer-events:none}
+.loader-bar-wrap{width:180px;height:2px;background:var(--line-strong);border-radius:2px;overflow:hidden;margin-top:16px}
+.loader-bar{height:100%;width:0%;background:var(--accent);transition:width .1s linear}
+.loader-text{font-family:var(--mono);font-size:10px;letter-spacing:.15em;color:var(--text-mute);margin-top:10px;text-align:center}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(12px) saturate(180%);background:rgba(0,0,0,.7);border-bottom:1px solid var(--line)}
+.logo{display:flex;align-items:center;gap:0;font-size:20px;font-weight:800;letter-spacing:.04em;color:var(--text);text-decoration:none;text-transform:uppercase}
+.logo .logo-accent{color:var(--accent)}
+.nav-cta{padding:8px 18px;background:var(--accent);color:var(--bg)!important;border-radius:100px;font-weight:600!important;font-family:var(--sans)!important;font-size:13px!important;transition:transform 150ms}
+.nav-cta:hover{transform:scale(1.05)}
+
+/* SHARED */
+.section-tag{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:20px;display:inline-flex;align-items:center;gap:10px}
+.section-tag::before{content:'';width:24px;height:1px;background:var(--accent)}
+.section-h{font-size:clamp(40px,5vw,72px);font-weight:800;letter-spacing:-.04em;line-height:1;margin-bottom:20px}
+.section-h .accent{color:var(--accent)}
+.section-sub{font-size:19px;color:var(--text-dim);line-height:1.55}
+.btn-primary{display:inline-flex;align-items:center;gap:12px;background:var(--accent);color:var(--bg);padding:16px 28px;border-radius:100px;font-weight:600;font-size:15px;text-decoration:none;position:relative;overflow:hidden;transition:transform 150ms}
+.btn-primary:hover{transform:scale(1.03)}
+.btn-primary::before{content:'';position:absolute;inset:0;background:var(--text);transform:translateX(-100%);transition:transform 350ms cubic-bezier(.65,0,.35,1)}
+.btn-primary:hover::before{transform:translateX(0)}
+.btn-primary span,.btn-primary svg{position:relative;z-index:1;transition:color 200ms}
+.btn-primary:hover span,.btn-primary:hover svg{color:var(--bg)}
+.btn-ghost{display:inline-flex;align-items:center;gap:10px;color:var(--text);padding:16px 24px;font-weight:500;font-size:15px;text-decoration:none;transition:color 200ms}
+.btn-ghost:hover{color:var(--accent)}
+.btn-ghost svg{transition:transform 200ms}
+.btn-ghost:hover svg{transform:translateX(4px)}
+.btn-arrow{width:16px;height:16px}
+
+/* ============= 1. HERO ============= */
+.hero{min-height:100vh;padding:140px 32px 80px;position:relative;display:flex;align-items:center;overflow:hidden}
+.hero-video-bg{position:absolute;inset:0;z-index:0;overflow:hidden}
+.hero-video-bg video{width:100%;height:100%;object-fit:cover}
+.hero-video-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.7) 0%,rgba(0,0,0,.5) 50%,rgba(0,0,0,.85) 100%)}
+.hero-bg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.7;z-index:1}
+.hero-bg svg{width:100%;height:100%;display:block}
+.grid-lines line{stroke:var(--accent);stroke-width:.3;opacity:.08;fill:none}
+.grid-equator{stroke-width:.6!important;opacity:.12!important}
+.route-static{fill:none;stroke:var(--accent);stroke-dasharray:2 5;opacity:.12;stroke-width:.5}
+.route-static.route-main{stroke-width:.8;stroke-dasharray:4 4;opacity:.2}
+.route-dot{fill:var(--accent)}
+.city-label{fill:var(--accent);font-family:'Geist Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.15em;opacity:.95}
+.city-coords{fill:var(--accent);font-family:'Geist Mono',monospace;font-size:9px;opacity:.55;letter-spacing:.12em}
+.hero-grid{width:100%;max-width:1400px;margin:0 auto;position:relative;z-index:2}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dim);margin-bottom:32px}
+.hero-eyebrow::before{content:'';width:6px;height:6px;background:var(--accent);border-radius:50%;box-shadow:0 0 12px var(--accent)}
+.hero-h1{font-size:clamp(56px,8vw,120px);font-weight:800;line-height:.92;letter-spacing:-.04em;margin-bottom:32px}
+.hero-h1 .word{display:inline-block;overflow:hidden;vertical-align:top}
+.hero-h1 .word>span{display:inline-block}
+.hero-h1 .accent{color:var(--accent)}
+.hero-sub{font-size:19px;color:var(--text-dim);max-width:520px;line-height:1.55;margin-bottom:48px}
+.hero-cta-stack{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.scroll-hint{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--text-mute);text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:8px;z-index:4;opacity:1!important;animation:scrollFadeIn 1s ease 2s both}
+.scroll-hint .scroll-text{display:flex;align-items:center;gap:12px}
+.scroll-hint .scroll-text::before,.scroll-hint .scroll-text::after{content:'';width:24px;height:1px;background:var(--text-mute)}
+.scroll-hint .scroll-chevrons{display:flex;flex-direction:column;align-items:center;gap:0;animation:scrollBounceHero 2s ease-in-out infinite}
+.scroll-hint .scroll-chevrons svg{width:16px;height:16px;stroke:var(--accent);fill:none;stroke-width:2}
+.scroll-hint .scroll-chevrons svg:first-child{opacity:.4}
+.scroll-hint .scroll-chevrons svg:last-child{opacity:.7}
+@keyframes scrollFadeIn{from{opacity:0;transform:translateX(-50%) translateY(10px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+@keyframes scrollBounceHero{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+.hero-trust{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:11px;letter-spacing:.03em;color:var(--text-mute);margin-top:32px}
+.hero-trust-dot{width:6px;height:6px;background:var(--accent);border-radius:50%;flex-shrink:0}
+
+/* STICKY MOBILE CTA */
+.sticky-cta{display:none;position:fixed;bottom:0;left:0;right:0;z-index:90;padding:12px 16px;background:rgba(0,0,0,.9);backdrop-filter:blur(12px);border-top:1px solid var(--line)}
+.sticky-cta a{display:flex;align-items:center;justify-content:center;gap:10px;background:var(--accent);color:var(--bg);padding:14px;border-radius:100px;font-weight:600;font-size:14px;text-decoration:none;width:100%}
+
+/* SECTION CTA */
+.section-cta{text-align:center;margin-top:48px}
+
+/* ============= 2. SCROLL SEQUENCE ============= */
+.seq-section{height:350vh;position:relative}
+.seq-sticky{position:sticky;top:0;height:100vh;width:100%;overflow:hidden;background:var(--bg)}
+.seq-frame{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:85vw;max-width:1200px;aspect-ratio:4/3}
+.seq-frame canvas{display:block;width:100%;height:100%}
+.seq-step{position:absolute;z-index:10;opacity:0;will-change:opacity,transform;background:rgba(14,16,15,.95);backdrop-filter:blur(16px);border:2px solid var(--line);border-radius:16px;padding:28px 32px;max-width:360px;overflow:hidden}
+.seq-step>*{position:relative;z-index:2}
+.seq-step.glow{border-color:transparent;box-shadow:0 0 30px rgba(136,206,2,.12),0 0 80px rgba(136,206,2,.05)}
+.seq-step.glow::before{content:'';position:absolute;width:200%;height:200%;top:-50%;left:-50%;background:conic-gradient(transparent,transparent 55%,var(--accent) 75%,var(--accent) 80%,transparent 90%);animation:neonSpin 2.5s linear infinite;z-index:0}
+.seq-step.glow::after{content:'';position:absolute;inset:2px;background:rgba(14,16,15,.95);border-radius:14px;z-index:1}
+@keyframes neonSpin{to{transform:rotate(360deg)}}
+.seq-step-1{left:4%;top:50%;transform:translateY(-50%)}
+.seq-step-2{right:4%;top:50%;transform:translateY(-50%)}
+.seq-step-3{left:4%;top:50%;transform:translateY(-50%)}
+.seq-step-4{left:50%;bottom:6%;transform:translateX(-50%);text-align:center;max-width:500px}
+.ss-counter{display:none}
+.ss-eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;display:inline-flex;align-items:center;gap:8px}
+.ss-eyebrow::before{content:'';width:16px;height:1px;background:var(--accent)}
+.ss-h{font-size:clamp(24px,3vw,40px);font-weight:800;line-height:.95;letter-spacing:-.03em;color:var(--text);margin-bottom:10px}
+.ss-h .accent{color:var(--accent)}
+.ss-desc{font-size:14px;color:var(--text-dim);line-height:1.5}
+.seq-dots{position:absolute;right:28px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:12px;z-index:20}
+.seq-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.15);transition:all 250ms}
+.seq-dot.active{background:var(--accent);box-shadow:0 0 10px var(--accent)}
+.seq-progress{position:absolute;bottom:0;left:0;height:3px;background:var(--accent);z-index:20;width:0%}
+.seq-scroll-guide{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);z-index:20;display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;transition:opacity .5s}
+.seq-scroll-guide.visible{opacity:1}
+.seq-scroll-guide span{font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-mute)}
+.seq-scroll-guide .chevrons{display:flex;flex-direction:column;align-items:center;gap:2px;animation:scrollBounce 1.8s ease-in-out infinite}
+.seq-scroll-guide .chevrons svg{width:14px;height:14px;stroke:var(--accent);fill:none;stroke-width:2;opacity:.6}
+.seq-scroll-guide .chevrons svg:first-child{opacity:.3}
+@keyframes scrollBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+/* ============= 2c. BRIDGE ============= */
+.bridge{padding:120px 32px;text-align:center;position:relative;overflow:hidden}
+.bridge::before{content:'';position:absolute;top:50%;left:50%;width:600px;height:600px;background:radial-gradient(circle,rgba(136,206,2,0.04) 0%,transparent 70%);transform:translate(-50%,-50%);pointer-events:none}
+.bridge-inner{max-width:800px;margin:0 auto;position:relative}
+.bridge-line{width:1px;height:48px;background:linear-gradient(180deg,transparent,var(--accent));margin:0 auto 40px;opacity:.5}
+.bridge-content{margin-bottom:48px}
+.bridge-h{font-size:clamp(32px,5vw,56px);font-weight:800;letter-spacing:-.04em;line-height:1.05;margin-bottom:16px}
+.bridge-h .accent{color:var(--accent)}
+.bridge-sub{font-size:17px;color:var(--text-dim);line-height:1.55}
+.bridge-stats{display:flex;justify-content:center;gap:48px;margin-bottom:48px;padding:32px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.bridge-stat{text-align:center}
+.bridge-num{font-family:var(--mono);font-size:clamp(32px,4vw,48px);font-weight:800;color:var(--accent);line-height:1}
+.bridge-label{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-mute);margin-top:8px}
+.bridge-cta{margin:0 auto}
+@media(max-width:600px){
+  .bridge{padding:80px 20px}
+  .bridge-stats{gap:24px;flex-wrap:wrap}
+  .bridge-stat{min-width:120px}
+}
+
+/* ============= 3. SERVICIOS ============= */
+.services{padding:160px 32px;max-width:1400px;margin:0 auto}
+.services-header{text-align:center;max-width:720px;margin:0 auto 60px}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.srv-card{display:flex;align-items:center;gap:18px;background:var(--bg-card);border:1px solid var(--line);border-radius:16px;padding:24px;transition:border-color 300ms,transform 300ms;cursor:default}
+.srv-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.srv-icon{width:44px;height:44px;min-width:44px;border-radius:12px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center}
+.srv-icon svg{width:20px;height:20px;stroke:var(--accent);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.srv-text{display:flex;flex-direction:column;gap:2px}
+.srv-title{font-size:16px;font-weight:700;letter-spacing:-.02em}
+.srv-subtitle{font-size:13px;color:var(--text-dim)}
+.services-cta{text-align:center;margin-top:48px}
+
+/* ============= 4. HUB ============= */
+.hub-section{padding:160px 32px}
+.hub-inner{max-width:1100px;margin:0 auto}
+.hub-header{text-align:center;margin-bottom:60px}
+.hub-video{background:var(--bg-card);border:1px solid var(--line);border-radius:24px;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;max-width:1000px;margin:0 auto;position:relative;overflow:hidden}
+.hub-video::before{content:'';position:absolute;top:-1px;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:.4}
+.hub-play{width:80px;height:80px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform 200ms}
+.hub-play:hover{transform:scale(1.1)}
+.hub-play svg{width:28px;height:28px;fill:var(--bg);margin-left:4px}
+.hub-soon{font-family:var(--mono);font-size:11px;letter-spacing:.15em;color:var(--text-mute);margin-top:16px;text-transform:uppercase}
+.hub-features{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:48px}
+.hub-chip{display:inline-flex;align-items:center;gap:8px;background:var(--bg-card);border:1px solid var(--line);border-radius:100px;padding:10px 20px;font-size:13px;font-weight:500;transition:border-color 300ms}
+.hub-chip:hover{border-color:var(--accent)}
+.hub-chip svg{width:16px;height:16px;stroke:var(--accent);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.hub-cta{text-align:center;margin-top:48px}
+
+
+/* ============= 7. TESTIMONIOS ============= */
+.testimonials{padding:160px 32px}
+.testimonials-inner{max-width:1200px;margin:0 auto}
+.testimonials-header{text-align:center;margin-bottom:80px}
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.testi-card{background:var(--bg-card);border:1px solid var(--line);border-radius:20px;padding:36px;display:flex;flex-direction:column}
+.testi-stars{color:var(--accent);font-size:16px;letter-spacing:4px;margin-bottom:16px}
+.testi-text{font-size:15px;color:var(--text-dim);line-height:1.6;flex:1;margin-bottom:24px;font-style:italic}
+.testi-author{display:flex;align-items:center;gap:14px;padding-top:20px;border-top:1px solid var(--line)}
+.testi-avatar{width:40px;height:40px;border-radius:50%;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--accent);font-size:14px}
+.testi-name{font-weight:600;font-size:14px}
+.testi-role{font-family:var(--mono);font-size:11px;color:var(--text-mute);letter-spacing:.05em}
+
+/* ============= 8. FORMULARIO ============= */
+.form-section{padding:160px 32px;position:relative;overflow:hidden}
+.form-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:800px;height:800px;background:radial-gradient(circle,var(--accent-soft) 0%,transparent 60%);filter:blur(120px);pointer-events:none}
+.form-inner{max-width:700px;margin:0 auto;position:relative;z-index:2}
+.form-header{text-align:center;margin-bottom:60px}
+.form-card{background:var(--bg-card);border:1px solid var(--line);border-radius:24px;padding:48px;position:relative;overflow:hidden}
+.form-card::before{content:'';position:absolute;top:-1px;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:.5}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group.full{grid-column:1/-1}
+.form-label{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--text-mute)}
+.form-input{background:var(--bg-elev);border:1px solid var(--line-strong);border-radius:10px;padding:14px 16px;color:var(--text);font-family:var(--sans);font-size:14px;outline:none;transition:border-color 200ms}
+.form-input:focus{border-color:var(--accent)}
+.form-input::placeholder{color:var(--text-mute)}
+textarea.form-input{resize:vertical;min-height:100px}
+select.form-input{appearance:none;cursor:pointer}
+.form-submit{width:100%;margin-top:24px}
+.form-note{font-family:var(--mono);font-size:10px;color:var(--text-mute);text-align:center;margin-top:16px;letter-spacing:.05em}
+.form-steps{display:flex;gap:8px;margin-bottom:28px}
+.form-step-indicator{flex:1;height:3px;border-radius:3px;background:var(--line-strong);transition:background 300ms}
+.form-step-indicator.active{background:var(--accent)}
+.form-step{display:none}
+.form-step.active{display:block}
+.form-step-nav{display:flex;gap:12px;margin-top:24px}
+.form-step-nav .btn-back{background:transparent;border:1px solid var(--line-strong);color:var(--text-dim);padding:14px 24px;border-radius:100px;font-family:var(--sans);font-size:14px;font-weight:500;cursor:pointer;transition:border-color 200ms}
+.form-step-nav .btn-back:hover{border-color:var(--accent);color:var(--text)}
+.form-testi{display:flex;align-items:flex-start;gap:16px;background:var(--bg-elev);border:1px solid var(--line);border-radius:16px;padding:24px;margin-bottom:40px}
+.form-testi-avatar{width:40px;height:40px;min-width:40px;border-radius:50%;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--accent);font-size:14px}
+.form-testi-text{font-size:14px;color:var(--text-dim);line-height:1.5;font-style:italic}
+.form-testi-name{font-size:12px;font-weight:600;color:var(--text);margin-top:8px;font-style:normal}
+
+/* ============= 9. CTA FINAL ============= */
+.cta-final{padding:160px 32px;text-align:center;position:relative;overflow:hidden}
+.cta-final-content{position:relative;z-index:2;max-width:900px;margin:0 auto}
+.cta-final h2{font-size:clamp(48px,7vw,100px);font-weight:800;letter-spacing:-.04em;line-height:.95;margin-bottom:32px}
+.cta-final h2 .accent{color:var(--accent)}
+.cta-final-sub{font-size:16px;color:var(--text-dim);margin-bottom:48px;font-family:var(--mono);letter-spacing:.05em}
+
+/* FOOTER */
+footer{border-top:1px solid var(--line);padding:40px 32px;font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:var(--text-mute)}
+.footer-inner{max-width:1400px;margin:0 auto;display:flex;justify-content:space-between}
+
+/* ============= 2b. MOBILE STEPS ============= */
+.mob-steps{display:none}
+.mob-steps-inner{max-width:600px;margin:0 auto}
+.mob-steps-hero{margin-bottom:40px}
+.mob-steps-img{width:100%;display:block;border-radius:16px}
+.mob-steps-grid{display:flex;flex-direction:column;gap:16px;margin-top:40px}
+.mob-step-card{display:flex;gap:20px;align-items:flex-start;background:var(--bg-card);border:1px solid var(--line);border-radius:16px;padding:24px 20px;transition:border-color 300ms}
+.mob-step-card:hover{border-color:var(--accent)}
+.mob-step-num{font-family:var(--mono);font-size:32px;font-weight:800;color:var(--accent);line-height:1;min-width:44px;opacity:.7}
+.mob-step-title{font-size:17px;font-weight:700;letter-spacing:-.02em;margin-bottom:6px;line-height:1.2}
+.mob-step-title .accent{color:var(--accent)}
+.mob-step-desc{font-size:13px;color:var(--text-dim);line-height:1.5}
+
+
+/* ============= RESPONSIVE ============= */
+@media(max-width:968px){
+  nav{padding:14px 20px}
+  .hero{padding:100px 20px 40px}
+  .hero-bg{opacity:.4}
+  .city-label{font-size:9px}
+  .city-coords{display:none}
+  .hero-eyebrow{font-size:10px}
+  .hero-sub{font-size:16px}
+  .section-sub{font-size:16px}
+  .seq-section{height:280vh}
+  .seq-frame{width:90vw}
+  .seq-step{max-width:85vw!important;left:50%!important;right:auto!important;transform:translateX(-50%)!important;top:auto!important;bottom:4%!important;text-align:center}
+  .seq-dots{display:none}
+  .ss-h{font-size:22px}
+  .services{padding:80px 20px}
+  .services-grid{grid-template-columns:1fr 1fr;gap:16px}
+  .services-grid{grid-template-columns:1fr 1fr;gap:12px}
+  .srv-card{padding:20px 16px;gap:14px}
+  .srv-title{font-size:15px}
+  .hub-section{padding:80px 20px}
+  .testimonials{padding:80px 20px}
+  .testimonials-grid{grid-template-columns:1fr;gap:16px}
+  .form-section{padding:80px 20px}
+  .form-card{padding:28px 20px}
+  .form-row{grid-template-columns:1fr}
+  .cta-final{padding:100px 20px}
+  .footer-inner{flex-direction:column;gap:12px;text-align:center}
+}
+@media(max-width:600px){
+  .hero{padding:90px 16px 32px;min-height:auto;min-height:100svh}
+  .hero-h1{font-size:clamp(40px,12vw,56px);margin-bottom:24px}
+  .hero-eyebrow{font-size:9px;letter-spacing:.08em;margin-bottom:20px}
+  .hero-sub{font-size:15px;margin-bottom:32px}
+  .hero-cta-stack{flex-direction:row;align-items:center;gap:12px}
+  .hero-cta-stack .btn-primary{padding:12px 22px;font-size:13px;width:auto}
+  .hero-cta-stack .btn-ghost{font-size:13px;padding:12px 8px}
+  .hero-trust{font-size:9px;flex-wrap:wrap;margin-top:24px}
+  .scroll-hint{display:flex;bottom:76px;font-size:8px;letter-spacing:.15em}
+  .scroll-hint .scroll-chevrons svg{width:14px;height:14px}
+  .sticky-cta{display:block}
+  body{padding-bottom:64px}
+  .section-h{font-size:clamp(28px,8vw,40px)}
+  .section-sub{font-size:15px}
+  .section-tag{font-size:10px}
+  .seq-section{height:250vh}
+  .seq-sticky{height:100svh}
+  .seq-frame{width:100vw;max-width:none;top:38%;left:50%;transform:translate(-50%,-50%);aspect-ratio:auto}
+  .seq-frame canvas{width:100%;height:auto;max-height:55svh;object-fit:contain}
+  .seq-step{padding:20px 20px 18px;max-width:calc(100% - 24px)!important;width:calc(100% - 24px);left:50%!important;right:auto!important;top:auto!important;bottom:72px!important;transform:translateX(-50%)!important;border-radius:16px;text-align:center;background:rgba(0,0,0,.8);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+  .seq-step.glow::after{background:rgba(0,0,0,.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+  .seq-step .ss-eyebrow{font-size:9px;margin-bottom:6px}
+  .ss-counter{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;border:1.5px solid var(--accent);font-family:var(--mono);font-size:11px;font-weight:700;color:var(--accent);margin-bottom:10px;box-shadow:0 0 12px rgba(136,206,2,.2)}
+  .ss-h{font-size:22px;margin-bottom:6px}
+  .ss-desc{font-size:13px;line-height:1.45}
+  .seq-dots{display:none}
+  .seq-scroll-guide{bottom:16px}
+  .seq-scroll-guide span{font-size:8px}
+  .seq-progress{display:none}
+  .mob-steps{display:none}
+  .services{padding:60px 16px}
+  .services-grid{grid-template-columns:1fr;gap:10px}
+  .srv-card{padding:18px 16px;gap:14px}
+  .srv-icon{width:38px;height:38px;min-width:38px;border-radius:10px}
+  .srv-icon svg{width:18px;height:18px}
+  .srv-title{font-size:14px}
+  .srv-subtitle{font-size:12px}
+  .hub-section{padding:60px 16px}
+  .hub-video{border-radius:16px}
+  .hub-play{width:60px;height:60px}
+  .hub-play svg{width:22px;height:22px}
+  .hub-features{gap:8px;margin-top:32px}
+  .hub-chip{font-size:12px;padding:8px 14px;gap:6px}
+  .hub-chip svg{width:14px;height:14px}
+  .testimonials{padding:60px 16px}
+  .testi-card{padding:24px;border-radius:16px}
+  .testi-text{font-size:14px}
+  .form-section{padding:60px 16px}
+  .form-card{padding:24px 16px;border-radius:16px}
+  .form-input{padding:12px 14px;font-size:14px;border-radius:8px}
+  .btn-primary{padding:14px 24px;font-size:14px;width:100%;justify-content:center}
+  .btn-ghost{justify-content:center}
+  .cta-final{padding:80px 16px}
+  .cta-final h2{font-size:clamp(36px,10vw,56px)}
+  .cta-final-sub{font-size:13px}
+  .cta-final .btn-primary{width:auto}
+  footer{padding:28px 16px}
+  .footer-inner{font-size:10px;text-align:center;flex-direction:column;gap:8px}
+}
+</style>
+</head>
+<body>
+
+<div class="loader" id="loader">
+  <div>
+    <div class="logo" style="justify-content:center;margin-bottom:8px">ADUA<span class="logo-accent">NEX</span></div>
+    <div class="loader-bar-wrap"><div class="loader-bar" id="loader-bar"></div></div>
+    <div class="loader-text" id="loader-text">0%</div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">ADUA<span class="logo-accent">NEX</span></a>
+  <a href="#contacto" class="nav-cta">Contactanos</a>
+</nav>
+
+<!-- 1. HERO -->
+<section class="hero">
+  <div class="hero-video-bg">
+    <video autoplay muted playsinline id="hero-video">
+      <source src="aduanex-hero-bg-opt.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="hero-grid">
+    <div class="hero-text">
+      <div class="hero-eyebrow">CHINA &rarr; ARGENTINA &middot; PUERTA A PUERTA</div>
+      <h1 class="hero-h1">
+        <span class="word"><span>Tu container,</span></span><br>
+        <span class="word"><span>sin</span></span>
+        <span class="word"><span class="accent">&nbsp;sorpresas.</span></span>
+      </h1>
+      <p class="hero-sub">Cotizá en 30 segundos, seguí tu carga en vivo y recibí en tu depósito. Todo desde una sola plataforma.</p>
+      <div class="hero-cta-stack">
+        <a href="#contacto" class="btn-primary">
+          <span>Quiero importar</span>
+          <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a href="#seq" class="btn-ghost">
+          Ver como funciona
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+      </div>
+      <div class="hero-trust">
+        <span class="hero-trust-dot"></span>
+        +200 operaciones gestionadas &middot; Despachante matriculado &middot; Respuesta en 24hs
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-text">SCROLL</div>
+    <div class="scroll-chevrons">
+      <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+  </div>
+</section>
+
+<!-- 2. SCROLL SEQUENCE -->
+<section class="seq-section" id="seq">
+  <div class="seq-sticky">
+    <div class="seq-frame">
+      <canvas id="seq-canvas" width="1440" height="1080"></canvas>
+    </div>
+    <div class="seq-step seq-step-1" id="ss1">
+      <div class="ss-counter">1</div>
+      <div class="ss-eyebrow">PASO 01 &middot; BUSCA</div>
+      <h2 class="ss-h">Pega un link.<br>De <span class="accent">Alibaba.</span></h2>
+      <p class="ss-desc">Producto, precio, peso, dimensiones, supplier, certificaciones. En segundos.</p>
+    </div>
+    <div class="seq-step seq-step-2" id="ss2">
+      <div class="ss-counter">2</div>
+      <div class="ss-eyebrow">PASO 02 &middot; COTIZA</div>
+      <h2 class="ss-h">Costo final.<br>En <span class="accent">30 seg.</span></h2>
+      <p class="ss-desc">Cuanto te sale puesto en Argentina, en pesos, con todos los impuestos.</p>
+    </div>
+    <div class="seq-step seq-step-3" id="ss3">
+      <div class="ss-counter">3</div>
+      <div class="ss-eyebrow">PASO 03 &middot; GESTIONA</div>
+      <h2 class="ss-h">Todo en<br><span class="accent">un solo lugar.</span></h2>
+      <p class="ss-desc">Documentos, pagos, tracking. Vos te ocupas de tu negocio.</p>
+    </div>
+    <div class="seq-step seq-step-4" id="ss4">
+      <div class="ss-counter">4</div>
+      <div class="ss-eyebrow">PASO 04 &middot; RECIBI</div>
+      <h2 class="ss-h">Tu container <span class="accent">llega.</span></h2>
+      <p class="ss-desc">A tu casa, deposito u oficina. Te avisamos en cada paso.</p>
+    </div>
+    <div class="seq-scroll-guide" id="seq-scroll-guide">
+      <div class="chevrons">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <span>Scrolleá</span>
+    </div>
+    <div class="seq-dots" id="seq-dots">
+      <div class="seq-dot active"></div>
+      <div class="seq-dot"></div>
+      <div class="seq-dot"></div>
+      <div class="seq-dot"></div>
+    </div>
+    <div class="seq-progress" id="seq-progress"></div>
+  </div>
+</section>
+
+<!-- 2b. MOBILE STEPS (replaces scroll sequence on small screens) -->
+<section class="mob-steps" id="mob-steps">
+  <div class="mob-steps-inner">
+    <div class="mob-steps-hero">
+      <img src="aduanex-frames-opt/frame_0076.jpg" alt="Container Aduanex" class="mob-steps-img">
+    </div>
+    <div class="section-tag">COMO FUNCIONA</div>
+    <h2 class="section-h">4 pasos. <span class="accent">Listo.</span></h2>
+    <div class="mob-steps-grid">
+      <div class="mob-step-card">
+        <div class="mob-step-num">01</div>
+        <div class="mob-step-body">
+          <h3 class="mob-step-title">Pega un link de <span class="accent">Alibaba</span></h3>
+          <p class="mob-step-desc">Producto, precio, peso, dimensiones, supplier, certificaciones. En segundos.</p>
+        </div>
+      </div>
+      <div class="mob-step-card">
+        <div class="mob-step-num">02</div>
+        <div class="mob-step-body">
+          <h3 class="mob-step-title">Costo final en <span class="accent">30 seg</span></h3>
+          <p class="mob-step-desc">Cuanto te sale puesto en Argentina, en pesos, con todos los impuestos.</p>
+        </div>
+      </div>
+      <div class="mob-step-card">
+        <div class="mob-step-num">03</div>
+        <div class="mob-step-body">
+          <h3 class="mob-step-title">Todo en <span class="accent">un solo lugar</span></h3>
+          <p class="mob-step-desc">Documentos, pagos, tracking. Vos te ocupas de tu negocio.</p>
+        </div>
+      </div>
+      <div class="mob-step-card">
+        <div class="mob-step-num">04</div>
+        <div class="mob-step-body">
+          <h3 class="mob-step-title">Tu container <span class="accent">llega</span></h3>
+          <p class="mob-step-desc">A tu casa, deposito u oficina. Te avisamos en cada paso.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2c. BRIDGE DE IMPACTO -->
+<section class="bridge">
+  <div class="bridge-inner">
+    <div class="bridge-line"></div>
+    <div class="bridge-content">
+      <h2 class="bridge-h">Asi de simple.<br><span class="accent">Asi de real.</span></h2>
+      <p class="bridge-sub">No es una promesa. Es un proceso probado con resultados medibles.</p>
+    </div>
+    <div class="bridge-stats">
+      <div class="bridge-stat">
+        <div class="bridge-num">+200</div>
+        <div class="bridge-label">Operaciones gestionadas</div>
+      </div>
+      <div class="bridge-stat">
+        <div class="bridge-num">100%</div>
+        <div class="bridge-label">Tasa de entrega</div>
+      </div>
+      <div class="bridge-stat">
+        <div class="bridge-num">24hs</div>
+        <div class="bridge-label">Tiempo de respuesta</div>
+      </div>
+    </div>
+    <a href="#contacto" class="btn-primary bridge-cta">
+      <span>Cotizá tu importación</span>
+      <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- 3. SERVICIOS -->
+<section class="services" id="servicios">
+  <div class="services-header">
+    <div class="section-tag">SERVICIOS</div>
+    <h2 class="section-h">Todo lo que necesitas<br>para <span class="accent">importar.</span></h2>
+    <p class="section-sub">De la fabrica en China a tu puerta en Argentina.</p>
+  </div>
+  <div class="services-grid">
+    <div class="srv-card">
+      <div class="srv-icon"><svg viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg></div>
+      <div class="srv-text"><h3 class="srv-title">Forwarder</h3><p class="srv-subtitle">Tu carga, de China a Argentina</p></div>
+    </div>
+    <div class="srv-card">
+      <div class="srv-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+      <div class="srv-text"><h3 class="srv-title">Estudio Aduanero</h3><p class="srv-subtitle">Despacho con licencia propia</p></div>
+    </div>
+    <div class="srv-card">
+      <div class="srv-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div>
+      <div class="srv-text"><h3 class="srv-title">Certificaciones</h3><p class="srv-subtitle">SENASA, INTI, ENACOM, ANMAT</p></div>
+    </div>
+    <div class="srv-card">
+      <div class="srv-icon"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+      <div class="srv-text"><h3 class="srv-title">Courier</h3><p class="srv-subtitle">Puerta a puerta en 5-15 dias</p></div>
+    </div>
+    <div class="srv-card">
+      <div class="srv-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+      <div class="srv-text"><h3 class="srv-title">Agente de Carga</h3><p class="srv-subtitle">Una persona, todo el viaje</p></div>
+    </div>
+    <div class="srv-card">
+      <div class="srv-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+      <div class="srv-text"><h3 class="srv-title">Agente de Compra</h3><p class="srv-subtitle">Tu equipo en China</p></div>
+    </div>
+  </div>
+  <div class="services-cta">
+    <a href="#contacto" class="btn-primary">
+      <span>Consultar servicio</span>
+      <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- 4. HUB -->
+<section class="hub-section" id="hub">
+  <div class="hub-inner">
+    <div class="hub-header">
+      <div class="section-tag">EL HUB</div>
+      <h2 class="section-h">Tu importacion,<br>en <span class="accent">una pantalla.</span></h2>
+      <p class="section-sub">Cotiza, hace seguimiento y gestioná toda tu operacion desde un solo lugar.</p>
+    </div>
+
+    <div class="hub-video">
+      <div style="text-align:center">
+        <div class="hub-play">
+          <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        </div>
+        <div class="hub-soon">VIDEO PROXIMAMENTE</div>
+      </div>
+    </div>
+
+    <div class="hub-features">
+      <div class="hub-chip"><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>Cotizador por link</div>
+      <div class="hub-chip"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Cotizador desde packing list</div>
+      <div class="hub-chip"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Resultado en segundos</div>
+      <div class="hub-chip"><svg viewBox="0 0 24 24"><polygon points="12 2 19 21 12 17 5 21 12 2"/></svg>Tracking en vivo</div>
+      <div class="hub-chip"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Despachante asignado</div>
+      <div class="hub-chip"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Canal financiero</div>
+      <div class="hub-chip"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>Deposito en China</div>
+      <div class="hub-chip"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Cotizaciones claras</div>
+      <div class="hub-chip"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Simulador de margenes</div>
+      <div class="hub-chip"><svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/></svg>Calculadora</div>
+      <div class="hub-chip"><svg viewBox="0 0 24 24"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>Facturas y documentos</div>
+      <div class="hub-chip"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>Multi-dispositivo</div>
+    </div>
+
+    <div class="hub-cta">
+      <a href="#contacto" class="btn-primary">
+        <span>Quiero acceder al HUB</span>
+        <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- 7. TESTIMONIOS -->
+<section class="testimonials" id="testimonios">
+  <div class="testimonials-inner">
+    <div class="testimonials-header">
+      <div class="section-tag">CASOS REALES</div>
+      <h2 class="section-h">Lo que dicen<br>nuestros <span class="accent">clientes.</span></h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testi-card">
+        <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testi-text">Importe mi primer container sin saber nada. Me guiaron en todo el proceso y el costo fue exactamente lo que me cotizaron.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">MR</div>
+          <div><div class="testi-name">Martin R.</div><div class="testi-role">Electronica &middot; CABA</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testi-text">La plataforma es un antes y despues. Tener todo en un solo lugar, ver el tracking en vivo, es otro nivel.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">LC</div>
+          <div><div class="testi-name">Laura C.</div><div class="testi-role">Indumentaria &middot; Cordoba</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testi-text">Ya van 5 containers con Aduanex. La velocidad de respuesta y la transparencia no se comparan con nada.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">DP</div>
+          <div><div class="testi-name">Diego P.</div><div class="testi-role">Repuestos &middot; Mendoza</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="section-cta" style="margin-top:60px">
+      <a href="#contacto" class="btn-primary">
+        <span>Quiero importar</span>
+        <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- 8. FORMULARIO -->
+<section class="form-section" id="contacto">
+  <div class="form-glow"></div>
+  <div class="form-inner">
+    <div class="form-header">
+      <div class="section-tag">EMPEZA AHORA</div>
+      <h2 class="section-h">Contanos tu <span class="accent">proyecto.</span></h2>
+      <p class="section-sub">2 pasos. 1 minuto. Te contactamos en menos de 24hs.</p>
+    </div>
+    <div class="form-testi">
+      <div class="form-testi-avatar">MR</div>
+      <div>
+        <div class="form-testi-text">Importe mi primer container sin saber nada. Me guiaron en todo y el costo fue exactamente lo que me cotizaron.</div>
+        <div class="form-testi-name">Martin R. &middot; Electronica, CABA</div>
+      </div>
+    </div>
+    <div class="form-card">
+      <form id="contact-form">
+        <div class="form-steps">
+          <div class="form-step-indicator active" id="fsi1"></div>
+          <div class="form-step-indicator" id="fsi2"></div>
+        </div>
+        <div class="form-step active" id="fs1">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Nombre</label>
+              <input type="text" class="form-input" placeholder="Tu nombre" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-input" placeholder="email@empresa.com" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Telefono</label>
+              <input type="tel" class="form-input" placeholder="+54 11 ...">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Empresa</label>
+              <input type="text" class="form-input" placeholder="Nombre de tu empresa">
+            </div>
+          </div>
+          <button type="button" class="btn-primary form-submit" id="form-next">
+            <span>Siguiente</span>
+            <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </div>
+        <div class="form-step" id="fs2">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Que queres importar?</label>
+              <input type="text" class="form-input" placeholder="Producto, link de Alibaba...">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Volumen estimado</label>
+              <select class="form-input">
+                <option value="" disabled selected>Selecciona</option>
+                <option>Menos de 1 CBM</option>
+                <option>1 - 10 CBM</option>
+                <option>10 - 30 CBM (LCL)</option>
+                <option>Container 20' o 40'</option>
+                <option>No se todavia</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group full">
+            <label class="form-label">Algo mas que quieras contarnos?</label>
+            <textarea class="form-input" placeholder="Opcional — cualquier detalle nos ayuda a cotizar mejor"></textarea>
+          </div>
+          <div class="form-step-nav">
+            <button type="button" class="btn-back" id="form-back">Atras</button>
+            <button type="submit" class="btn-primary form-submit" style="flex:1">
+              <span>Enviar consulta</span>
+              <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+          </div>
+        </div>
+        <p class="form-note">Sin compromiso &middot; Respondemos en menos de 24hs</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- 9. CTA FINAL -->
+<section class="cta-final">
+  <div class="cta-final-content">
+    <h2>Tu primera<br><span class="accent">importacion.</span><br>Empieza aca.</h2>
+    <p class="cta-final-sub">2 MINUTOS &middot; SIN COMPROMISO &middot; GRATIS</p>
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+      <a href="#contacto" class="btn-primary">
+        <span>Completar formulario</span>
+        <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <a href="https://wa.me/" class="btn-ghost" target="_blank">
+        Hablar por WhatsApp
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="sticky-cta">
+  <a href="#contacto">Quiero importar &rarr;</a>
+</div>
+
+<footer><div class="footer-inner">
+  <span>&copy; 2026 ADUANEX &middot; BUENOS AIRES, ARGENTINA</span>
+  <span>DESPACHANTE MATRICULADO &middot; CUIT 30-XXXXXX</span>
+</div></footer>
+
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+const TOTAL = 76;
+const canvas = document.getElementById('seq-canvas');
+const ctx = canvas.getContext('2d');
+const images = [];
+let loaded = 0;
+let drawnFrame = -1;
+
+function renderFrame(idx) {
+  if (idx === drawnFrame) return;
+  const img = images[idx];
+  if (!img || !img.complete) return;
+  drawnFrame = idx;
+  ctx.drawImage(img, 0, 0, 1440, 1080);
+}
+
+const bar = document.getElementById('loader-bar');
+const txt = document.getElementById('loader-text');
+const loaderEl = document.getElementById('loader');
+
+for (let i = 0; i < TOTAL; i++) {
+  const img = new Image();
+  img.src = 'aduanex-frames-opt/frame_' + String(i+1).padStart(4,'0') + '.jpg';
+  img.onload = () => {
+    loaded++;
+    const p = Math.round((loaded/TOTAL)*100);
+    bar.style.width = p+'%';
+    txt.textContent = p+'%';
+    if (loaded === TOTAL) {
+      renderFrame(0);
+      loaderEl.classList.add('done');
+      setTimeout(() => { loaderEl.style.display='none'; boot(); }, 400);
+    }
+  };
+  images[i] = img;
+}
+
+function boot() {
+  // Hero
+  const ht = gsap.timeline({ defaults: { ease:'expo.out' } });
+  ht.from('.hero-eyebrow',{y:20,opacity:0,duration:.8})
+    .from('.hero-h1 .word>span',{y:120,opacity:0,duration:1.1,stagger:.08},'-=.5')
+    .from('.hero-sub',{y:20,opacity:0,duration:.8},'-=.5')
+    .from('.hero-cta-stack>*',{y:20,opacity:0,duration:.7,stagger:.08},'-=.4')
+    .from('.hero-bg',{opacity:0,duration:1.5},'-=1')
+    /* scroll-hint now uses CSS animation, no GSAP dependency */;
+
+  // Scroll sequence
+  const dots = document.querySelectorAll('.seq-dot');
+  const steps = [document.getElementById('ss1'),document.getElementById('ss2'),document.getElementById('ss3'),document.getElementById('ss4')];
+  const progBar = document.getElementById('seq-progress');
+  const scrollGuide = document.getElementById('seq-scroll-guide');
+  gsap.set(steps, { opacity:0, y:20 });
+
+  let active = -1;
+  let glowTimer = null;
+  function showStep(i) {
+    if (i === active) return;
+    if (active >= 0) {
+      steps[active].classList.remove('glow');
+      gsap.to(steps[active],{opacity:0,y:-15,duration:.2,overwrite:true});
+    }
+    if (glowTimer) clearTimeout(glowTimer);
+    gsap.to(steps[i],{opacity:1,y:0,duration:.3,overwrite:true});
+    glowTimer = setTimeout(() => steps[i].classList.add('glow'), 250);
+    dots.forEach((d,idx) => d.classList.toggle('active', idx===Math.min(i,3)));
+    active = i;
+  }
+  function hideAll() {
+    if (active >= 0) {
+      steps[active].classList.remove('glow');
+      gsap.to(steps[active],{opacity:0,duration:.15,overwrite:true});
+      active=-1;
+    }
+  }
+
+  ScrollTrigger.create({
+    trigger:'.seq-section',
+    start:'top top',
+    end:'bottom bottom',
+    onUpdate(self) {
+      const p = self.progress;
+      const frameP = Math.min(p / 0.85, 1);
+      const f = Math.round(frameP * (TOTAL-1));
+      if (f !== drawnFrame) renderFrame(f);
+      progBar.style.width = (p*100)+'%';
+
+      // Scroll guide: show at start, hide once past first step
+      if (p > 0.02 && p < 0.15) scrollGuide.classList.add('visible');
+      else scrollGuide.classList.remove('visible');
+
+      if (p < 0.04) hideAll();
+      else if (p < 0.22) showStep(0);
+      else if (p < 0.42) showStep(1);
+      else if (p < 0.62) showStep(2);
+      else if (p < 0.85) showStep(3);
+      else hideAll();
+    }
+  });
+
+  // Bridge animations
+  gsap.from('.bridge-line',{scrollTrigger:{trigger:'.bridge',start:'top 80%'},scaleY:0,transformOrigin:'top',duration:.6,ease:'power2.out'});
+  gsap.from('.bridge-h',{scrollTrigger:{trigger:'.bridge',start:'top 75%'},y:30,opacity:0,duration:.8,ease:'expo.out'});
+  gsap.from('.bridge-sub',{scrollTrigger:{trigger:'.bridge',start:'top 75%'},y:20,opacity:0,duration:.8,delay:.15,ease:'expo.out'});
+  gsap.from('.bridge-stat',{scrollTrigger:{trigger:'.bridge-stats',start:'top 85%'},y:30,opacity:0,duration:.8,stagger:.12,ease:'expo.out'});
+  gsap.from('.bridge-cta',{scrollTrigger:{trigger:'.bridge-cta',start:'top 90%'},y:20,opacity:0,duration:.7,ease:'expo.out'});
+
+  // Scroll reveals
+  document.querySelectorAll('.srv-card').forEach((c,i) => {
+    gsap.from(c,{scrollTrigger:{trigger:c,start:'top 85%'},y:40,opacity:0,duration:.8,delay:i*.1,ease:'expo.out'});
+  });
+
+  gsap.from('.hub-video',{scrollTrigger:{trigger:'.hub-video',start:'top 80%'},y:60,opacity:0,duration:1.2,ease:'expo.out'});
+
+  document.querySelectorAll('.hub-chip').forEach((c,i) => {
+    gsap.from(c,{scrollTrigger:{trigger:'.hub-features',start:'top 80%'},scale:.85,opacity:0,duration:.5,delay:i*.04,ease:'back.out(1.7)'});
+  });
+
+  document.querySelectorAll('.mob-step-card').forEach((c,i) => {
+    gsap.from(c,{scrollTrigger:{trigger:c,start:'top 88%'},y:30,opacity:0,duration:.7,delay:i*.08,ease:'expo.out'});
+  });
+
+  document.querySelectorAll('.testi-card').forEach((c,i) => {
+    gsap.from(c,{scrollTrigger:{trigger:c,start:'top 85%'},y:40,opacity:0,duration:.8,delay:i*.1,ease:'expo.out'});
+  });
+
+  gsap.from('.form-card',{scrollTrigger:{trigger:'.form-card',start:'top 80%'},y:50,opacity:0,duration:1,ease:'expo.out'});
+
+  // Section headers
+  document.querySelectorAll('.section-tag, .section-h, .section-sub').forEach(el => {
+    gsap.from(el,{scrollTrigger:{trigger:el,start:'top 85%'},y:30,opacity:0,duration:.8,ease:'expo.out'});
+  });
+
+  gsap.from('.cta-final h2',{scrollTrigger:{trigger:'.cta-final',start:'top 70%'},y:60,opacity:0,duration:1.2,ease:'expo.out'});
+  gsap.from('.cta-final-sub',{scrollTrigger:{trigger:'.cta-final',start:'top 70%'},y:30,opacity:0,duration:.8,delay:.2});
+
+  // Hero trust line
+  gsap.from('.hero-trust',{y:15,opacity:0,duration:.7,delay:1.8,ease:'expo.out'});
+
+  // Multi-step form
+  const fs1 = document.getElementById('fs1');
+  const fs2 = document.getElementById('fs2');
+  const fsi1 = document.getElementById('fsi1');
+  const fsi2 = document.getElementById('fsi2');
+  const formNext = document.getElementById('form-next');
+  const formBack = document.getElementById('form-back');
+  if (formNext) formNext.addEventListener('click', () => {
+    fs1.classList.remove('active');
+    fs2.classList.add('active');
+    fsi1.classList.remove('active');
+    fsi2.classList.add('active');
+  });
+  if (formBack) formBack.addEventListener('click', () => {
+    fs2.classList.remove('active');
+    fs1.classList.add('active');
+    fsi2.classList.remove('active');
+    fsi1.classList.add('active');
+  });
+
+  // Form testimonial reveal
+  gsap.from('.form-testi',{scrollTrigger:{trigger:'.form-testi',start:'top 85%'},y:30,opacity:0,duration:.8,ease:'expo.out'});
+}
+</script>
+</body>
+</html>

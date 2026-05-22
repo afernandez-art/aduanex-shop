@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Double Arm Intelligent Coffee Shop — Aduanex Shop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #000000;
+  --bg-elev: #0a0c0a;
+  --bg-card: #131513;
+  --bg-card-hover: #1a1d1a;
+  --text: #F3F4F1;
+  --text-dim: #8B8E89;
+  --text-mute: #5C5F5A;
+  --line: rgba(243,244,241,0.07);
+  --line-strong: rgba(243,244,241,0.14);
+  --accent: #88CE02;
+  --accent-soft: rgba(136,206,2,0.10);
+  --accent-mid: rgba(136,206,2,0.22);
+  --accent-glow: rgba(136,206,2,0.06);
+  --sans: 'Geist', -apple-system, sans-serif;
+  --mono: 'Geist Mono', monospace;
+  --radius: 16px;
+  --radius-sm: 10px;
+  --max-w: 1280px;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased}
+html{background:var(--bg);scroll-behavior:smooth;overflow-x:hidden}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:400;line-height:1.55}
+::selection{background:var(--accent);color:var(--bg)}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+button{font-family:var(--sans);cursor:pointer}
+
+/* ===== NAV ===== */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:14px 32px;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(16px) saturate(180%);background:rgba(0,0,0,.75);border-bottom:1px solid var(--line)}
+.logo{font-size:20px;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+.logo-a{color:var(--accent)}
+.logo-badge{font-size:10px;font-family:var(--mono);letter-spacing:.12em;color:var(--accent);margin-left:10px;padding:3px 10px;border:1px solid var(--accent-mid);border-radius:100px;text-transform:uppercase;vertical-align:middle}
+.nav-right{display:flex;align-items:center;gap:24px}
+.nav-link{font-size:13px;color:var(--text-dim);transition:color 200ms}
+.nav-link:hover{color:var(--text)}
+.nav-cta{padding:9px 20px;background:var(--accent);color:var(--bg);border-radius:100px;font-weight:600;font-size:13px;border:none;transition:transform 150ms}
+.nav-cta:hover{transform:scale(1.04)}
+
+/* ===== STICKY PRODUCT BAR ===== */
+.sticky-bar{position:fixed;top:53px;left:0;right:0;z-index:90;padding:10px 32px;backdrop-filter:blur(16px) saturate(180%);background:rgba(0,0,0,.8);border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;transform:translateY(-100%);opacity:0;transition:transform 300ms,opacity 300ms}
+.sticky-bar.visible{transform:translateY(0);opacity:1}
+.sb-left{display:flex;align-items:center;gap:16px}
+.sb-name{font-size:14px;font-weight:700}
+.sb-price{font-family:var(--mono);font-size:13px;color:var(--accent)}
+.sb-right{display:flex;gap:10px}
+.sb-btn{padding:8px 18px;border-radius:100px;font-size:12px;font-weight:600;border:none;transition:transform 150ms}
+.sb-btn:hover{transform:scale(1.04)}
+.sb-btn-primary{background:var(--accent);color:var(--bg)}
+.sb-btn-outline{background:transparent;color:var(--text);border:1px solid var(--line-strong)}
+
+/* ===== BREADCRUMB ===== */
+.breadcrumb{padding:72px 32px 0;max-width:var(--max-w);margin:0 auto}
+.breadcrumb-inner{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:var(--text-mute);padding:16px 0}
+.breadcrumb-inner a{color:var(--text-mute);transition:color 200ms}
+.breadcrumb-inner a:hover{color:var(--accent)}
+.breadcrumb-inner svg{width:12px;height:12px;stroke:var(--text-mute);fill:none;stroke-width:2}
+.bc-current{color:var(--text-dim)}
+
+/* ===== PRODUCT HERO ===== */
+.product-hero{max-width:var(--max-w);margin:0 auto;padding:16px 32px 0;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+
+.gallery{position:sticky;top:120px}
+.gallery-main{position:relative;aspect-ratio:4/3;background:var(--bg-card);border:1px solid var(--line);border-radius:20px;overflow:hidden;margin-bottom:12px}
+.gallery-main img{width:100%;height:100%;object-fit:contain;padding:24px;transition:opacity 300ms}
+.gallery-badge{position:absolute;top:16px;left:16px;padding:5px 14px;border-radius:100px;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;background:rgba(136,206,2,.15);color:var(--accent);border:1px solid var(--accent-mid);backdrop-filter:blur(8px)}
+.gallery-zoom{position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:50%;background:rgba(0,0,0,.5);border:1px solid var(--line-strong);display:flex;align-items:center;justify-content:center;cursor:pointer;backdrop-filter:blur(8px);transition:border-color 200ms}
+.gallery-zoom:hover{border-color:var(--accent)}
+.gallery-zoom svg{width:16px;height:16px;stroke:var(--text-dim);fill:none;stroke-width:2}
+.gallery-thumbs{display:flex;gap:8px}
+.gallery-thumb{flex:1;aspect-ratio:4/3;background:var(--bg-card);border:2px solid var(--line);border-radius:10px;overflow:hidden;cursor:pointer;transition:border-color 200ms;display:flex;align-items:center;justify-content:center;padding:8px}
+.gallery-thumb:hover,.gallery-thumb.active{border-color:var(--accent)}
+.gallery-thumb-label{font-family:var(--mono);font-size:9px;color:var(--text-mute);letter-spacing:.08em;text-align:center}
+
+.product-info{padding-top:8px}
+.pi-category{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;display:inline-flex;align-items:center;gap:8px}
+.pi-category::before{content:'';width:16px;height:1px;background:var(--accent)}
+.pi-title{font-size:clamp(26px,3vw,36px);font-weight:800;letter-spacing:-.03em;line-height:1.05;margin-bottom:10px}
+.pi-tagline{font-size:14px;color:var(--text-dim);line-height:1.55;margin-bottom:16px;max-width:520px}
+.pi-highlights{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px}
+.pi-highlight{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:100px;background:var(--bg-card);border:1px solid var(--line);font-size:12px;color:var(--text-dim)}
+.pi-highlight svg{width:14px;height:14px;stroke:var(--accent);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.pi-highlight strong{color:var(--text);font-weight:600}
+
+/* UNIFIED PRICE BLOCK */
+.price-block{margin-bottom:18px}
+
+/* Toggle pill */
+.pb-toggle{display:inline-flex;background:var(--bg-card);border:1px solid var(--line);border-radius:100px;padding:3px;margin-bottom:14px}
+.pb-toggle-btn{display:flex;align-items:center;gap:7px;padding:8px 18px;border-radius:100px;border:none;background:transparent;color:var(--text-mute);font-family:var(--sans);font-size:12px;font-weight:500;cursor:pointer;transition:all 180ms}
+.pb-toggle-btn svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.5}
+.pb-toggle-btn.active{background:var(--accent);color:var(--bg);font-weight:600}
+.pb-toggle-btn.active svg{stroke:var(--bg)}
+
+/* Hero price */
+.pb-hero{display:flex;align-items:baseline;gap:8px;margin-bottom:4px}
+.pb-hero-amount{font-family:var(--mono);font-size:clamp(32px,3.5vw,42px);font-weight:800;letter-spacing:-.03em;color:var(--accent);transition:all 200ms}
+.pb-hero-cur{font-size:16px;font-weight:500;color:var(--text-dim)}
+.pb-hero-basis{font-family:var(--mono);font-size:11px;color:var(--text-mute);margin-bottom:2px}
+.pb-hero-delivery{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--text-dim);margin-bottom:14px}
+.pb-hero-delivery svg{width:14px;height:14px;fill:none;stroke:var(--accent);stroke-width:1.5;flex-shrink:0}
+
+/* Volume tiers */
+.pb-volumes{display:flex;gap:6px;margin-bottom:12px}
+.pb-vol{flex:1;padding:10px 12px;background:var(--bg-card);border:1px solid var(--line);border-radius:var(--radius-sm);cursor:pointer;transition:all 180ms;text-align:center}
+.pb-vol:hover{border-color:var(--text-mute)}
+.pb-vol.active{border-color:var(--accent);background:var(--accent-soft)}
+.pb-vol-qty{font-family:var(--mono);font-size:10px;letter-spacing:.05em;color:var(--text-mute);margin-bottom:4px;transition:color 180ms}
+.pb-vol.active .pb-vol-qty{color:var(--accent)}
+.pb-vol-price{font-family:var(--mono);font-size:15px;font-weight:700;color:var(--text);transition:color 180ms}
+.pb-vol.active .pb-vol-price{color:var(--accent)}
+.pb-vol-tag{font-family:var(--mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-top:2px;opacity:0;transition:opacity 180ms;line-height:1}
+.pb-vol.active .pb-vol-tag{opacity:1}
+
+/* Savings bar */
+.pb-savings{display:flex;align-items:center;gap:8px;padding:8px 14px;background:var(--bg-card);border:1px solid var(--line);border-radius:var(--radius-sm);font-family:var(--mono);font-size:10px;color:var(--text-mute);margin-bottom:0}
+.pb-savings svg{width:14px;height:14px;fill:none;stroke:var(--accent);stroke-width:1.5;flex-shrink:0}
+
+/* Container gauge */
+.ctn-gauge{background:var(--bg-card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;margin-top:12px}
+.ctn-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.ctn-title{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:var(--text)}
+.ctn-title svg{width:14px;height:14px;fill:none;stroke:var(--accent);stroke-width:1.5}
+.ctn-pct{font-family:var(--mono);font-size:18px;font-weight:800;color:var(--accent)}
+.ctn-bar-wrap{position:relative;height:22px;background:var(--bg-elev);border:1px solid var(--line);border-radius:6px;overflow:hidden;margin-bottom:8px}
+.ctn-bar-fill{position:absolute;top:0;left:0;bottom:0;border-radius:5px;background:linear-gradient(90deg,var(--accent),#a4e233);transition:width 1.2s cubic-bezier(.22,1,.36,1);will-change:width}
+.ctn-bar-fill::after{content:'';position:absolute;top:0;right:0;bottom:0;width:3px;background:rgba(255,255,255,.5);border-radius:0 5px 5px 0}
+.ctn-bar-marks{position:absolute;top:0;left:0;right:0;bottom:0;display:flex}
+.ctn-bar-mark{flex:1;border-right:1px dashed rgba(255,255,255,.06)}
+.ctn-bar-mark:last-child{border:none}
+.ctn-bar-label{position:absolute;top:50%;transform:translateY(-50%);left:12px;font-family:var(--mono);font-size:9px;letter-spacing:.05em;color:rgba(0,0,0,.7);font-weight:700;white-space:nowrap;z-index:2}
+.ctn-meta{display:flex;justify-content:space-between;align-items:center}
+.ctn-meta-left{display:flex;align-items:center;gap:12px}
+.ctn-meta-item{display:flex;align-items:center;gap:5px;font-family:var(--mono);font-size:10px;color:var(--text-mute);letter-spacing:.03em}
+.ctn-meta-item svg{width:12px;height:12px;fill:none;stroke:var(--text-mute);stroke-width:1.5;flex-shrink:0}
+.ctn-status{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.ctn-status-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:ctn-pulse 2s ease infinite}
+@keyframes ctn-pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+.pi-ctas{display:flex;gap:10px;margin-bottom:16px}
+.btn-lg{padding:14px 24px;border-radius:100px;font-size:14px;font-weight:600;border:none;display:inline-flex;align-items:center;gap:10px;transition:transform 150ms}
+.btn-lg:hover{transform:scale(1.03)}
+.btn-lg-primary{background:var(--accent);color:var(--bg);flex:1;justify-content:center}
+.btn-lg-outline{background:transparent;color:var(--text);border:1px solid var(--line-strong)}
+.btn-lg-outline:hover{border-color:var(--accent);color:var(--accent)}
+.btn-lg svg{width:16px;height:16px}
+
+.pi-trust{display:flex;flex-wrap:wrap;gap:20px;padding-top:20px;border-top:1px solid var(--line)}
+.pi-trust-item{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-mute);font-family:var(--mono);letter-spacing:.03em}
+.pi-trust-item svg{width:14px;height:14px;stroke:var(--accent);fill:none;stroke-width:2;flex-shrink:0}
+
+/* ===== TABS ===== */
+.tabs-section{max-width:var(--max-w);margin:0 auto;padding:64px 32px 0}
+.tabs-nav{display:flex;gap:0;border-bottom:1px solid var(--line);position:sticky;top:100px;background:var(--bg);z-index:50;padding-top:8px}
+.tab-btn{padding:14px 24px;font-size:14px;font-weight:500;color:var(--text-mute);background:none;border:none;border-bottom:2px solid transparent;transition:all 200ms;white-space:nowrap}
+.tab-btn:hover{color:var(--text)}
+.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:600}
+.tab-panel{display:none;padding:48px 0}
+.tab-panel.active{display:block}
+
+/* ===== OVERVIEW ===== */
+.overview-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:48px}
+.ov-card{background:var(--bg-card);border:1px solid var(--line);border-radius:var(--radius);padding:28px;transition:border-color 300ms}
+.ov-card:hover{border-color:var(--accent)}
+.ov-icon{width:44px;height:44px;border-radius:12px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.ov-icon svg{width:20px;height:20px;stroke:var(--accent);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ov-title{font-size:16px;font-weight:700;margin-bottom:6px}
+.ov-outcome{font-size:13px;color:var(--accent);font-family:var(--mono);margin-bottom:8px}
+.ov-desc{font-size:13px;color:var(--text-dim);line-height:1.55}
+
+.usecases-title{font-size:24px;font-weight:800;letter-spacing:-.03em;margin-bottom:8px}
+.usecases-sub{font-size:14px;color:var(--text-dim);margin-bottom:32px}
+.usecases-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.uc-card{background:var(--bg-card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:border-color 300ms,transform 300ms}
+.uc-card:hover{border-color:var(--accent);transform:translateY(-3px)}
+.uc-img{aspect-ratio:3/2;background:var(--bg-elev);display:flex;align-items:center;justify-content:center}
+.uc-img-icon{font-size:32px;opacity:.4}
+.uc-body{padding:16px}
+.uc-name{font-size:14px;font-weight:700;margin-bottom:4px}
+.uc-detail{font-size:12px;color:var(--text-dim);line-height:1.5}
+
+.video-section{margin-top:48px}
+.video-wrap{aspect-ratio:16/9;background:var(--bg-card);border:1px solid var(--line);border-radius:20px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.video-wrap::before{content:'';position:absolute;top:-1px;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:.4}
+.video-play{width:72px;height:72px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform 200ms}
+.video-play:hover{transform:scale(1.1)}
+.video-play svg{width:24px;height:24px;fill:var(--bg);margin-left:3px}
+
+/* ===== SPECS ===== */
+.specs-layout{display:grid;grid-template-columns:1fr 1fr;gap:48px}
+.specs-group-title{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);padding:16px 0 10px;border-bottom:1px solid var(--accent-mid)}
+.spec-row{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)}
+.spec-label{font-size:13px;color:var(--text-dim)}
+.spec-value{font-size:14px;font-weight:600;text-align:right}
+.spec-value .accent{color:var(--accent)}
+.config-section{margin-top:32px}
+.config-title{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.config-grid{display:flex;flex-wrap:wrap;gap:8px}
+.config-tag{padding:8px 16px;border-radius:100px;background:var(--bg-card);border:1px solid var(--line);font-size:12px;color:var(--text-dim);font-family:var(--mono);transition:border-color 200ms}
+.config-tag:hover{border-color:var(--accent);color:var(--text)}
+.dims-card{background:var(--bg-card);border:1px solid var(--line);border-radius:var(--radius);padding:32px;text-align:center}
+.dims-visual{aspect-ratio:1;display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+.dims-box{width:140px;height:180px;border:2px solid var(--accent);border-radius:12px;position:relative;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--text-mute);font-family:var(--mono)}
+.dims-label-w{position:absolute;bottom:-24px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:11px;color:var(--accent)}
+.dims-label-h{position:absolute;right:-40px;top:50%;transform:translateY(-50%) rotate(90deg);font-family:var(--mono);font-size:11px;color:var(--accent)}
+.dims-label-d{position:absolute;top:-24px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:11px;color:var(--text-dim)}
+.dims-note{font-size:12px;color:var(--text-mute);font-family:var(--mono)}
+.download-row{display:flex;gap:10px;margin-top:32px}
+.dl-btn{display:inline-flex;align-items:center;gap:10px;padding:14px 22px;border-radius:12px;background:var(--bg-card);border:1px solid var(--line);font-size:13px;font-weight:500;color:var(--text-dim);transition:all 200ms;cursor:pointer}
+.dl-btn:hover{border-color:var(--accent);color:var(--text)}
+.dl-btn svg{width:16px;height:16px;stroke:var(--accent);fill:none;stroke-width:2}
+.dl-size{font-family:var(--mono);font-size:10px;color:var(--text-mute);margin-left:4px}
+.systems-card{background:var(--bg-card);border:1px solid var(--line);border-radius:var(--radius);padding:28px;margin-top:16px}
+.systems-title{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.systems-list{display:flex;flex-direction:column;gap:10px}
+.systems-item{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text-dim)}
+.systems-check{color:var(--accent)}
+
+/* ===== ROI ===== */
+.roi-layout{display:grid;grid-template-columns:1fr 1fr;gap:48px}
+.roi-inputs{display:flex;flex-direction:column;gap:20px}
+.roi-group{display:flex;flex-direction:column;gap:8px}
+.roi-label{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-mute)}
+.roi-input-wrap{display:flex;align-items:center;background:var(--bg-card);border:1px solid var(--line);border-radius:10px;overflow:hidden;transition:border-color 200ms}
+.roi-input-wrap:focus-within{border-color:var(--accent)}
+.roi-prefix{padding:12px 14px;font-size:13px;color:var(--text-mute);background:var(--bg-elev);border-right:1px solid var(--line);font-family:var(--mono);min-width:48px;text-align:center}
+.roi-input{flex:1;background:transparent;border:none;padding:12px 14px;color:var(--text);font-size:15px;font-family:var(--sans);outline:none;-moz-appearance:textfield}
+.roi-input::-webkit-outer-spin-button,.roi-input::-webkit-inner-spin-button{-webkit-appearance:none}
+.roi-suffix{padding:12px 14px;font-size:12px;color:var(--text-mute);font-family:var(--mono)}
+.roi-slider{width:100%;margin-top:4px;accent-color:var(--accent)}
+.roi-slider-labels{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;color:var(--text-mute)}
+.roi-results{background:var(--bg-card);border:1px solid var(--line);border-radius:20px;padding:32px;display:flex;flex-direction:column}
+.roi-results-title{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:24px}
+.roi-metric{margin-bottom:24px}
+.roi-metric-label{font-size:13px;color:var(--text-dim);margin-bottom:4px}
+.roi-metric-value{font-size:32px;font-weight:800;letter-spacing:-.03em}
+.roi-metric-value .accent{color:var(--accent)}
+.roi-metric-sub{font-size:12px;color:var(--text-mute);font-family:var(--mono);margin-top:4px}
+.roi-divider{height:1px;background:var(--line);margin-bottom:24px}
+.roi-breakdown{display:flex;flex-direction:column;gap:12px;margin-top:auto}
+.roi-row{display:flex;justify-content:space-between;font-size:13px}
+.roi-row-label{color:var(--text-dim)}
+.roi-row-val{font-weight:600}
+.roi-row-val.green{color:var(--accent)}
+.roi-row-val.red{color:#ff6b6b}
+.roi-total{display:flex;justify-content:space-between;padding-top:12px;border-top:2px solid var(--accent-mid);font-size:15px;font-weight:700}
+.roi-total .accent{color:var(--accent)}
+
+/* ===== COMPARE ===== */
+.compare-table{width:100%;border-collapse:collapse}
+.compare-table th{padding:16px 20px;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-mute);text-align:left;border-bottom:1px solid var(--line);font-weight:500}
+.compare-table th:not(:first-child){text-align:center}
+.compare-table th.hl{color:var(--accent);background:var(--accent-soft);border-radius:12px 12px 0 0}
+.compare-table td{padding:14px 20px;border-bottom:1px solid var(--line);font-size:13px;color:var(--text-dim)}
+.compare-table td:not(:first-child){text-align:center}
+.compare-table td.hl{background:var(--accent-glow)}
+.compare-table td.feat-name{font-weight:500;color:var(--text)}
+.compare-check{color:var(--accent);font-size:16px}
+.compare-x{color:var(--text-mute)}
+.compare-table tr:hover td{background:var(--bg-card)}
+.compare-table tr:hover td.hl{background:var(--accent-soft)}
+.compare-cta-row td{border:none;padding-top:20px}
+.compare-cta-btn{padding:12px 24px;border-radius:100px;font-size:13px;font-weight:600;border:none;cursor:pointer;transition:transform 150ms}
+.compare-cta-btn:hover{transform:scale(1.04)}
+.compare-cta-btn.primary{background:var(--accent);color:var(--bg)}
+.compare-cta-btn.outline{background:transparent;color:var(--text);border:1px solid var(--line-strong)}
+
+/* ===== FAQ ===== */
+.faq-grid{max-width:800px}
+.faq-item{border-bottom:1px solid var(--line)}
+.faq-q{display:flex;justify-content:space-between;align-items:center;padding:20px 0;cursor:pointer;transition:color 200ms;gap:16px}
+.faq-q:hover{color:var(--accent)}
+.faq-q h3{font-size:15px;font-weight:600}
+.faq-q svg{width:20px;height:20px;min-width:20px;stroke:var(--text-mute);fill:none;stroke-width:2;transition:transform 300ms}
+.faq-item.open .faq-q svg{transform:rotate(45deg);stroke:var(--accent)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height 300ms ease}
+.faq-item.open .faq-a{max-height:300px}
+.faq-a-inner{padding:0 0 20px;font-size:14px;color:var(--text-dim);line-height:1.65}
+
+/* ===== RFQ ===== */
+.rfq{max-width:var(--max-w);margin:0 auto;padding:80px 32px 120px}
+.rfq-inner{background:var(--bg-card);border:1px solid var(--line);border-radius:24px;padding:48px;display:grid;grid-template-columns:1fr 1fr;gap:48px;position:relative;overflow:hidden}
+.rfq-inner::before{content:'';position:absolute;top:-1px;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:.5}
+.rfq-left .section-tag{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:16px;display:inline-flex;align-items:center;gap:10px}
+.rfq-left .section-tag::before{content:'';width:16px;height:1px;background:var(--accent)}
+.rfq-title{font-size:32px;font-weight:800;letter-spacing:-.03em;line-height:1.05;margin-bottom:16px}
+.rfq-title .accent{color:var(--accent)}
+.rfq-desc{font-size:14px;color:var(--text-dim);line-height:1.6;margin-bottom:32px}
+.rfq-features{display:flex;flex-direction:column;gap:14px}
+.rfq-feat{display:flex;gap:12px;align-items:flex-start;font-size:13px;color:var(--text-dim)}
+.rfq-feat svg{width:16px;height:16px;min-width:16px;stroke:var(--accent);fill:none;stroke-width:2;margin-top:2px}
+.rfq-form{display:flex;flex-direction:column;gap:14px}
+.rfq-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.rfq-group{display:flex;flex-direction:column;gap:5px}
+.rfq-group.full{grid-column:1/-1}
+.rfq-field-label{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-mute)}
+.rfq-input{background:var(--bg-elev);border:1px solid var(--line-strong);border-radius:10px;padding:12px 14px;color:var(--text);font-family:var(--sans);font-size:14px;outline:none;transition:border-color 200ms}
+.rfq-input:focus{border-color:var(--accent)}
+.rfq-input::placeholder{color:var(--text-mute)}
+select.rfq-input{appearance:none;cursor:pointer}
+textarea.rfq-input{resize:vertical;min-height:80px}
+.rfq-submit{padding:16px;background:var(--accent);color:var(--bg);border:none;border-radius:100px;font-size:15px;font-weight:600;cursor:pointer;transition:transform 150ms;margin-top:4px}
+.rfq-submit:hover{transform:scale(1.03)}
+.rfq-note{font-family:var(--mono);font-size:10px;color:var(--text-mute);text-align:center}
+
+footer{border-top:1px solid var(--line);padding:32px;font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:var(--text-mute)}
+.footer-inner{max-width:var(--max-w);margin:0 auto;display:flex;justify-content:space-between}
+
+@media(max-width:1024px){
+  .product-hero{grid-template-columns:1fr;gap:32px}
+  .gallery{position:static}
+  .roi-layout,.specs-layout{grid-template-columns:1fr}
+  .rfq-inner{grid-template-columns:1fr}
+}
+@media(max-width:768px){
+  .nav{padding:12px 20px}
+  .nav-link{display:none}
+  .breadcrumb{padding:64px 20px 0}
+  .product-hero{padding:8px 20px 0}
+  .tabs-section{padding:48px 20px 0}
+  .tabs-nav{overflow-x:auto;scrollbar-width:none}
+  .tabs-nav::-webkit-scrollbar{display:none}
+  .tab-btn{padding:12px 18px;font-size:13px}
+  .overview-grid{grid-template-columns:1fr}
+  .usecases-grid{grid-template-columns:1fr 1fr}
+  .pi-ctas{flex-direction:column}
+  .btn-lg{justify-content:center}
+  .rfq{padding:60px 20px 80px}
+  .rfq-inner{padding:28px;gap:32px}
+  .rfq-row{grid-template-columns:1fr}
+  .sticky-bar{display:none}
+  .download-row{flex-direction:column}
+  .footer-inner{flex-direction:column;gap:8px;text-align:center}
+}
+@media(max-width:480px){
+  .pi-trust{flex-direction:column;gap:12px}
+  .usecases-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="logo">ADUA<span class="logo-a">NEX</span><span class="logo-badge">Shop</span></a>
+  <div class="nav-right">
+    <a href="index.html" class="nav-link">Catálogo</a>
+    <a href="#overview" class="nav-link">Producto</a>
+    <a href="#specs" class="nav-link">Specs</a>
+    <a href="#roi" class="nav-link">ROI</a>
+    <a href="#contacto" class="nav-cta">Cotizar importación</a>
+  </div>
+</nav>
+
+<div class="sticky-bar" id="sticky-bar">
+  <div class="sb-left">
+    <span class="sb-name">Double Arm Intelligent Coffee Shop</span>
+    <span class="sb-price">Desde $23,500 USD</span>
+  </div>
+  <div class="sb-right">
+    <a href="#contacto" class="sb-btn sb-btn-primary">Cotizar importacion</a>
+    <a href="https://wa.me/" class="sb-btn sb-btn-outline" target="_blank">WhatsApp</a>
+  </div>
+</div>
+
+<div class="breadcrumb">
+  <div class="breadcrumb-inner">
+    <a href="#">Aduanex Shop</a>
+    <svg viewBox="0 0 24 24" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+    <a href="#">Robotica & Vending</a>
+    <svg viewBox="0 0 24 24" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+    <span class="bc-current">Double Arm Coffee Shop</span>
+  </div>
+</div>
+
+<section class="product-hero" id="product-top">
+  <div class="gallery">
+    <div class="gallery-main">
+      <img id="main-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600' fill='%230a0c0a'%3E%3Crect width='800' height='600'/%3E%3Ctext x='50%25' y='42%25' font-family='system-ui' font-size='64' font-weight='800' fill='%2388CE02' text-anchor='middle' opacity='.25'%3Ecoffee%3C/text%3E%3Ctext x='50%25' y='55%25' font-family='system-ui' font-size='16' fill='%235C5F5A' text-anchor='middle'%3EDouble Arm Coffee Robot — Vista frontal%3C/text%3E%3C/svg%3E" alt="Double Arm Coffee Robot">
+      <div class="gallery-badge">MAS POPULAR</div>
+      <div class="gallery-zoom"><svg viewBox="0 0 24 24" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+    </div>
+    <div class="gallery-thumbs">
+      <div class="gallery-thumb active"><div class="gallery-thumb-label">FRONTAL</div></div>
+      <div class="gallery-thumb"><div class="gallery-thumb-label">LATERAL</div></div>
+      <div class="gallery-thumb"><div class="gallery-thumb-label">INTERIOR</div></div>
+      <div class="gallery-thumb"><div class="gallery-thumb-label">DETALLE</div></div>
+      <div class="gallery-thumb"><div class="gallery-thumb-label">IN-SITU</div></div>
+    </div>
+  </div>
+
+  <div class="product-info">
+    <div class="pi-category">ROBOTICA & VENDING &middot; IIMT</div>
+    <h1 class="pi-title">Double Arm Intelligent Coffee Shop</h1>
+    <p class="pi-tagline">Cafeteria robotica de doble brazo. Produce un cafe de calidad premium en 70 segundos, 24/7, sin personal. Reemplaza baristas y barras de cafe con produccion automatizada.</p>
+    <div class="pi-highlights">
+      <div class="pi-highlight"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><strong>70 seg</strong>/cafe</div>
+      <div class="pi-highlight"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>&lt;<strong>1.5m&sup2;</strong></div>
+      <div class="pi-highlight"><svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/></svg><strong>180</strong>&nbsp;tazas/carga</div>
+      <div class="pi-highlight"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/></svg><strong>24/7</strong>&nbsp;automatico</div>
+      <div class="pi-highlight"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><strong>2</strong>&nbsp;brazos</div>
+    </div>
+
+    <div class="price-block" id="price-block">
+      <!-- Toggle: Maritimo / Aereo -->
+      <div class="pb-toggle">
+        <button class="pb-toggle-btn active" data-method="sea" onclick="toggleShip(this)">
+          <svg viewBox="0 0 24 24"><path d="M2 20l.8-2.4A7.58 7.58 0 012 14.5C2 10.36 6.03 7 11 7s9 3.36 9 7.5a7 7 0 01-.8 3.1L20 20"/><path d="M6.5 7V4a1 1 0 011-1h3a1 1 0 011 1v3"/></svg>
+          Maritimo
+        </button>
+        <button class="pb-toggle-btn" data-method="air" onclick="toggleShip(this)">
+          <svg viewBox="0 0 24 24"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.4-.1.9.3 1.1L11 12l-2 3H6l-1 1 3 2 2 3 1-1v-3l3-2 3.7 7.3c.2.4.7.5 1.1.3l.5-.3c.4-.2.5-.6.5-1.1z"/></svg>
+          Aereo
+        </button>
+      </div>
+
+      <!-- Big price -->
+      <div class="pb-hero">
+        <span class="pb-hero-amount" id="pb-amount">$23,500</span>
+        <span class="pb-hero-cur">USD</span>
+      </div>
+      <div class="pb-hero-basis" id="pb-basis">FOB Shanghai &middot; 6+ unidades</div>
+      <div class="pb-hero-delivery" id="pb-delivery">
+        <svg viewBox="0 0 24 24" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        60-90 dias de entrega &rarr; Buenos Aires
+      </div>
+
+      <!-- Volume cards -->
+      <div class="pb-volumes">
+        <div class="pb-vol" data-tier="1" onclick="selectTier(this)">
+          <div class="pb-vol-qty">1 unidad</div>
+          <div class="pb-vol-price" id="pv-1">$28,500</div>
+          <div class="pb-vol-tag">&nbsp;</div>
+        </div>
+        <div class="pb-vol" data-tier="2" onclick="selectTier(this)">
+          <div class="pb-vol-qty">3-5 uds</div>
+          <div class="pb-vol-price" id="pv-2">$25,900</div>
+          <div class="pb-vol-tag">&nbsp;</div>
+        </div>
+        <div class="pb-vol active" data-tier="3" onclick="selectTier(this)">
+          <div class="pb-vol-qty">6+ uds</div>
+          <div class="pb-vol-price" id="pv-3">$23,500</div>
+          <div class="pb-vol-tag">MEJOR PRECIO</div>
+        </div>
+      </div>
+
+      <!-- Savings hint -->
+      <div class="pb-savings" id="pb-savings">
+        <svg viewBox="0 0 24 24" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Maritimo ahorra ~$7,700 USD vs aereo en 6+ uds
+      </div>
+
+    </div>
+
+    <div class="pi-ctas">
+      <a href="#contacto" class="btn-lg btn-lg-primary"><span>Cotizar importacion</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      <a href="https://wa.me/" class="btn-lg btn-lg-outline" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>WhatsApp</a>
+    </div>
+
+    <!-- Container consolidado -->
+    <div class="ctn-gauge" id="ctn-gauge">
+      <div class="ctn-header">
+        <div class="ctn-title">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="22" height="14" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/><line x1="12" y1="3" x2="12" y2="17"/><path d="M1 20h22"/></svg>
+          Contenedor consolidado
+        </div>
+        <div class="ctn-pct" id="ctn-pct">73%</div>
+      </div>
+      <div class="ctn-bar-wrap">
+        <div class="ctn-bar-marks"><div class="ctn-bar-mark"></div><div class="ctn-bar-mark"></div><div class="ctn-bar-mark"></div><div class="ctn-bar-mark"></div></div>
+        <div class="ctn-bar-fill" id="ctn-fill" style="width:73%">
+          <span class="ctn-bar-label">24.1 / 33 CBM</span>
+        </div>
+      </div>
+      <div class="ctn-meta">
+        <div class="ctn-meta-left">
+          <div class="ctn-meta-item">
+            <svg viewBox="0 0 24 24" stroke-linecap="round"><rect x="1" y="3" width="22" height="14" rx="2"/></svg>
+            20ft &middot; Shanghai
+          </div>
+          <div class="ctn-meta-item">
+            <svg viewBox="0 0 24 24" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Sale en ~12 dias
+          </div>
+        </div>
+        <div class="ctn-status"><span class="ctn-status-dot"></span>Cargando</div>
+      </div>
+    </div>
+
+    <div class="pi-trust">
+      <div class="pi-trust-item"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Importacion gestionada</div>
+      <div class="pi-trust-item"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Despachante matriculado</div>
+      <div class="pi-trust-item"><svg viewBox="0 0 24 24"><polygon points="12 2 19 21 12 17 5 21 12 2"/></svg>Tracking en vivo</div>
+      <div class="pi-trust-item"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Puerta a puerta</div>
+    </div>
+  </div>
+</section>
+
+<div class="tabs-section">
+  <div class="tabs-nav" id="tabs-nav">
+    <button class="tab-btn active" data-tab="overview">Overview</button>
+    <button class="tab-btn" data-tab="specs">Especificaciones</button>
+    <button class="tab-btn" data-tab="roi">Calculadora ROI</button>
+    <button class="tab-btn" data-tab="compare">Comparar modelos</button>
+    <button class="tab-btn" data-tab="faq">FAQ</button>
+  </div>
+
+  <div class="tab-panel active" id="panel-overview">
+    <div class="overview-grid">
+      <div class="ov-card"><div class="ov-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div class="ov-title">70 segundos por cafe</div><div class="ov-outcome">&rarr; Hasta 50+ cafes por hora</div><div class="ov-desc">Doble brazo robotico trabajando en paralelo. Equivale a 3 baristas en hora pico sin errores ni tiempos muertos.</div></div>
+      <div class="ov-card"><div class="ov-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><div class="ov-title">Sin costo de personal</div><div class="ov-outcome">&rarr; Ahorro de $2,500+ USD/mes</div><div class="ov-desc">Operacion 100% automatica. Sin baristas, sin turnos, sin cargas sociales. Solo recarga de insumos periodica.</div></div>
+      <div class="ov-card"><div class="ov-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/></svg></div><div class="ov-title">Menos de 1.5m&sup2;</div><div class="ov-outcome">&rarr; Cabe en cualquier lobby o pasillo</div><div class="ov-desc">Footprint minimo para ubicaciones premium. Aeropuertos, centros comerciales, oficinas, hoteles. Sin reformas.</div></div>
+      <div class="ov-card"><div class="ov-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="ov-title">Higiene certificada</div><div class="ov-outcome">&rarr; Cero contacto humano</div><div class="ov-desc">Operacion aseptica, limpieza automatica con pastillas incluidas (62 unidades). Ideal para normativas sanitarias.</div></div>
+      <div class="ov-card"><div class="ov-icon"><svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/></svg></div><div class="ov-title">Calidad cadena premium</div><div class="ov-outcome">&rarr; Comparable a Starbucks</div><div class="ov-desc">Cafe recien molido con variedad de sabores. Latte art personalizado. Bebidas frias y calientes.</div></div>
+      <div class="ov-card"><div class="ov-icon"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div><div class="ov-title">Pantalla publicitaria</div><div class="ov-outcome">&rarr; Ingresos adicionales por publicidad</div><div class="ov-desc">Display grande integrado para branding propio, promociones o publicidad de terceros. Ingreso extra.</div></div>
+    </div>
+    <h2 class="usecases-title">Escenarios de uso</h2>
+    <p class="usecases-sub">Desplegado en +12 tipos de ubicacion a nivel mundial</p>
+    <div class="usecases-grid">
+      <div class="uc-card"><div class="uc-img"><span class="uc-img-icon">&#9992;</span></div><div class="uc-body"><div class="uc-name">Aeropuertos</div><div class="uc-detail">Alto trafico, operacion 24/7. ROI acelerado por volumen.</div></div></div>
+      <div class="uc-card"><div class="uc-img"><span class="uc-img-icon">&#127979;</span></div><div class="uc-body"><div class="uc-name">Centros comerciales</div><div class="uc-detail">Ubicaciones premium en pasillos o food courts.</div></div></div>
+      <div class="uc-card"><div class="uc-img"><span class="uc-img-icon">&#127976;</span></div><div class="uc-body"><div class="uc-name">Hoteles & Lobbies</div><div class="uc-detail">Servicio de cafe 24hs sin personal nocturno.</div></div></div>
+      <div class="uc-card"><div class="uc-img"><span class="uc-img-icon">&#127970;</span></div><div class="uc-body"><div class="uc-name">Oficinas</div><div class="uc-detail">Beneficio para empleados. Autoservicio sin barista.</div></div></div>
+    </div>
+    <div class="video-section">
+      <div class="video-wrap"><div class="video-play"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div>
+      <p style="text-align:center;font-family:var(--mono);font-size:11px;color:var(--text-mute);margin-top:12px;letter-spacing:.1em;text-transform:uppercase">VIDEO DEMO PROXIMAMENTE</p>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="panel-specs">
+    <div class="specs-layout">
+      <div>
+        <div class="specs-group-title">GENERAL</div>
+        <div class="spec-row"><span class="spec-label">Modelo</span><span class="spec-value">Double Arm Intelligent Coffee Shop</span></div>
+        <div class="spec-row"><span class="spec-label">Fabricante</span><span class="spec-value">IIMT (Jiangsu JITRI)</span></div>
+        <div class="spec-row"><span class="spec-label">Origen</span><span class="spec-value">China</span></div>
+        <div class="spec-row"><span class="spec-label">Operacion</span><span class="spec-value"><span class="accent">24/7 automatizada</span></span></div>
+        <div class="spec-row"><span class="spec-label">Espacio requerido</span><span class="spec-value">&lt; 1.5 m&sup2;</span></div>
+        <div class="spec-row"><span class="spec-label">Color</span><span class="spec-value">Personalizable</span></div>
+        <div class="specs-group-title">RENDIMIENTO</div>
+        <div class="spec-row"><span class="spec-label">Tiempo por cafe</span><span class="spec-value"><span class="accent">70 segundos</span></span></div>
+        <div class="spec-row"><span class="spec-label">Capacidad por carga</span><span class="spec-value">~180 tazas</span></div>
+        <div class="spec-row"><span class="spec-label">Cafes por hora (est.)</span><span class="spec-value">~50 tazas</span></div>
+        <div class="spec-row"><span class="spec-label">Bebidas frias</span><span class="spec-value">Si</span></div>
+        <div class="spec-row"><span class="spec-label">Bebidas calientes</span><span class="spec-value">Si</span></div>
+        <div class="spec-row"><span class="spec-label">Latte art</span><span class="spec-value"><span class="accent">Personalizado</span></span></div>
+        <div class="specs-group-title">ROBOTICA</div>
+        <div class="spec-row"><span class="spec-label">Brazos roboticos</span><span class="spec-value"><span class="accent">2 &times; 3kg</span></span></div>
+        <div class="spec-row"><span class="spec-label">Grippers</span><span class="spec-value">2 unidades</span></div>
+        <div class="spec-row"><span class="spec-label">Teaching pendant</span><span class="spec-value">No incluido</span></div>
+        <div class="config-section">
+          <div class="config-title">CONFIGURACION INCLUIDA (15 componentes)</div>
+          <div class="config-grid">
+            <span class="config-tag">Brazo robotico 3kg</span><span class="config-tag">2 Grippers</span><span class="config-tag">Cafetera domestica</span><span class="config-tag">Maquina de hielo</span><span class="config-tag">Pantalla de pedidos</span><span class="config-tag">Refrigerador almacenamiento</span><span class="config-tag">Sistema de pedidos</span><span class="config-tag">Cup dropper</span><span class="config-tag">Lid dropper</span><span class="config-tag">Pantalla publicitaria grande</span><span class="config-tag">Bomba de agua</span><span class="config-tag">Maquina espuma de leche</span><span class="config-tag">Refrigerador ingredientes</span><span class="config-tag">Pastillas limpieza (62)</span><span class="config-tag">Estructura / frame</span>
+          </div>
+        </div>
+        <div class="download-row">
+          <div class="dl-btn"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Catalogo PDF<span class="dl-size">2.4 MB</span></div>
+          <div class="dl-btn"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Ficha tecnica<span class="dl-size">PDF</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="dims-card">
+          <div style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:20px">FOOTPRINT</div>
+          <div class="dims-visual"><div class="dims-box">&lt;1.5 m&sup2;<span class="dims-label-w">~1200 mm</span><span class="dims-label-h">~1900 mm</span><span class="dims-label-d">~1000 mm prof.</span></div></div>
+          <div class="dims-note">Dimensiones estimadas. Consultar ficha tecnica para medidas exactas.</div>
+        </div>
+        <div class="systems-card">
+          <div class="systems-title">SISTEMAS INCLUIDOS</div>
+          <div class="systems-list">
+            <div class="systems-item"><span class="systems-check">&#10003;</span> POS Payment System</div>
+            <div class="systems-item"><span class="systems-check">&#10003;</span> Sales Management System</div>
+            <div class="systems-item"><span class="systems-check">&#10003;</span> IIMT Cloud Platform</div>
+            <div class="systems-item"><span class="systems-check">&#10003;</span> Recipe Management System</div>
+            <div class="systems-item"><span class="systems-check">&#10003;</span> Quality Control & Tracking</div>
+            <div class="systems-item"><span class="systems-check">&#10003;</span> Video Monitoring</div>
+            <div class="systems-item"><span class="systems-check">&#10003;</span> Remote Operation & Maintenance</div>
+            <div class="systems-item"><span class="systems-check">&#10003;</span> Store Management ERP</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="panel-roi">
+    <div class="roi-layout">
+      <div class="roi-inputs">
+        <h2 style="font-size:24px;font-weight:800;letter-spacing:-.03em;margin-bottom:4px">Calcula tu retorno</h2>
+        <p style="font-size:14px;color:var(--text-dim);margin-bottom:20px">Ajusta los valores a tu caso y ve en cuanto tiempo recuperas la inversion.</p>
+        <div class="roi-group"><label class="roi-label">Cafes vendidos por dia</label><div class="roi-input-wrap"><span class="roi-prefix">&#9749;</span><input type="number" class="roi-input" id="roi-cups" value="80" min="10" max="500"><span class="roi-suffix">cafes/dia</span></div><input type="range" class="roi-slider" id="roi-cups-slider" min="10" max="500" value="80"><div class="roi-slider-labels"><span>10</span><span>250</span><span>500</span></div></div>
+        <div class="roi-group"><label class="roi-label">Precio promedio por cafe</label><div class="roi-input-wrap"><span class="roi-prefix">$</span><input type="number" class="roi-input" id="roi-price" value="3.50" min="1" max="10" step="0.25"><span class="roi-suffix">USD</span></div></div>
+        <div class="roi-group"><label class="roi-label">Costo de insumos por cafe (est.)</label><div class="roi-input-wrap"><span class="roi-prefix">$</span><input type="number" class="roi-input" id="roi-cost" value="0.60" min="0.2" max="3" step="0.1"><span class="roi-suffix">USD</span></div></div>
+        <div class="roi-group"><label class="roi-label">Alquiler mensual del espacio</label><div class="roi-input-wrap"><span class="roi-prefix">$</span><input type="number" class="roi-input" id="roi-rent" value="500" min="0" max="5000" step="50"><span class="roi-suffix">USD/mes</span></div></div>
+        <div class="roi-group"><label class="roi-label">Cantidad de maquinas</label><div class="roi-input-wrap"><span class="roi-prefix">&#215;</span><input type="number" class="roi-input" id="roi-qty" value="1" min="1" max="20"><span class="roi-suffix">unidades</span></div></div>
+      </div>
+      <div class="roi-results" id="roi-results">
+        <div class="roi-results-title">PROYECCION DE RETORNO</div>
+        <div class="roi-metric"><div class="roi-metric-label">Payback estimado</div><div class="roi-metric-value" id="roi-payback"><span class="accent">5.2</span> meses</div><div class="roi-metric-sub">Tiempo para recuperar la inversion</div></div>
+        <div class="roi-divider"></div>
+        <div class="roi-metric"><div class="roi-metric-label">Ganancia neta mensual (por maquina)</div><div class="roi-metric-value" id="roi-monthly" style="font-size:28px"><span class="accent">$5,480</span> USD</div></div>
+        <div class="roi-divider"></div>
+        <div class="roi-breakdown">
+          <div class="roi-row"><span class="roi-row-label">Ingreso bruto mensual</span><span class="roi-row-val" id="roi-revenue">$8,400</span></div>
+          <div class="roi-row"><span class="roi-row-label">Costo insumos</span><span class="roi-row-val red" id="roi-supplies">-$1,440</span></div>
+          <div class="roi-row"><span class="roi-row-label">Alquiler espacio</span><span class="roi-row-val red" id="roi-rent-display">-$500</span></div>
+          <div class="roi-row"><span class="roi-row-label">Mantenimiento (est.)</span><span class="roi-row-val red" id="roi-maint">-$200</span></div>
+          <div class="roi-total"><span>Ganancia neta</span><span class="accent" id="roi-net">$6,260</span></div>
+        </div>
+        <div style="margin-top:24px;text-align:center"><a href="#contacto" class="btn-lg btn-lg-primary" style="width:100%;justify-content:center">Cotizar con estos numeros</a></div>
+        <p style="font-family:var(--mono);font-size:9px;color:var(--text-mute);text-align:center;margin-top:12px;line-height:1.5">Proyeccion estimada. Resultados reales dependen de ubicacion, demanda y costos locales. Dias operativos: 30/mes.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="panel-compare">
+    <h2 style="font-size:24px;font-weight:800;letter-spacing:-.03em;margin-bottom:8px">Compara los 3 modelos</h2>
+    <p style="font-size:14px;color:var(--text-dim);margin-bottom:32px">Elegis el que mejor se adapte a tu proyecto. No sabes cual? <a href="#contacto" style="color:var(--accent)">Te asesoramos.</a></p>
+    <table class="compare-table">
+      <thead><tr><th style="width:30%">Caracteristica</th><th>Single Arm</th><th class="hl">Double Arm</th><th>Integrated Delivery</th></tr></thead>
+      <tbody>
+        <tr><td class="feat-name">Precio desde (FOB)</td><td>$15,200 USD</td><td class="hl"><strong>$23,500 USD</strong></td><td>$38,000 USD</td></tr>
+        <tr><td class="feat-name">Brazos roboticos</td><td>1</td><td class="hl"><strong>2</strong></td><td>1</td></tr>
+        <tr><td class="feat-name">Operacion 24/7</td><td><span class="compare-check">&#10003;</span></td><td class="hl"><span class="compare-check">&#10003;</span></td><td><span class="compare-check">&#10003;</span></td></tr>
+        <tr><td class="feat-name">Espacio requerido</td><td>&lt;1.5 m&sup2;</td><td class="hl">&lt;1.5 m&sup2;</td><td>&lt;1.5 m&sup2;</td></tr>
+        <tr><td class="feat-name">Capacidad por carga</td><td>~180 tazas</td><td class="hl">~180 tazas</td><td>~180 tazas</td></tr>
+        <tr><td class="feat-name">Latte art personalizado</td><td><span class="compare-check">&#10003;</span></td><td class="hl"><span class="compare-check">&#10003;</span></td><td><span class="compare-x">&mdash;</span></td></tr>
+        <tr><td class="feat-name">Pantalla publicitaria</td><td><span class="compare-x">&mdash;</span></td><td class="hl"><span class="compare-check">&#10003;</span> Grande</td><td><span class="compare-check">&#10003;</span></td></tr>
+        <tr><td class="feat-name">Espuma de leche</td><td><span class="compare-x">&mdash;</span></td><td class="hl"><span class="compare-check">&#10003;</span></td><td><span class="compare-x">&mdash;</span></td></tr>
+        <tr><td class="feat-name">Entrega autonoma</td><td><span class="compare-x">&mdash;</span></td><td class="hl"><span class="compare-x">&mdash;</span></td><td><span class="compare-check">&#10003;</span> Robot</td></tr>
+        <tr><td class="feat-name">Desinfeccion por vapor</td><td><span class="compare-x">&mdash;</span></td><td class="hl"><span class="compare-x">&mdash;</span></td><td><span class="compare-check">&#10003;</span></td></tr>
+        <tr><td class="feat-name">Ideal para</td><td>Oficinas, locales</td><td class="hl"><strong>Alto volumen</strong></td><td>Hospitality premium</td></tr>
+      </tbody>
+      <tr class="compare-cta-row"><td></td><td><a href="#contacto" class="compare-cta-btn outline">Cotizar</a></td><td class="hl"><a href="#contacto" class="compare-cta-btn primary">Cotizar</a></td><td><a href="#contacto" class="compare-cta-btn outline">Cotizar</a></td></tr>
+    </table>
+  </div>
+
+  <div class="tab-panel" id="panel-faq">
+    <h2 style="font-size:24px;font-weight:800;letter-spacing:-.03em;margin-bottom:32px">Preguntas frecuentes</h2>
+    <div class="faq-grid">
+      <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')"><h3>Cual es el tiempo de entrega?</h3><svg viewBox="0 0 24 24" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><div class="faq-a"><div class="faq-a-inner">El tiempo total desde la confirmacion del pedido hasta la entrega en tu deposito en Argentina es de 45 a 90 dias, dependiendo de la cantidad y disponibilidad. Incluye produccion, transporte maritimo, despacho aduanero y entrega final. Tracking en vivo durante todo el proceso.</div></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')"><h3>Que incluye el precio FOB?</h3><svg viewBox="0 0 24 24" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><div class="faq-a"><div class="faq-a-inner">El precio FOB incluye la maquina completa con todos los componentes, embalaje para exportacion y entrega en puerto de China. El costo nacionalizado agrega flete maritimo, seguro, derechos de importacion, tasa estadistica, despacho aduanero, certificaciones y entrega.</div></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')"><h3>Que certificaciones necesita para Argentina?</h3><svg viewBox="0 0 24 24" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><div class="faq-a"><div class="faq-a-inner">Puede requerir INTI (seguridad electrica), ENACOM (modulos de comunicacion) y certificaciones alimentarias. Aduanex gestiona todas las certificaciones como parte del servicio, incluido en la cotizacion.</div></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')"><h3>Que mantenimiento requiere?</h3><svg viewBox="0 0 24 24" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><div class="faq-a"><div class="faq-a-inner">Mantenimiento minimo: recarga de insumos periodica y limpieza automatica con pastillas incluidas. El IIMT Cloud Platform permite diagnostico remoto. Para mantenimiento complejo, se coordina soporte tecnico.</div></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')"><h3>Tiene garantia?</h3><svg viewBox="0 0 24 24" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><div class="faq-a"><div class="faq-a-inner">Si. IIMT ofrece garantia de fabrica. Los terminos se detallan en cada cotizacion. Aduanex gestiona cualquier reclamo directamente con el fabricante.</div></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')"><h3>Puedo personalizar color y branding?</h3><svg viewBox="0 0 24 24" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><div class="faq-a"><div class="faq-a-inner">Si. Color exterior, branding y contenido de la pantalla publicitaria son personalizables. MOQ minimo para personalizacion de color: generalmente 3+ unidades.</div></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')"><h3>Formas de pago?</h3><svg viewBox="0 0 24 24" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><div class="faq-a"><div class="faq-a-inner">Transferencia bancaria internacional (T/T). Tipicamente 30% anticipo y 70% contra BL. Otras estructuras evaluables segun volumen.</div></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')"><h3>Puedo comprar una sola unidad?</h3><svg viewBox="0 0 24 24" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><div class="faq-a"><div class="faq-a-inner">Si, MOQ es 1 unidad. Mejores precios a partir de 3 unidades. Tambien coordinamos unidades de muestra antes de pedidos grandes.</div></div></div>
+    </div>
+  </div>
+</div>
+
+<section class="rfq" id="contacto">
+  <div class="rfq-inner">
+    <div class="rfq-left">
+      <div class="section-tag">COTIZAR IMPORTACION</div>
+      <h2 class="rfq-title">Te damos el precio<br><span class="accent">nacionalizado.</span></h2>
+      <p class="rfq-desc">Completa el formulario y en menos de 24hs recibis una cotizacion detallada con todos los costos.</p>
+      <div class="rfq-features">
+        <div class="rfq-feat"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Cotizacion detallada en 24hs</div>
+        <div class="rfq-feat"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Precio final sin costos ocultos</div>
+        <div class="rfq-feat"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Certificaciones incluidas</div>
+        <div class="rfq-feat"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Sin compromiso</div>
+      </div>
+    </div>
+    <form class="rfq-form" onsubmit="event.preventDefault()">
+      <div class="rfq-row">
+        <div class="rfq-group"><label class="rfq-field-label">Nombre</label><input type="text" class="rfq-input" placeholder="Tu nombre" required></div>
+        <div class="rfq-group"><label class="rfq-field-label">Empresa</label><input type="text" class="rfq-input" placeholder="Nombre de tu empresa"></div>
+      </div>
+      <div class="rfq-row">
+        <div class="rfq-group"><label class="rfq-field-label">Email</label><input type="email" class="rfq-input" placeholder="email@empresa.com" required></div>
+        <div class="rfq-group"><label class="rfq-field-label">Telefono / WhatsApp</label><input type="tel" class="rfq-input" placeholder="+54 11..."></div>
+      </div>
+      <div class="rfq-group full"><label class="rfq-field-label">Producto de interes</label><select class="rfq-input"><option value="" disabled>Selecciona un modelo</option><option>Single Arm Intelligent Coffee Shop</option><option selected>Double Arm Intelligent Coffee Shop</option><option>Integrated Delivery Coffee Shop</option><option>No estoy seguro, quiero asesoramiento</option></select></div>
+      <div class="rfq-row">
+        <div class="rfq-group"><label class="rfq-field-label">Cantidad estimada</label><select class="rfq-input"><option value="" disabled selected>Selecciona</option><option>1 unidad (muestra)</option><option>2-3 unidades</option><option>4-6 unidades</option><option>7+ unidades</option></select></div>
+        <div class="rfq-group"><label class="rfq-field-label">Ubicacion de destino</label><input type="text" class="rfq-input" placeholder="Ciudad, provincia"></div>
+      </div>
+      <div class="rfq-group full"><label class="rfq-field-label">Comentarios</label><textarea class="rfq-input" placeholder="Contanos sobre tu proyecto, ubicacion planeada, timeline..."></textarea></div>
+      <button type="submit" class="rfq-submit">Solicitar cotizacion &rarr;</button>
+      <div class="rfq-note">Sin compromiso &middot; Respondemos en menos de 24hs</div>
+    </form>
+  </div>
+</section>
+
+<footer><div class="footer-inner"><span>&copy; 2026 ADUANEX SHOP &middot; BUENOS AIRES, ARGENTINA</span><span>DESPACHANTE MATRICULADO &middot; IMPORTACION GESTIONADA</span></div></footer>
+
+<script>
+// ===== PRICING DATA =====
+const PRICES = {
+  sea: { t1: '$28,500', t2: '$25,900', t3: '$23,500', days: '60-90 dias de entrega → Buenos Aires', basis_port: 'FOB Shanghai', label: 'Maritimo' },
+  air: { t1: '$36,200', t2: '$33,400', t3: '$31,200', days: '15-20 dias de entrega → Buenos Aires', basis_port: 'CIF Ezeiza', label: 'Aereo' }
+};
+const TIER_LABELS = { 1: '1 unidad', 2: '3-5 unidades', 3: '6+ unidades' };
+let currentMethod = 'sea';
+let currentTier = 3;
+
+function updateDisplay() {
+  const p = PRICES[currentMethod];
+  const price = p['t' + currentTier];
+  const heroEl = document.getElementById('pb-amount');
+  heroEl.style.opacity = '0'; heroEl.style.transform = 'translateY(6px)';
+  setTimeout(() => {
+    heroEl.textContent = price;
+    document.getElementById('pb-basis').textContent = p.basis_port + ' · ' + TIER_LABELS[currentTier];
+    document.getElementById('pb-delivery').innerHTML =
+      '<svg viewBox="0 0 24 24" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>' + p.days;
+    document.getElementById('pv-1').textContent = p.t1;
+    document.getElementById('pv-2').textContent = p.t2;
+    document.getElementById('pv-3').textContent = p.t3;
+    // Savings
+    const seaNum = parseInt(PRICES.sea['t' + currentTier].replace(/\D/g, ''));
+    const airNum = parseInt(PRICES.air['t' + currentTier].replace(/\D/g, ''));
+    const diff = airNum - seaNum;
+    const savingsEl = document.getElementById('pb-savings');
+    if (currentMethod === 'sea') {
+      savingsEl.innerHTML = '<svg viewBox="0 0 24 24" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Maritimo ahorra ~$' + diff.toLocaleString() + ' USD vs aereo en ' + TIER_LABELS[currentTier];
+      savingsEl.style.display = 'flex';
+    } else {
+      savingsEl.style.display = 'none';
+    }
+    // Container gauge: show only for maritime
+    const gauge = document.getElementById('ctn-gauge');
+    if (gauge) {
+      if (currentMethod === 'sea') {
+        gauge.style.display = 'block';
+      } else {
+        gauge.style.display = 'none';
+      }
+    }
+    heroEl.style.opacity = '1'; heroEl.style.transform = 'translateY(0)';
+  }, 140);
+  // Sticky bar
+  const sp = document.querySelector('.sb-price');
+  if (sp) sp.textContent = 'Desde ' + p.t3 + ' USD';
+}
+
+function toggleShip(btn) {
+  document.querySelectorAll('.pb-toggle-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentMethod = btn.dataset.method;
+  updateDisplay();
+}
+
+function selectTier(el) {
+  document.querySelectorAll('.pb-vol').forEach(v => v.classList.remove('active'));
+  el.classList.add('active');
+  currentTier = parseInt(el.dataset.tier);
+  // Update best tag
+  document.querySelectorAll('.pb-vol-tag').forEach(t => t.innerHTML = '&nbsp;');
+  if (currentTier === 3) el.querySelector('.pb-vol-tag').textContent = 'MEJOR PRECIO';
+  updateDisplay();
+}
+
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+  });
+});
+document.querySelectorAll('.gallery-thumb').forEach((t,i,all) => {
+  t.addEventListener('click', () => { all.forEach(th => th.classList.remove('active')); t.classList.add('active'); });
+});
+const heroEnd = document.getElementById('product-top');
+const stickyBar = document.getElementById('sticky-bar');
+new IntersectionObserver(([e]) => {
+  stickyBar.classList.toggle('visible', !e.isIntersecting);
+}, { threshold: 0, rootMargin: '-200px 0px 0px 0px' }).observe(heroEnd);
+
+function calcROI() {
+  const cups = parseFloat(document.getElementById('roi-cups').value) || 80;
+  const price = parseFloat(document.getElementById('roi-price').value) || 3.5;
+  const cost = parseFloat(document.getElementById('roi-cost').value) || 0.6;
+  const rent = parseFloat(document.getElementById('roi-rent').value) || 500;
+  const qty = parseInt(document.getElementById('roi-qty').value) || 1;
+  let unitPrice = 28500;
+  if (qty >= 6) unitPrice = 23500; else if (qty >= 3) unitPrice = 25900;
+  const investmentPerUnit = unitPrice * 1.35;
+  const rev = cups * price * 30;
+  const sup = cups * cost * 30;
+  const maint = 200;
+  const profit = rev - sup - rent - maint;
+  const payback = profit > 0 ? (investmentPerUnit / profit) : 999;
+  document.getElementById('roi-payback').innerHTML = profit > 0 ? `<span class="accent">${payback.toFixed(1)}</span> meses` : `<span style="color:#ff6b6b">No rentable</span>`;
+  document.getElementById('roi-monthly').innerHTML = `<span class="accent">$${profit.toLocaleString('en-US',{maximumFractionDigits:0})}</span> USD`;
+  document.getElementById('roi-revenue').textContent = '$' + rev.toLocaleString('en-US',{maximumFractionDigits:0});
+  document.getElementById('roi-supplies').textContent = '-$' + sup.toLocaleString('en-US',{maximumFractionDigits:0});
+  document.getElementById('roi-rent-display').textContent = '-$' + rent.toLocaleString('en-US',{maximumFractionDigits:0});
+  document.getElementById('roi-maint').textContent = '-$' + maint;
+  document.getElementById('roi-net').textContent = '$' + profit.toLocaleString('en-US',{maximumFractionDigits:0});
+}
+document.querySelectorAll('#panel-roi input').forEach(i => i.addEventListener('input', calcROI));
+const cs = document.getElementById('roi-cups'), sl = document.getElementById('roi-cups-slider');
+sl.addEventListener('input', () => { cs.value = sl.value; calcROI(); });
+cs.addEventListener('input', () => { sl.value = cs.value; });
+calcROI();
+
+// ===== CONTAINER GAUGE ANIMATION =====
+(function() {
+  const fill = document.getElementById('ctn-fill');
+  if (!fill) return;
+  fill.style.width = '0%';
+  setTimeout(() => { fill.style.width = '73%'; }, 400);
+})();
+</script>
+</body>
+</html>
