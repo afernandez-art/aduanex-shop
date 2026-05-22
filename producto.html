@@ -318,11 +318,36 @@ textarea.rfq-input{resize:vertical;min-height:80px}
 footer{border-top:1px solid var(--line);padding:32px;font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:var(--text-mute)}
 .footer-inner{max-width:var(--max-w);margin:0 auto;display:flex;justify-content:space-between}
 
+/* ===== ENVIO / SHIPPING TIMELINE ===== */
+.envio-section{padding-top:16px}
+.envio-title{font-size:24px;font-weight:800;letter-spacing:-.03em;margin-bottom:8px}
+.envio-sub{font-size:14px;color:var(--text-dim);margin-bottom:40px}
+.timeline{display:flex;align-items:flex-start;position:relative;padding:0;gap:0;justify-content:space-between}
+.timeline::before{content:'';position:absolute;top:20px;left:28px;right:28px;height:2px;background:var(--line-strong)}
+.timeline-step{display:flex;flex-direction:column;align-items:center;position:relative;flex:1;text-align:center;padding:0 8px}
+.timeline-dot{width:40px;height:40px;border-radius:50%;background:var(--bg-card);border:2px solid var(--line-strong);display:flex;align-items:center;justify-content:center;position:relative;z-index:2;transition:border-color 300ms,background 300ms;margin-bottom:14px}
+.timeline-dot svg{width:18px;height:18px;stroke:var(--text-mute);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:stroke 300ms}
+.timeline-step:hover .timeline-dot{border-color:var(--accent);background:var(--accent-soft)}
+.timeline-step:hover .timeline-dot svg{stroke:var(--accent)}
+.timeline-step-num{font-family:var(--mono);font-size:9px;letter-spacing:.12em;color:var(--text-mute);text-transform:uppercase;margin-bottom:6px}
+.timeline-step-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;line-height:1.3}
+.timeline-step-desc{font-size:11px;color:var(--text-dim);line-height:1.45;max-width:140px;margin:0 auto}
+.envio-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+.envio-card{background:var(--bg-card);border:1px solid var(--line);border-radius:var(--radius);padding:28px;transition:border-color 300ms}
+.envio-card:hover{border-color:var(--accent)}
+.envio-card-icon{width:40px;height:40px;border-radius:10px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.envio-card-icon svg{width:18px;height:18px;stroke:var(--accent);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.envio-card-title{font-size:15px;font-weight:700;margin-bottom:14px}
+.envio-card-list{list-style:none;display:flex;flex-direction:column;gap:10px}
+.envio-card-list li{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--text-dim);line-height:1.45}
+.envio-card-list li::before{content:'';width:6px;height:6px;min-width:6px;border-radius:50%;background:var(--accent);margin-top:6px}
+
 @media(max-width:1024px){
   .product-hero{grid-template-columns:1fr;gap:32px}
   .gallery{position:static}
   .roi-layout,.specs-layout{grid-template-columns:1fr}
   .rfq-inner{grid-template-columns:1fr}
+  .envio-cards{grid-template-columns:1fr}
 }
 @media(max-width:768px){
   .nav{padding:12px 20px}
@@ -343,6 +368,12 @@ footer{border-top:1px solid var(--line);padding:32px;font-family:var(--mono);fon
   .sticky-bar{display:none}
   .download-row{flex-direction:column}
   .footer-inner{flex-direction:column;gap:8px;text-align:center}
+  .timeline{flex-direction:column;align-items:flex-start;gap:24px}
+  .timeline::before{top:20px;bottom:20px;left:20px;right:auto;width:2px;height:auto}
+  .timeline-step{flex-direction:row;text-align:left;padding:0;gap:16px}
+  .timeline-step-title,.timeline-step-desc{max-width:none}
+  .timeline-step-desc{margin:0}
+  .timeline-step-text{display:flex;flex-direction:column}
 }
 @media(max-width:480px){
   .pi-trust{flex-direction:column;gap:12px}
@@ -374,7 +405,7 @@ footer{border-top:1px solid var(--line);padding:32px;font-family:var(--mono);fon
   </div>
   <div class="sb-right">
     <button class="sb-btn sb-btn-primary" onclick="addToCart()">Agregar al carrito</button>
-    <a href="https://wa.me/" class="sb-btn sb-btn-outline" target="_blank">WhatsApp</a>
+    <a href="https://wa.me/5491112345678?text=Hola%20Aduanex!%20Me%20interesa%20el%20Double%20Arm%20Coffee%20Robot" class="sb-btn sb-btn-outline" target="_blank">WhatsApp</a>
   </div>
 </div>
 
@@ -469,7 +500,7 @@ footer{border-top:1px solid var(--line);padding:32px;font-family:var(--mono);fon
 
     <div class="pi-ctas">
       <button id="btn-add-cart" class="btn-lg btn-lg-primary" onclick="addToCart()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="18" height="18"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><span>Agregar al carrito</span></button>
-      <a href="https://wa.me/" class="btn-lg btn-lg-outline" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>WhatsApp</a>
+      <a href="https://wa.me/5491112345678?text=Hola%20Aduanex!%20Me%20interesa%20el%20Double%20Arm%20Coffee%20Robot" class="btn-lg btn-lg-outline" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>WhatsApp</a>
     </div>
 
     <!-- Container consolidado -->
@@ -518,6 +549,7 @@ footer{border-top:1px solid var(--line);padding:32px;font-family:var(--mono);fon
     <button class="tab-btn" data-tab="roi">Calculadora ROI</button>
     <button class="tab-btn" data-tab="compare">Comparar modelos</button>
     <button class="tab-btn" data-tab="faq">FAQ</button>
+    <button class="tab-btn" data-tab="envio">Envio</button>
   </div>
 
   <div class="tab-panel active" id="panel-overview">
@@ -663,6 +695,100 @@ footer{border-top:1px solid var(--line);padding:32px;font-family:var(--mono);fon
       <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')"><h3>Puedo comprar una sola unidad?</h3><svg viewBox="0 0 24 24" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><div class="faq-a"><div class="faq-a-inner">Si, MOQ es 1 unidad. Mejores precios a partir de 3 unidades. Tambien coordinamos unidades de muestra antes de pedidos grandes.</div></div></div>
     </div>
   </div>
+
+  <div class="tab-panel" id="panel-envio">
+    <div class="envio-section" id="envio">
+      <h2 class="envio-title">Proceso de envio</h2>
+      <p class="envio-sub">Tu importacion gestionada de principio a fin, sin complicaciones</p>
+
+      <div class="timeline">
+        <div class="timeline-step">
+          <div class="timeline-dot"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+          <div class="timeline-step-text">
+            <div class="timeline-step-num">Paso 1</div>
+            <div class="timeline-step-title">Pedido confirmado</div>
+            <div class="timeline-step-desc">Confirmas tu orden y realizas el pago</div>
+          </div>
+        </div>
+        <div class="timeline-step">
+          <div class="timeline-dot"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+          <div class="timeline-step-text">
+            <div class="timeline-step-num">Paso 2</div>
+            <div class="timeline-step-title">Produccion en fabrica</div>
+            <div class="timeline-step-desc">7-15 dias segun producto</div>
+          </div>
+        </div>
+        <div class="timeline-step">
+          <div class="timeline-dot"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div>
+          <div class="timeline-step-text">
+            <div class="timeline-step-num">Paso 3</div>
+            <div class="timeline-step-title">Inspeccion en origen</div>
+            <div class="timeline-step-desc">Control de calidad antes del embarque</div>
+          </div>
+        </div>
+        <div class="timeline-step">
+          <div class="timeline-dot"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+          <div class="timeline-step-text">
+            <div class="timeline-step-num">Paso 4</div>
+            <div class="timeline-step-title">Embarque</div>
+            <div class="timeline-step-desc" id="embarque-desc">Maritimo: 35-45 dias</div>
+          </div>
+        </div>
+        <div class="timeline-step">
+          <div class="timeline-dot"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <div class="timeline-step-text">
+            <div class="timeline-step-num">Paso 5</div>
+            <div class="timeline-step-title">Aduana Argentina</div>
+            <div class="timeline-step-desc">Despacho y nacionalizacion</div>
+          </div>
+        </div>
+        <div class="timeline-step">
+          <div class="timeline-dot"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+          <div class="timeline-step-text">
+            <div class="timeline-step-num">Paso 6</div>
+            <div class="timeline-step-title">Entrega puerta a puerta</div>
+            <div class="timeline-step-desc">Recibis en tu domicilio</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="envio-cards">
+        <div class="envio-card">
+          <div class="envio-card-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+          <div class="envio-card-title">Que incluye el precio</div>
+          <ul class="envio-card-list">
+            <li>Producto FOB</li>
+            <li>Flete internacional</li>
+            <li>Seguro de carga</li>
+            <li>Despacho de aduana</li>
+            <li>Impuestos y aranceles</li>
+            <li>Entrega a domicilio</li>
+          </ul>
+        </div>
+        <div class="envio-card">
+          <div class="envio-card-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
+          <div class="envio-card-title">Documentacion</div>
+          <ul class="envio-card-list">
+            <li>Factura comercial</li>
+            <li>Packing list</li>
+            <li>Bill of Lading / AWB</li>
+            <li>Certificado de origen</li>
+            <li>Despacho de importacion</li>
+          </ul>
+        </div>
+        <div class="envio-card">
+          <div class="envio-card-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <div class="envio-card-title">Garantias</div>
+          <ul class="envio-card-list">
+            <li>Inspeccion pre-embarque</li>
+            <li>Seguro puerta a puerta</li>
+            <li>Tracking en tiempo real</li>
+            <li>Soporte post-venta</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <section class="rfq" id="contacto">
@@ -756,6 +882,12 @@ function toggleShip(btn) {
   btn.classList.add('active');
   currentMethod = btn.dataset.method;
   updateDisplay();
+  updateEmbarque();
+}
+
+function updateEmbarque() {
+  const el = document.getElementById('embarque-desc');
+  if (el) el.textContent = currentMethod === 'sea' ? 'Maritimo: 35-45 dias' : 'Aereo: 5-7 dias';
 }
 
 function selectTier(el) {

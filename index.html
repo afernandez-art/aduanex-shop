@@ -59,6 +59,18 @@ button,input,select{font-family:var(--sans)}button{cursor:pointer}
 .hero-mini-stat .num{font-family:var(--mono);font-size:22px;font-weight:800;color:var(--accent);line-height:1}
 .hero-mini-stat .label{font-size:10px;color:var(--text-mute);margin-top:2px;white-space:nowrap}
 
+/* HOME GAUGE */
+.home-gauge{padding:12px 0;border-bottom:1px solid var(--line)}
+.hg-inner{display:flex;align-items:center;gap:12px}
+.hg-icon{color:var(--accent);display:flex;align-items:center}
+.hg-info{display:flex;flex-direction:column;gap:1px}
+.hg-label{font-size:11px;font-weight:600;color:var(--text-dim);letter-spacing:.02em}
+.hg-detail{font-size:10px;font-family:var(--mono);color:var(--text-mute)}
+.hg-bar-wrap{flex:1;height:6px;background:var(--bg-card);border-radius:3px;overflow:hidden;min-width:120px}
+.hg-bar-fill{height:100%;background:var(--accent);border-radius:3px;transition:width 1.5s ease}
+.hg-pct{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--accent);min-width:36px;text-align:right}
+@media(max-width:640px){.hg-inner{flex-wrap:wrap}.hg-bar-wrap{order:10;width:100%;min-width:0}}
+
 /* TOOLBAR: cats + sort */
 .toolbar{padding:14px 0;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;overflow-x:auto;-webkit-overflow-scrolling:touch}
 .toolbar::-webkit-scrollbar{display:none}
@@ -276,6 +288,23 @@ button,input,select{font-family:var(--sans)}button{cursor:pointer}
         <div class="num">100%</div>
         <div class="label">Gestionado</div>
       </div>
+    </div>
+  </div>
+
+  <!-- CONTAINER GAUGE -->
+  <div class="home-gauge" id="home-gauge">
+    <div class="hg-inner">
+      <div class="hg-icon">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="22" height="14" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/><line x1="12" y1="3" x2="12" y2="17"/><path d="M1 20h22"/></svg>
+      </div>
+      <div class="hg-info">
+        <span class="hg-label">Proximo contenedor consolidado</span>
+        <span class="hg-detail" id="hg-detail">Cargando...</span>
+      </div>
+      <div class="hg-bar-wrap">
+        <div class="hg-bar-fill" id="hg-fill" style="width:0%"></div>
+      </div>
+      <div class="hg-pct" id="hg-pct">--%</div>
     </div>
   </div>
 
@@ -665,7 +694,7 @@ button,input,select{font-family:var(--sans)}button{cursor:pointer}
       <div class="footer-brand">
         <div class="footer-logo">ADUA<span class="a">NEX</span> SHOP</div>
         <p>Marketplace B2B de importacion gestionada. Conectamos empresas argentinas con fabricas chinas verificadas.</p>
-        <a href="https://wa.me/5491100000000" class="footer-wa" target="_blank">
+        <a href="https://wa.me/5491112345678?text=Hola%20Aduanex!%20Me%20interesa%20un%20producto%20del%20shop" class="footer-wa" target="_blank">
           <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
           WhatsApp
         </a>
@@ -876,6 +905,17 @@ supa.auth.getSession().then(({ data: { session } }) => {
   if (session && btn) { btn.textContent = 'Mi cuenta'; btn.href = 'mis-pedidos.html'; }
 });
 updateCartBadge();
+
+// Container gauge
+supa.rpc('get_public_container_status').then(({ data }) => {
+  if (!data) return;
+  const pct = data.percent_full || 0;
+  const used = data.used_cbm || 0;
+  const cap = data.capacity_cbm || 0;
+  document.getElementById('hg-fill').style.width = pct + '%';
+  document.getElementById('hg-pct').textContent = pct + '%';
+  document.getElementById('hg-detail').textContent = used + ' / ' + cap + ' CBM · ' + (data.client_count || 0) + ' clientes · ' + (data.nombre || 'Shanghai');
+});
 </script>
 
 </body>
