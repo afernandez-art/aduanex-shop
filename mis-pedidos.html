@@ -105,6 +105,71 @@ button,input,select{font-family:var(--sans)}button{cursor:pointer}
 .footer-badges{display:flex;gap:12px;align-items:center}
 .footer-badges span{font-size:9px;font-family:var(--mono);letter-spacing:.05em;color:var(--text-mute);padding:3px 10px;border:1px solid var(--line);border-radius:100px}
 
+/* ORDER CARD EXPAND */
+.order-card{cursor:pointer;transition:border-color 200ms,box-shadow 200ms}
+.order-card.expanded{border-color:var(--accent-mid);box-shadow:0 0 0 1px var(--accent-mid)}
+.order-expand-icon{width:20px;height:20px;stroke:var(--text-mute);fill:none;stroke-width:2;transition:transform 250ms;flex-shrink:0}
+.order-card.expanded .order-expand-icon{transform:rotate(180deg)}
+.order-detail{display:none;margin-top:18px;padding-top:18px;border-top:1px solid var(--line)}
+.order-card.expanded .order-detail{display:block}
+
+/* MINI PIPELINE */
+.mini-pipeline{display:flex;align-items:center;gap:0;margin-top:12px;overflow-x:auto;padding-bottom:4px}
+.mini-pipeline-step{display:flex;flex-direction:column;align-items:center;position:relative;flex-shrink:0}
+.mini-pipeline-dot{width:10px;height:10px;border-radius:50%;border:2px solid var(--line-strong);background:transparent;position:relative;z-index:1;transition:all 200ms}
+.mini-pipeline-dot.completed{background:var(--accent);border-color:var(--accent)}
+.mini-pipeline-dot.current{background:var(--accent);border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.mini-pipeline-dot.future{background:transparent;border-color:var(--line-strong)}
+.mini-pipeline-label{font-family:var(--mono);font-size:8px;color:var(--text-mute);margin-top:5px;white-space:nowrap;letter-spacing:.02em}
+.mini-pipeline-dot.completed + .mini-pipeline-label,
+.mini-pipeline-step.completed .mini-pipeline-label{color:var(--accent)}
+.mini-pipeline-step.current .mini-pipeline-label{color:var(--accent);font-weight:600}
+.mini-pipeline-line{width:16px;height:2px;background:var(--line-strong);align-self:flex-start;margin-top:4px;flex-shrink:0}
+.mini-pipeline-line.completed{background:var(--accent)}
+
+/* PAYMENT BADGE */
+.payment-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:100px;font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;flex-shrink:0}
+.payment-badge::before{content:'';width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.payment-pendiente{background:rgba(255,193,7,.1);color:#ffc107;border:1px solid rgba(255,193,7,.2)}
+.payment-pendiente::before{background:#ffc107}
+.payment-parcial{background:rgba(33,150,243,.1);color:#2196f3;border:1px solid rgba(33,150,243,.2)}
+.payment-parcial::before{background:#2196f3}
+.payment-pagado{background:rgba(136,206,2,.1);color:#88CE02;border:1px solid rgba(136,206,2,.2)}
+.payment-pagado::before{background:#88CE02}
+
+/* ORDER DETAIL SECTIONS */
+.detail-section{margin-bottom:16px}
+.detail-section:last-child{margin-bottom:0}
+.detail-section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-dim);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.detail-section-title span{font-size:13px}
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:600px){.detail-grid{grid-template-columns:1fr}}
+
+.product-item{display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--bg-elev);border-radius:var(--radius-sm);font-size:13px}
+.product-item-emoji{font-size:16px;flex-shrink:0}
+.product-item-name{flex:1;min-width:0}
+.product-item-qty{font-family:var(--mono);font-size:11px;color:var(--text-dim);flex-shrink:0}
+.product-item-method{font-family:var(--mono);font-size:9px;padding:2px 8px;border-radius:100px;border:1px solid var(--line);color:var(--text-mute);flex-shrink:0;text-transform:uppercase;letter-spacing:.04em}
+
+.shipping-info{padding:12px 16px;background:var(--bg-elev);border-radius:var(--radius-sm);font-size:13px;color:var(--text-dim);line-height:1.6}
+.shipping-info strong{color:var(--text);font-weight:500}
+
+.payment-info{padding:12px 16px;background:var(--bg-elev);border-radius:var(--radius-sm);font-size:13px;color:var(--text-dim);line-height:1.8}
+.payment-info .payment-badge{margin-right:8px}
+.payment-method{font-family:var(--mono);font-size:12px;color:var(--text)}
+.payment-note{font-size:12px;color:var(--text-mute);margin-top:6px;font-style:italic}
+
+.tracking-info{padding:12px 16px;background:var(--bg-elev);border-radius:var(--radius-sm);font-size:13px;line-height:1.8}
+.tracking-number{font-family:var(--mono);font-size:14px;font-weight:600;color:var(--accent);letter-spacing:.06em}
+.tracking-eta{font-size:12px;color:var(--text-dim)}
+.tracking-pending{font-size:12px;color:var(--text-mute);font-style:italic}
+
+.timeline-info{padding:12px 16px;background:var(--bg-elev);border-radius:var(--radius-sm)}
+.timeline-item{display:flex;align-items:flex-start;gap:10px;padding:4px 0;font-size:12px}
+.timeline-item-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:4px}
+.timeline-item-date{font-family:var(--mono);color:var(--text-dim);min-width:100px;flex-shrink:0}
+.timeline-item-label{color:var(--text)}
+
 /* RESPONSIVE */
 @media(max-width:600px){
   .nav-inner{flex-wrap:wrap;gap:10px;padding:10px 16px}
@@ -115,6 +180,10 @@ button,input,select{font-family:var(--sans)}button{cursor:pointer}
   .order-body{flex-direction:column;align-items:flex-start}
   .order-transport{display:none}
   .footer-inner{flex-direction:column;gap:10px;text-align:center}
+  .mini-pipeline{gap:0}
+  .mini-pipeline-line{width:8px}
+  .mini-pipeline-label{font-size:7px}
+  .detail-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -204,6 +273,141 @@ const STATUS_LABELS = {
   cancelada: 'Cancelada'
 };
 
+// ===== PIPELINE STEPS =====
+const PIPELINE_STEPS = [
+  { key: 'pendiente', label: 'Nuevo' },
+  { key: 'cotizado', label: 'Cotizado' },
+  { key: 'pagado', label: 'Pagado' },
+  { key: 'en_produccion', label: 'Produccion' },
+  { key: 'embarcado', label: 'Embarcado' },
+  { key: 'en_aduana', label: 'Aduana' },
+  { key: 'despachado', label: 'Despachado' },
+  { key: 'entregado', label: 'Entregado' },
+];
+
+const PAYMENT_LABELS = {
+  pendiente: 'Pendiente',
+  parcial: 'Parcial',
+  pagado: 'Pagado'
+};
+
+// ===== TOGGLE ORDER EXPAND =====
+function toggleOrder(id) {
+  const card = document.getElementById('order-' + id);
+  if (card) card.classList.toggle('expanded');
+}
+
+// ===== BUILD MINI PIPELINE =====
+function buildPipeline(shippingStatus) {
+  const currentKey = shippingStatus || 'pendiente';
+  const currentIndex = PIPELINE_STEPS.findIndex(s => s.key === currentKey);
+  const idx = currentIndex === -1 ? 0 : currentIndex;
+
+  let html = '<div class="mini-pipeline">';
+  PIPELINE_STEPS.forEach((step, i) => {
+    let dotClass = 'mini-pipeline-dot';
+    let stepClass = 'mini-pipeline-step';
+    if (i < idx) { dotClass += ' completed'; stepClass += ' completed'; }
+    else if (i === idx) { dotClass += ' current'; stepClass += ' current'; }
+    else { dotClass += ' future'; }
+
+    if (i > 0) {
+      html += '<div class="mini-pipeline-line' + (i <= idx ? ' completed' : '') + '"></div>';
+    }
+    html += '<div class="' + stepClass + '"><div class="' + dotClass + '"></div><div class="mini-pipeline-label">' + step.label + '</div></div>';
+  });
+  html += '</div>';
+  return html;
+}
+
+// ===== BUILD PRODUCTS LIST =====
+function buildProductsList(productsData) {
+  if (!productsData || !Array.isArray(productsData) || productsData.length === 0) {
+    return '<p style="font-size:13px;color:var(--text-mute)">Sin datos de productos</p>';
+  }
+  return productsData.map(p => {
+    const emoji = p.emoji || '📦';
+    const name = p.name || p.title || 'Producto';
+    const qty = p.qty || p.quantity || 1;
+    const method = p.method || p.transport || '';
+    const methodBadge = method ? '<span class="product-item-method">' + method + '</span>' : '';
+    return '<div class="product-item"><span class="product-item-emoji">' + emoji + '</span><span class="product-item-name">' + name + '</span><span class="product-item-qty">x' + qty + '</span>' + methodBadge + '</div>';
+  }).join('');
+}
+
+// ===== BUILD SHIPPING ADDRESS =====
+function buildShippingAddress(addr) {
+  if (!addr || (typeof addr === 'object' && Object.keys(addr).length === 0)) {
+    return '<div class="shipping-info">Sin datos de envio</div>';
+  }
+  if (typeof addr === 'string') {
+    return '<div class="shipping-info">' + addr + '</div>';
+  }
+  const parts = [];
+  if (addr.street) parts.push('<strong>' + addr.street + '</strong>');
+  if (addr.city) parts.push(addr.city);
+  if (addr.province || addr.state) parts.push(addr.province || addr.state);
+  if (addr.zip || addr.postal_code) parts.push('CP ' + (addr.zip || addr.postal_code));
+  if (addr.country) parts.push(addr.country);
+  return '<div class="shipping-info">' + (parts.length > 0 ? parts.join('<br>') : 'Sin datos de envio') + '</div>';
+}
+
+// ===== BUILD PAYMENT INFO =====
+function buildPaymentInfo(order) {
+  const payStatus = order.payment_status || 'pendiente';
+  const payLabel = PAYMENT_LABELS[payStatus] || payStatus;
+  const payMethod = order.payment_method || '';
+  let html = '<div class="payment-info">';
+  html += '<span class="payment-badge payment-' + payStatus + '">' + payLabel + '</span>';
+  if (payMethod) html += '<br><span class="payment-method">Metodo: ' + payMethod + '</span>';
+  if (payStatus === 'pendiente') html += '<div class="payment-note">Te contactaremos para coordinar el pago</div>';
+  html += '</div>';
+  return html;
+}
+
+// ===== BUILD TRACKING INFO =====
+function buildTrackingInfo(order) {
+  const tracking = order.tracking_number;
+  const eta = order.estimated_delivery;
+  let html = '<div class="tracking-info">';
+  if (tracking) {
+    html += '<div class="tracking-number">📍 ' + tracking + '</div>';
+  }
+  if (eta) {
+    const etaDate = new Date(eta);
+    const formatted = etaDate.toLocaleDateString('es-AR', { day: 'numeric', month: 'long', year: 'numeric' });
+    html += '<div class="tracking-eta">Entrega estimada: ' + formatted + '</div>';
+  }
+  if (!tracking && !eta) {
+    html += '<div class="tracking-pending">Tracking disponible una vez embarcado</div>';
+  }
+  html += '</div>';
+  return html;
+}
+
+// ===== BUILD TIMELINE =====
+function buildTimeline(order) {
+  const items = [];
+  if (order.created_at) {
+    items.push({ date: order.created_at, label: 'Pedido creado' });
+  }
+  if (order.activity_log && Array.isArray(order.activity_log)) {
+    order.activity_log.forEach(entry => {
+      if (entry.date && entry.action) {
+        items.push({ date: entry.date, label: entry.action });
+      }
+    });
+  }
+  if (items.length === 0) return '';
+  items.sort((a, b) => new Date(a.date) - new Date(b.date));
+  let html = '<div class="timeline-info">';
+  items.forEach(item => {
+    html += '<div class="timeline-item"><div class="timeline-item-dot"></div><div class="timeline-item-date">' + formatDate(item.date) + '</div><div class="timeline-item-label">' + item.label + '</div></div>';
+  });
+  html += '</div>';
+  return html;
+}
+
 // ===== FORMAT DATE =====
 function formatDate(dateStr) {
   const d = new Date(dateStr);
@@ -237,29 +441,67 @@ function renderOrders(orders) {
   orders.forEach(order => {
     const status = order.status || 'pendiente';
     const statusLabel = STATUS_LABELS[status] || status;
+    const payStatus = order.payment_status || 'pendiente';
+    const payLabel = PAYMENT_LABELS[payStatus] || payStatus;
     const isAir = order.transport_type === 'air';
     const transportIcon = isAir
       ? '<svg viewBox="0 0 24 24"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.4-.1.9.3 1.1L11 12l-2 3H6l-1 1 3 2 2 3 1-1v-3l3-2 3.7 7.3c.2.4.7.5 1.1.3l.5-.3c.4-.2.5-.6.5-1.1z"/></svg>'
       : '<svg viewBox="0 0 24 24"><path d="M2 20l.8-2.4A7.58 7.58 0 012 14.5C2 10.36 6.03 7 11 7s9 3.36 9 7.5a7 7 0 01-.8 3.1L20 20"/><path d="M6.5 7V4a1 1 0 011-1h3a1 1 0 011 1v3"/></svg>';
     const transportLabel = isAir ? 'Aereo' : 'Maritimo';
+    const orderId = String(order.id).slice(0, 8);
 
     const card = document.createElement('div');
     card.className = 'order-card';
+    card.id = 'order-' + orderId;
+    card.onclick = function() { toggleOrder(orderId); };
     card.innerHTML = `
       <div class="order-top">
         <div class="order-meta">
           <div class="order-date">${formatDate(order.created_at)}</div>
-          <div class="order-id">ID: ${String(order.id).slice(0, 8)}</div>
+          <div class="order-id">ID: ${orderId}</div>
+          <span class="payment-badge payment-${payStatus}">${payLabel}</span>
         </div>
-        <span class="status-badge status-${status}">${statusLabel}</span>
+        <div style="display:flex;align-items:center;gap:10px">
+          <span class="status-badge status-${status}">${statusLabel}</span>
+          <svg class="order-expand-icon" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
       </div>
       <div class="order-body">
         <div class="order-transport" title="${transportLabel}">
           ${transportIcon}
         </div>
-        <div>
+        <div style="flex:1;min-width:0">
           <div class="order-products">${order.products_description || 'Sin descripcion'}</div>
           <div class="order-products-detail">${order.origin_country || 'China'} · ${transportLabel}</div>
+        </div>
+      </div>
+      ${buildPipeline(order.shipping_status)}
+      <div class="order-detail">
+        <div class="detail-grid">
+          <div>
+            <div class="detail-section">
+              <div class="detail-section-title"><span>📦</span> Productos</div>
+              ${buildProductsList(order.products_data)}
+            </div>
+            <div class="detail-section">
+              <div class="detail-section-title"><span>📍</span> Direccion de envio</div>
+              ${buildShippingAddress(order.shipping_address)}
+            </div>
+          </div>
+          <div>
+            <div class="detail-section">
+              <div class="detail-section-title"><span>💳</span> Pago</div>
+              ${buildPaymentInfo(order)}
+            </div>
+            <div class="detail-section">
+              <div class="detail-section-title"><span>🚚</span> Tracking</div>
+              ${buildTrackingInfo(order)}
+            </div>
+            <div class="detail-section">
+              <div class="detail-section-title"><span>📋</span> Timeline</div>
+              ${buildTimeline(order)}
+            </div>
+          </div>
         </div>
       </div>
     `;
