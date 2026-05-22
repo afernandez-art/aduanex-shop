@@ -46,6 +46,8 @@ button{font-family:var(--sans);cursor:pointer}
 .nav-link:hover{color:var(--text)}
 .nav-cta{padding:9px 20px;background:var(--accent);color:var(--bg);border-radius:100px;font-weight:600;font-size:13px;border:none;transition:transform 150ms}
 .nav-cta:hover{transform:scale(1.04)}
+.nav-cart{position:relative;display:flex;align-items:center}
+.cart-badge{position:absolute;top:-8px;right:-10px;width:18px;height:18px;border-radius:50%;background:var(--accent);color:var(--bg);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:var(--mono)}
 
 /* ===== STICKY PRODUCT BAR ===== */
 .sticky-bar{position:fixed;top:53px;left:0;right:0;z-index:90;padding:10px 32px;backdrop-filter:blur(16px) saturate(180%);background:rgba(0,0,0,.8);border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;transform:translateY(-100%);opacity:0;transition:transform 300ms,opacity 300ms}
@@ -357,7 +359,11 @@ footer{border-top:1px solid var(--line);padding:32px;font-family:var(--mono);fon
     <a href="#overview" class="nav-link">Producto</a>
     <a href="#specs" class="nav-link">Specs</a>
     <a href="#roi" class="nav-link">ROI</a>
-    <a href="#contacto" class="nav-cta">Cotizar importación</a>
+    <a href="carrito.html" class="nav-link nav-cart">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      <span class="cart-badge" style="display:none">0</span>
+    </a>
+    <a href="login.html" class="nav-cta" id="nav-auth-btn">Iniciar sesion</a>
   </div>
 </nav>
 
@@ -367,7 +373,7 @@ footer{border-top:1px solid var(--line);padding:32px;font-family:var(--mono);fon
     <span class="sb-price">Desde $23,500 USD</span>
   </div>
   <div class="sb-right">
-    <a href="#contacto" class="sb-btn sb-btn-primary">Cotizar importacion</a>
+    <button class="sb-btn sb-btn-primary" onclick="addToCart()">Agregar al carrito</button>
     <a href="https://wa.me/" class="sb-btn sb-btn-outline" target="_blank">WhatsApp</a>
   </div>
 </div>
@@ -462,7 +468,7 @@ footer{border-top:1px solid var(--line);padding:32px;font-family:var(--mono);fon
     </div>
 
     <div class="pi-ctas">
-      <a href="#contacto" class="btn-lg btn-lg-primary"><span>Cotizar importacion</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      <button id="btn-add-cart" class="btn-lg btn-lg-primary" onclick="addToCart()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="18" height="18"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><span>Agregar al carrito</span></button>
       <a href="https://wa.me/" class="btn-lg btn-lg-outline" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>WhatsApp</a>
     </div>
 
@@ -880,6 +886,47 @@ async function loadContainerGauge() {
   } catch(e) { console.log('Gauge: using fallback data'); }
 }
 loadContainerGauge();
+
+// Cart helpers
+function getCart() { return JSON.parse(localStorage.getItem('aduanex_cart') || '[]'); }
+function saveCart(cart) { localStorage.setItem('aduanex_cart', JSON.stringify(cart)); updateCartBadge(); }
+function updateCartBadge() {
+  const count = getCart().reduce((sum, i) => sum + (i.qty || 1), 0);
+  document.querySelectorAll('.cart-badge').forEach(b => {
+    b.textContent = count;
+    b.style.display = count > 0 ? 'flex' : 'none';
+  });
+}
+function addToCart() {
+  const item = {
+    id: 'double-arm-coffee',
+    name: 'Double Arm Intelligent Coffee Shop',
+    category: 'Robotica & Vending',
+    prices: { sea: { t1: 28500, t2: 25900, t3: 23500 }, air: { t1: 36200, t2: 33400, t3: 31200 } },
+    qty: currentTier === 3 ? 6 : currentTier === 2 ? 3 : 1,
+    method: currentMethod,
+    image: '☕'
+  };
+  const cart = getCart();
+  const existing = cart.find(c => c.id === item.id);
+  if (existing) { existing.qty = item.qty; existing.method = item.method; }
+  else cart.push(item);
+  saveCart(cart);
+  // Visual feedback
+  const btn = document.getElementById('btn-add-cart');
+  if (btn) {
+    const orig = btn.innerHTML;
+    btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Agregado al carrito';
+    btn.style.background = 'var(--accent)'; btn.style.color = 'var(--bg)'; btn.style.borderColor = 'var(--accent)';
+    setTimeout(() => { btn.innerHTML = orig; btn.style.background = ''; btn.style.color = ''; btn.style.borderColor = ''; }, 2000);
+  }
+}
+// Auth state
+supa.auth.getSession().then(({ data: { session } }) => {
+  const btn = document.getElementById('nav-auth-btn');
+  if (session && btn) { btn.textContent = 'Mi cuenta'; btn.href = 'mis-pedidos.html'; }
+});
+updateCartBadge();
 </script>
 
 </body>

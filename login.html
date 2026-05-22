@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iniciar sesion — Aduanex Shop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#000;--bg-elev:#0a0c0a;--bg-card:#111311;--bg-card-hover:#191b19;
+  --text:#F3F4F1;--text-dim:#8B8E89;--text-mute:#5C5F5A;
+  --line:rgba(243,244,241,.07);--line-strong:rgba(243,244,241,.12);
+  --accent:#88CE02;--accent-soft:rgba(136,206,2,.08);--accent-mid:rgba(136,206,2,.18);
+  --sans:'Geist',-apple-system,sans-serif;--mono:'Geist Mono',monospace;
+  --radius:14px;--radius-sm:8px;--max-w:1200px;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased}
+html{background:var(--bg);overflow-x:hidden;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:400;line-height:1.5;min-height:100vh;display:flex;flex-direction:column}
+::selection{background:var(--accent);color:var(--bg)}
+a{text-decoration:none;color:inherit}img{display:block;max-width:100%}
+button,input,select{font-family:var(--sans)}button{cursor:pointer}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:rgba(0,0,0,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.nav-inner{max-width:var(--max-w);margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:20px}
+.logo{font-size:18px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;flex-shrink:0}
+.logo-a{color:var(--accent)}
+.logo-badge{font-size:9px;font-family:var(--mono);letter-spacing:.1em;color:var(--accent);margin-left:6px;padding:2px 8px;border:1px solid var(--accent-mid);border-radius:100px;text-transform:uppercase;vertical-align:middle}
+.nav-actions{display:flex;align-items:center;gap:16px;margin-left:auto}
+.nav-link{font-size:13px;color:var(--text-dim);font-weight:500;transition:color 150ms;white-space:nowrap}
+.nav-link:hover{color:var(--text)}
+.nav-cta{padding:8px 18px;background:var(--accent);color:var(--bg);border-radius:100px;font-weight:600;font-size:12px;border:none;transition:transform 150ms;white-space:nowrap}
+.nav-cta:hover{transform:scale(1.03)}
+
+/* AUTH WRAPPER */
+.auth-wrapper{flex:1;display:flex;align-items:center;justify-content:center;padding:48px 24px}
+
+/* AUTH CARD */
+.auth-card{width:100%;max-width:440px;background:var(--bg-card);border:1px solid var(--line);border-radius:20px;overflow:hidden;position:relative}
+.auth-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent 0%,var(--accent) 50%,transparent 100%)}
+
+.auth-card-inner{padding:40px 36px 36px}
+
+.auth-header{text-align:center;margin-bottom:28px}
+.auth-header h1{font-size:22px;font-weight:800;letter-spacing:-.02em;margin-bottom:6px}
+.auth-header h1 span{color:var(--accent)}
+.auth-header p{font-size:13px;color:var(--text-dim)}
+
+/* FORM */
+.auth-form{display:flex;flex-direction:column;gap:14px}
+.auth-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.auth-group{display:flex;flex-direction:column;gap:5px}
+.auth-label{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-mute)}
+.auth-input{background:var(--bg-elev);border:1px solid var(--line-strong);border-radius:10px;padding:12px 14px;color:var(--text);font-family:var(--sans);font-size:14px;outline:none;transition:border-color 200ms,box-shadow 200ms}
+.auth-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.auth-input::placeholder{color:var(--text-mute)}
+
+.auth-submit{padding:14px;background:var(--accent);color:var(--bg);border:none;border-radius:100px;font-size:14px;font-weight:600;cursor:pointer;transition:transform 150ms,opacity 150ms;margin-top:4px}
+.auth-submit:hover:not(:disabled){transform:scale(1.03)}
+.auth-submit:disabled{opacity:.6;cursor:not-allowed}
+
+.auth-footer{text-align:center;margin-top:20px;font-size:13px;color:var(--text-dim)}
+.auth-footer a{color:var(--accent);font-weight:500;transition:opacity 150ms}
+.auth-footer a:hover{opacity:.8}
+
+.auth-forgot{text-align:center;margin-top:10px}
+.auth-forgot a{font-size:12px;color:var(--text-mute);transition:color 150ms}
+.auth-forgot a:hover{color:var(--accent)}
+
+/* MESSAGES */
+.auth-msg{padding:10px 14px;border-radius:var(--radius-sm);font-size:13px;text-align:center;display:none;margin-bottom:8px;line-height:1.4}
+.auth-msg.error{display:block;background:rgba(255,107,107,.1);border:1px solid rgba(255,107,107,.25);color:#ff6b6b}
+.auth-msg.success{display:block;background:var(--accent-soft);border:1px solid var(--accent-mid);color:var(--accent)}
+
+/* FOOTER */
+.footer{border-top:1px solid var(--line);padding:32px 0 24px}
+.footer-inner{max-width:var(--max-w);margin:0 auto;padding:0 24px}
+.footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:32px;padding-bottom:24px;border-bottom:1px solid var(--line);margin-bottom:16px}
+.footer-brand .footer-logo{font-size:16px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;margin-bottom:8px}
+.footer-brand .footer-logo .a{color:var(--accent)}
+.footer-brand p{font-size:11px;color:var(--text-mute);line-height:1.5;max-width:280px;margin-bottom:12px}
+.footer-wa{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;background:var(--accent-soft);border:1px solid var(--accent-mid);border-radius:100px;font-size:11px;font-weight:600;color:var(--accent);transition:all 150ms}
+.footer-wa:hover{background:var(--accent-mid)}
+.footer-wa svg{width:14px;height:14px;fill:var(--accent)}
+.footer-col h5{font-size:10px;font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--text-mute);margin-bottom:10px}
+.footer-col a{display:block;font-size:12px;color:var(--text-dim);padding:3px 0;transition:color 150ms}
+.footer-col a:hover{color:var(--accent)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center}
+.footer-copy{font-size:10px;color:var(--text-mute);font-family:var(--mono)}
+.footer-badges{display:flex;gap:12px;align-items:center}
+.footer-badges span{font-size:9px;font-family:var(--mono);letter-spacing:.05em;color:var(--text-mute);padding:3px 10px;border:1px solid var(--line);border-radius:100px}
+
+/* RESPONSIVE */
+@media(max-width:600px){
+  .nav-inner{flex-wrap:wrap;gap:10px;padding:10px 16px}
+  .nav-actions .nav-link{display:none}
+  .auth-wrapper{padding:32px 16px}
+  .auth-card-inner{padding:32px 24px 28px}
+  .auth-row{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;gap:10px;text-align:center}
+}
+@media(max-width:900px){
+  .footer-top{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">ADUA<span class="logo-a">NEX</span><span class="logo-badge">Shop</span></a>
+    <div class="nav-actions">
+      <a href="index.html" class="nav-link">Catalogo</a>
+      <a href="producto.html#contacto" class="nav-link">Cotizar</a>
+      <a href="producto.html#contacto" class="nav-cta">Cotizar importacion</a>
+    </div>
+  </div>
+</nav>
+
+<!-- AUTH -->
+<div class="auth-wrapper">
+  <div class="auth-card">
+    <div class="auth-card-inner">
+
+      <!-- MESSAGE -->
+      <div class="auth-msg" id="auth-msg"></div>
+
+      <!-- LOGIN FORM -->
+      <div id="login-view">
+        <div class="auth-header">
+          <h1>Iniciar <span>sesion</span></h1>
+          <p>Accede a tu cuenta para gestionar tus pedidos</p>
+        </div>
+        <form class="auth-form" id="login-form" onsubmit="event.preventDefault(); handleLogin()">
+          <div class="auth-group">
+            <label class="auth-label">Email</label>
+            <input type="email" class="auth-input" id="login-email" placeholder="email@empresa.com" required autocomplete="email">
+          </div>
+          <div class="auth-group">
+            <label class="auth-label">Contrasena</label>
+            <input type="password" class="auth-input" id="login-password" placeholder="Tu contrasena" required autocomplete="current-password">
+          </div>
+          <button type="submit" class="auth-submit" id="login-btn">Iniciar sesion</button>
+        </form>
+        <div class="auth-forgot">
+          <a href="#" onclick="event.preventDefault(); handleReset()">Olvidaste tu contrasena?</a>
+        </div>
+        <div class="auth-footer">
+          No tenes cuenta? <a href="#" onclick="event.preventDefault(); showView('register')">Registrate</a>
+        </div>
+      </div>
+
+      <!-- REGISTER FORM -->
+      <div id="register-view" style="display:none">
+        <div class="auth-header">
+          <h1>Crear <span>cuenta</span></h1>
+          <p>Registrate para cotizar y gestionar tus importaciones</p>
+        </div>
+        <form class="auth-form" id="register-form" onsubmit="event.preventDefault(); handleRegister()">
+          <div class="auth-row">
+            <div class="auth-group">
+              <label class="auth-label">Nombre completo</label>
+              <input type="text" class="auth-input" id="reg-name" placeholder="Tu nombre" required autocomplete="name">
+            </div>
+            <div class="auth-group">
+              <label class="auth-label">Empresa</label>
+              <input type="text" class="auth-input" id="reg-company" placeholder="Nombre de tu empresa" required autocomplete="organization">
+            </div>
+          </div>
+          <div class="auth-group">
+            <label class="auth-label">Email</label>
+            <input type="email" class="auth-input" id="reg-email" placeholder="email@empresa.com" required autocomplete="email">
+          </div>
+          <div class="auth-group">
+            <label class="auth-label">Telefono</label>
+            <input type="tel" class="auth-input" id="reg-phone" placeholder="+54 11..." autocomplete="tel">
+          </div>
+          <div class="auth-group">
+            <label class="auth-label">Contrasena</label>
+            <input type="password" class="auth-input" id="reg-password" placeholder="Minimo 6 caracteres" required minlength="6" autocomplete="new-password">
+          </div>
+          <button type="submit" class="auth-submit" id="register-btn">Crear cuenta</button>
+        </form>
+        <div class="auth-footer">
+          Ya tenes cuenta? <a href="#" onclick="event.preventDefault(); showView('login')">Inicia sesion</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">ADUA<span class="a">NEX</span> SHOP</div>
+        <p>Marketplace B2B de importacion gestionada. Conectamos empresas argentinas con fabricas chinas verificadas.</p>
+        <a href="https://wa.me/5491100000000" class="footer-wa" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+          WhatsApp
+        </a>
+      </div>
+      <div class="footer-col">
+        <h5>Catalogo</h5>
+        <a href="index.html">Todos los productos</a>
+        <a href="index.html">Robotica & Vending</a>
+        <a href="index.html">Maquinas expendedoras</a>
+        <a href="index.html">Kioscos inteligentes</a>
+      </div>
+      <div class="footer-col">
+        <h5>Empresa</h5>
+        <a href="index.html#por-que">Por que Aduanex</a>
+        <a href="index.html#como">Como funciona</a>
+        <a href="producto.html#contacto">Contacto</a>
+      </div>
+      <div class="footer-col">
+        <h5>Legal</h5>
+        <a href="#">Terminos y condiciones</a>
+        <a href="#">Politica de privacidad</a>
+        <a href="#">Politica de envios</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">&copy; 2026 Aduanex. Todos los derechos reservados.</div>
+      <div class="footer-badges">
+        <span>AFIP Inscripto</span>
+        <span>Despachante Matriculado</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+const SUPA_URL = 'https://qsirhluidhpmrpnejwdp.supabase.co';
+const SUPA_KEY = 'sb_publishable_1kOHBeoCsSY1ufV1_1DjKw_GNt60bPd';
+const supa = supabase.createClient(SUPA_URL, SUPA_KEY);
+
+// ===== REDIRECT HELPER =====
+const _redirect = new URLSearchParams(window.location.search).get('redirect') || 'mis-pedidos.html';
+
+// ===== CHECK SESSION =====
+(async function checkSession() {
+  try {
+    const { data: { session } } = await supa.auth.getSession();
+    if (session) window.location.href = _redirect;
+  } catch(e) { /* not logged in */ }
+})();
+
+// ===== VIEW TOGGLE =====
+function showView(view) {
+  clearMsg();
+  document.getElementById('login-view').style.display = view === 'login' ? 'block' : 'none';
+  document.getElementById('register-view').style.display = view === 'register' ? 'block' : 'none';
+}
+
+// ===== MESSAGES =====
+function showMsg(text, type) {
+  const el = document.getElementById('auth-msg');
+  el.textContent = text;
+  el.className = 'auth-msg ' + type;
+}
+function clearMsg() {
+  const el = document.getElementById('auth-msg');
+  el.className = 'auth-msg';
+  el.textContent = '';
+}
+
+// ===== LOGIN =====
+async function handleLogin() {
+  const email = document.getElementById('login-email').value.trim();
+  const password = document.getElementById('login-password').value;
+  const btn = document.getElementById('login-btn');
+
+  if (!email || !password) {
+    showMsg('Completa todos los campos.', 'error');
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Ingresando...';
+  clearMsg();
+
+  try {
+    const { data, error } = await supa.auth.signInWithPassword({ email, password });
+    if (error) {
+      showMsg(translateError(error.message), 'error');
+      btn.disabled = false;
+      btn.textContent = 'Iniciar sesion';
+      return;
+    }
+    window.location.href = _redirect;
+  } catch(e) {
+    showMsg('Error de conexion. Intenta de nuevo.', 'error');
+    btn.disabled = false;
+    btn.textContent = 'Iniciar sesion';
+  }
+}
+
+// ===== REGISTER =====
+async function handleRegister() {
+  const full_name = document.getElementById('reg-name').value.trim();
+  const company = document.getElementById('reg-company').value.trim();
+  const email = document.getElementById('reg-email').value.trim();
+  const phone = document.getElementById('reg-phone').value.trim();
+  const password = document.getElementById('reg-password').value;
+  const btn = document.getElementById('register-btn');
+
+  if (!full_name || !company || !email || !password) {
+    showMsg('Completa todos los campos obligatorios.', 'error');
+    return;
+  }
+  if (password.length < 6) {
+    showMsg('La contrasena debe tener al menos 6 caracteres.', 'error');
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Creando cuenta...';
+  clearMsg();
+
+  try {
+    const { data, error } = await supa.auth.signUp({
+      email,
+      password,
+      options: {
+        data: { full_name, company, phone }
+      }
+    });
+
+    if (error) {
+      showMsg(translateError(error.message), 'error');
+      btn.disabled = false;
+      btn.textContent = 'Crear cuenta';
+      return;
+    }
+
+    // Insert into clients table
+    if (data.user) {
+      try {
+        await supa.from('clients').insert([{
+          user_id: data.user.id,
+          full_name,
+          company,
+          email,
+          phone,
+          source: 'shop_register'
+        }]);
+      } catch(e) { /* non-blocking */ }
+    }
+
+    showMsg('Cuenta creada. Revisa tu email para confirmar tu cuenta.', 'success');
+    btn.textContent = 'Cuenta creada';
+    document.getElementById('register-form').reset();
+
+    setTimeout(() => {
+      btn.disabled = false;
+      btn.textContent = 'Crear cuenta';
+    }, 5000);
+
+  } catch(e) {
+    showMsg('Error de conexion. Intenta de nuevo.', 'error');
+    btn.disabled = false;
+    btn.textContent = 'Crear cuenta';
+  }
+}
+
+// ===== PASSWORD RESET =====
+async function handleReset() {
+  const email = document.getElementById('login-email').value.trim();
+  if (!email) {
+    showMsg('Ingresa tu email primero y luego hace click en "Olvidaste tu contrasena?".', 'error');
+    return;
+  }
+
+  clearMsg();
+
+  try {
+    const { error } = await supa.auth.resetPasswordForEmail(email, {
+      redirectTo: window.location.origin + '/login.html'
+    });
+
+    if (error) {
+      showMsg(translateError(error.message), 'error');
+      return;
+    }
+
+    showMsg('Te enviamos un email para restablecer tu contrasena. Revisa tu bandeja de entrada.', 'success');
+  } catch(e) {
+    showMsg('Error de conexion. Intenta de nuevo.', 'error');
+  }
+}
+
+// ===== ERROR TRANSLATION =====
+function translateError(msg) {
+  const map = {
+    'Invalid login credentials': 'Email o contrasena incorrectos.',
+    'Email not confirmed': 'Tu email no esta confirmado. Revisa tu bandeja de entrada.',
+    'User already registered': 'Ya existe una cuenta con este email.',
+    'Password should be at least 6 characters': 'La contrasena debe tener al menos 6 caracteres.',
+    'Unable to validate email address: invalid format': 'El formato del email no es valido.',
+    'Email rate limit exceeded': 'Demasiados intentos. Espera unos minutos.',
+    'For security purposes, you can only request this once every 60 seconds': 'Por seguridad, solo podes solicitar esto una vez por minuto.'
+  };
+  return map[msg] || msg;
+}
+</script>
+
+</body>
+</html>
