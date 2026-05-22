@@ -134,6 +134,60 @@ button,input,select{font-family:var(--sans)}button{cursor:pointer}
 .success-state .success-actions .btn-primary{background:var(--accent);color:var(--bg)}
 .success-state .success-actions .btn-outline{background:transparent;color:var(--text-dim);border:1px solid var(--line)}
 
+/* CHECKOUT FORM */
+.checkout-form{display:none;padding:24px 0 80px}
+.checkout-form.visible{display:block}
+.checkout-form-inner{max-width:640px}
+.checkout-section{margin-bottom:32px}
+.checkout-section-title{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-mute);margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.checkout-field{margin-bottom:16px}
+.checkout-field label{display:block;font-size:13px;font-weight:500;color:var(--text-dim);margin-bottom:6px}
+.checkout-field label .req{color:var(--accent);margin-left:2px}
+.checkout-field input[type="text"],
+.checkout-field select,
+.checkout-field textarea{width:100%;padding:12px 16px;background:var(--bg-card);border:1px solid var(--line);border-radius:var(--radius-sm);color:var(--text);font-family:var(--sans);font-size:14px;transition:border-color 200ms;outline:none}
+.checkout-field input[type="text"]:focus,
+.checkout-field select:focus,
+.checkout-field textarea:focus{border-color:var(--accent)}
+.checkout-field input[type="text"]::placeholder,
+.checkout-field textarea::placeholder{color:var(--text-mute)}
+.checkout-field select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%235C5F5A' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;cursor:pointer}
+.checkout-field select option{background:var(--bg-card);color:var(--text)}
+.checkout-field textarea{resize:vertical;min-height:80px}
+.checkout-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+/* PAYMENT RADIO */
+.payment-options{display:flex;flex-direction:column;gap:8px}
+.payment-option{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--bg-card);border:1px solid var(--line);border-radius:var(--radius-sm);cursor:pointer;transition:border-color 200ms}
+.payment-option:hover{border-color:var(--line-strong)}
+.payment-option.selected{border-color:var(--accent);background:var(--accent-soft)}
+.payment-option input[type="radio"]{appearance:none;width:16px;height:16px;border:2px solid var(--text-mute);border-radius:50%;flex-shrink:0;position:relative;cursor:pointer;transition:border-color 200ms}
+.payment-option input[type="radio"]:checked{border-color:var(--accent)}
+.payment-option input[type="radio"]:checked::after{content:'';position:absolute;top:2px;left:2px;width:8px;height:8px;background:var(--accent);border-radius:50%}
+.payment-option-label{font-size:14px;font-weight:500}
+.payment-option.selected .payment-option-label{color:var(--accent)}
+
+/* CHECKOUT ACTIONS */
+.checkout-actions{display:flex;gap:12px;margin-top:32px}
+.checkout-submit{flex:1;padding:14px;background:var(--accent);color:var(--bg);border:none;border-radius:100px;font-size:14px;font-weight:700;cursor:pointer;transition:transform 150ms;text-align:center}
+.checkout-submit:hover{transform:scale(1.03)}
+.checkout-submit:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.checkout-back-btn{padding:14px 24px;background:transparent;color:var(--text-dim);border:1px solid var(--line);border-radius:100px;font-size:13px;font-weight:500;cursor:pointer;transition:all 150ms}
+.checkout-back-btn:hover{border-color:var(--accent-mid);color:var(--text)}
+.checkout-error{color:#ff6b6b;font-size:12px;margin-top:8px;display:none}
+
+/* SUCCESS DETAILS */
+.success-details{max-width:440px;margin:0 auto 24px;background:var(--bg-card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;text-align:left}
+.success-details-title{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-mute);margin-bottom:10px}
+.success-detail-row{display:flex;justify-content:space-between;font-size:13px;padding:4px 0}
+.success-detail-row .sdl{color:var(--text-dim)}
+.success-detail-row .sdv{font-weight:500;color:var(--text);text-align:right}
+
+@media(max-width:600px){
+  .checkout-row{grid-template-columns:1fr}
+  .checkout-actions{flex-direction:column}
+}
+
 /* FOOTER */
 .footer{border-top:1px solid var(--line);padding:32px 0 24px}
 .footer-inner{max-width:var(--max-w);margin:0 auto;padding:0 24px;display:flex;justify-content:space-between;align-items:center}
@@ -216,13 +270,101 @@ button,input,select{font-family:var(--sans)}button{cursor:pointer}
     <a href="index.html">Ver catalogo</a>
   </div>
 
+  <!-- CHECKOUT FORM -->
+  <div class="checkout-form" id="checkout-form">
+    <div class="checkout-form-inner">
+
+      <div class="checkout-section">
+        <div class="checkout-section-title">DATOS DE ENVIO</div>
+        <div class="checkout-field">
+          <label>Direccion<span class="req">*</span></label>
+          <input type="text" id="chk-street" placeholder="Ej: Av. Corrientes 1234, Piso 3" required>
+        </div>
+        <div class="checkout-row">
+          <div class="checkout-field">
+            <label>Ciudad<span class="req">*</span></label>
+            <input type="text" id="chk-city" placeholder="Ej: Buenos Aires" required>
+          </div>
+          <div class="checkout-field">
+            <label>Codigo Postal</label>
+            <input type="text" id="chk-zip" placeholder="Ej: C1043">
+          </div>
+        </div>
+        <div class="checkout-field">
+          <label>Provincia<span class="req">*</span></label>
+          <select id="chk-province" required>
+            <option value="">Seleccionar provincia</option>
+            <option value="Buenos Aires">Buenos Aires</option>
+            <option value="CABA">CABA</option>
+            <option value="Catamarca">Catamarca</option>
+            <option value="Chaco">Chaco</option>
+            <option value="Chubut">Chubut</option>
+            <option value="Cordoba">Cordoba</option>
+            <option value="Corrientes">Corrientes</option>
+            <option value="Entre Rios">Entre Rios</option>
+            <option value="Formosa">Formosa</option>
+            <option value="Jujuy">Jujuy</option>
+            <option value="La Pampa">La Pampa</option>
+            <option value="La Rioja">La Rioja</option>
+            <option value="Mendoza">Mendoza</option>
+            <option value="Misiones">Misiones</option>
+            <option value="Neuquen">Neuquen</option>
+            <option value="Rio Negro">Rio Negro</option>
+            <option value="Salta">Salta</option>
+            <option value="San Juan">San Juan</option>
+            <option value="San Luis">San Luis</option>
+            <option value="Santa Cruz">Santa Cruz</option>
+            <option value="Santa Fe">Santa Fe</option>
+            <option value="Santiago del Estero">Santiago del Estero</option>
+            <option value="Tierra del Fuego">Tierra del Fuego</option>
+            <option value="Tucuman">Tucuman</option>
+          </select>
+        </div>
+        <div class="checkout-field">
+          <label>Notas de envio</label>
+          <textarea id="chk-notes" placeholder="Ej: Horario de recepcion, instrucciones especiales..."></textarea>
+        </div>
+      </div>
+
+      <div class="checkout-section">
+        <div class="checkout-section-title">METODO DE PAGO PREFERIDO</div>
+        <div class="payment-options" id="payment-options">
+          <label class="payment-option selected">
+            <input type="radio" name="payment-method" value="transferencia" checked>
+            <span class="payment-option-label">Transferencia bancaria</span>
+          </label>
+          <label class="payment-option">
+            <input type="radio" name="payment-method" value="efectivo">
+            <span class="payment-option-label">Efectivo</span>
+          </label>
+          <label class="payment-option">
+            <input type="radio" name="payment-method" value="crypto">
+            <span class="payment-option-label">Crypto</span>
+          </label>
+          <label class="payment-option">
+            <input type="radio" name="payment-method" value="otro">
+            <span class="payment-option-label">Otro</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="checkout-error" id="checkout-error">Completa todos los campos obligatorios.</div>
+      <div class="checkout-actions">
+        <button class="checkout-back-btn" onclick="backToCart()">Volver al carrito</button>
+        <button class="checkout-submit" id="submit-order-btn" onclick="submitOrder()">Confirmar pedido</button>
+      </div>
+
+    </div>
+  </div>
+
   <!-- SUCCESS STATE -->
   <div class="success-state" id="success-state">
     <div class="success-ico">
       <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#88CE02" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
     </div>
-    <h3>Solicitud <span>enviada</span></h3>
-    <p>Recibimos tu pedido de cotizacion. Nuestro equipo te contactara en menos de 24hs con el precio nacionalizado detallado.</p>
+    <h3>Pedido <span>confirmado</span></h3>
+    <p>Te contactaremos en las proximas 24hs para confirmar precios y coordinar el pago.</p>
+    <div id="success-details"></div>
     <div class="success-actions">
       <a href="mis-pedidos.html" class="btn-primary">Ver mis pedidos</a>
       <a href="index.html" class="btn-outline">Seguir comprando</a>
@@ -275,6 +417,7 @@ function renderCart() {
   const headerCount = document.getElementById('cart-header-count');
 
   success.classList.remove('visible');
+  document.getElementById('checkout-form').classList.remove('visible');
 
   if (cart.length === 0) {
     content.style.display = 'none';
@@ -382,7 +525,10 @@ function handleRemove(id) {
 // ===== CHECKOUT =====
 async function handleCheckout() {
   const btn = document.getElementById('checkout-btn');
-  btn.textContent = 'Procesando...';
+  const cart = getCart();
+  if (cart.length === 0) return;
+
+  btn.textContent = 'Verificando...';
   btn.disabled = true;
 
   try {
@@ -393,8 +539,77 @@ async function handleCheckout() {
       return;
     }
 
+    // Show checkout form, hide cart content
+    document.getElementById('cart-content').style.display = 'none';
+    document.getElementById('checkout-form').classList.add('visible');
+    document.getElementById('cart-header-count').textContent = 'Completa los datos para confirmar tu pedido.';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  } catch(e) {
+    console.error(e);
+  } finally {
+    btn.textContent = 'Solicitar cotizacion';
+    btn.disabled = false;
+  }
+}
+
+function backToCart() {
+  document.getElementById('checkout-form').classList.remove('visible');
+  document.getElementById('checkout-error').style.display = 'none';
+  document.getElementById('cart-content').style.display = 'grid';
+  renderCart();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Payment radio selection styling
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.payment-option input[type="radio"]').forEach(function(radio) {
+    radio.addEventListener('change', function() {
+      document.querySelectorAll('.payment-option').forEach(function(opt) { opt.classList.remove('selected'); });
+      if (radio.checked) radio.closest('.payment-option').classList.add('selected');
+    });
+  });
+});
+
+async function submitOrder() {
+  const btn = document.getElementById('submit-order-btn');
+  const errEl = document.getElementById('checkout-error');
+
+  // Collect form values
+  const street = document.getElementById('chk-street').value.trim();
+  const city = document.getElementById('chk-city').value.trim();
+  const province = document.getElementById('chk-province').value;
+  const zip = document.getElementById('chk-zip').value.trim();
+  const notes = document.getElementById('chk-notes').value.trim();
+  const paymentMethod = document.querySelector('input[name="payment-method"]:checked')?.value || '';
+
+  // Validate required fields
+  if (!street || !city || !province) {
+    errEl.style.display = 'block';
+    errEl.textContent = 'Completa todos los campos obligatorios (direccion, ciudad, provincia).';
+    return;
+  }
+
+  errEl.style.display = 'none';
+  btn.textContent = 'Procesando...';
+  btn.disabled = true;
+
+  try {
+    const { data: { session } } = await supa.auth.getSession();
+    if (!session) {
+      window.location.href = 'login.html?redirect=carrito.html';
+      return;
+    }
+
     const cart = getCart();
     if (cart.length === 0) return;
+
+    const paymentLabels = {
+      transferencia: 'Transferencia bancaria',
+      efectivo: 'Efectivo',
+      crypto: 'Crypto',
+      otro: 'Otro'
+    };
 
     const { error } = await supa.from('quote_requests').insert([{
       client_name: session.user.user_metadata.full_name || '',
@@ -406,8 +621,18 @@ async function handleCheckout() {
       transport_type: cart[0]?.method === 'sea' ? 'maritime' : 'air',
       origin_country: 'China',
       status: 'pendiente',
+      shipping_status: 'pendiente',
+      payment_status: 'pendiente',
       priority: 'normal',
-      source: 'shop'
+      source: 'shop',
+      shipping_address: {
+        street: street,
+        city: city,
+        province: province,
+        zip_code: zip,
+        notes: notes
+      },
+      payment_method: paymentMethod
     }]);
 
     if (error) throw error;
@@ -415,18 +640,30 @@ async function handleCheckout() {
     localStorage.removeItem('aduanex_cart');
     updateCartBadge();
 
+    // Build success details
+    const detailsEl = document.getElementById('success-details');
+    detailsEl.innerHTML = '<div class="success-details">'
+      + '<div class="success-details-title">DETALLES DEL PEDIDO</div>'
+      + '<div class="success-detail-row"><span class="sdl">Direccion</span><span class="sdv">' + street + '</span></div>'
+      + '<div class="success-detail-row"><span class="sdl">Ciudad</span><span class="sdv">' + city + '</span></div>'
+      + '<div class="success-detail-row"><span class="sdl">Provincia</span><span class="sdv">' + province + '</span></div>'
+      + (zip ? '<div class="success-detail-row"><span class="sdl">Codigo Postal</span><span class="sdv">' + zip + '</span></div>' : '')
+      + '<div class="success-detail-row"><span class="sdl">Pago</span><span class="sdv">' + (paymentLabels[paymentMethod] || paymentMethod) + '</span></div>'
+      + '</div>';
+
     // Show success
+    document.getElementById('checkout-form').classList.remove('visible');
     document.getElementById('cart-content').style.display = 'none';
     document.getElementById('empty-state').classList.remove('visible');
     document.getElementById('success-state').classList.add('visible');
-    document.getElementById('cart-header-count').textContent = 'Tu solicitud fue enviada correctamente.';
+    document.getElementById('cart-header-count').textContent = 'Tu pedido fue confirmado correctamente.';
 
   } catch(e) {
     console.error(e);
     btn.textContent = 'Error, intenta de nuevo';
     btn.style.background = '#ff6b6b';
     setTimeout(() => {
-      btn.textContent = 'Solicitar cotizacion';
+      btn.textContent = 'Confirmar pedido';
       btn.disabled = false;
       btn.style.background = '';
     }, 3000);
