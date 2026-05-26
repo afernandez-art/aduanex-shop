@@ -415,10 +415,15 @@ footer{border-top:1px solid var(--line);padding:32px;font-family:var(--mono);fon
 .pf-party-label{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
 .pf-party-name{font-size:14px;font-weight:700;margin-bottom:4px}
 .pf-party-detail{font-size:12px;color:var(--text-dim);line-height:1.6}
-.pf-buyer-form{display:flex;flex-direction:column;gap:8px}
-.pf-buyer-input{background:var(--bg-card);border:1px solid var(--line-strong);border-radius:8px;padding:8px 12px;color:var(--text);font-family:var(--sans);font-size:13px;outline:none;transition:border-color 200ms}
+.pf-buyer-form{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pf-buyer-form .pf-field{display:flex;flex-direction:column;gap:4px}
+.pf-buyer-form .pf-field.full{grid-column:1/-1}
+.pf-buyer-form .pf-field-label{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-mute)}
+.pf-buyer-input{background:var(--bg-card);border:1px solid var(--line-strong);border-radius:8px;padding:9px 12px;color:var(--text);font-family:var(--sans);font-size:13px;outline:none;transition:border-color 200ms;width:100%}
 .pf-buyer-input:focus{border-color:var(--accent)}
 .pf-buyer-input::placeholder{color:var(--text-mute)}
+.pf-buyer-input.invalid{border-color:#ff6b6b;background:rgba(255,107,107,.06)}
+select.pf-buyer-input{appearance:none;cursor:pointer}
 .pf-table{width:100%;border-collapse:collapse;margin-bottom:24px}
 .pf-table th{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-mute);text-align:left;padding:10px 12px;border-bottom:1px solid var(--line-strong);font-weight:500}
 .pf-table th:last-child,.pf-table th:nth-child(4){text-align:right}
@@ -438,10 +443,14 @@ footer{border-top:1px solid var(--line);padding:32px;font-family:var(--mono);fon
 .pf-container-units{position:absolute;top:0;left:0;bottom:0;display:flex;align-items:center;gap:8px;padding:0 12px}
 .pf-container-unit{width:40px;height:40px;border:1px solid var(--accent);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:16px;background:var(--accent-soft)}
 .pf-container-meta{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--text-mute)}
-.pf-actions{display:flex;flex-direction:column;align-items:center;gap:12px;padding-top:16px;border-top:1px solid var(--line)}
-.pf-submit-btn{padding:16px 36px;background:var(--accent);color:var(--bg);border:none;border-radius:100px;font-size:15px;font-weight:700;cursor:pointer;transition:transform 150ms;font-family:var(--sans)}
-.pf-submit-btn:hover{transform:scale(1.03)}
-.pf-submit-note{font-size:11px;color:var(--text-mute);font-family:var(--mono)}
+.pf-actions{display:flex;flex-direction:column;align-items:center;gap:0;padding-top:16px;border-top:1px solid var(--line);width:100%}
+.pf-download-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:16px;background:var(--accent);color:var(--bg);border:none;border-radius:100px;font-size:15px;font-weight:700;cursor:pointer;transition:transform 150ms;font-family:var(--sans)}
+.pf-download-btn:hover{transform:scale(1.02)}
+.pf-download-btn.success{background:#2ecc40;pointer-events:none}
+.pf-whatsapp-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:14px;background:#25D366;color:#fff;border:none;border-radius:100px;font-size:14px;font-weight:600;text-decoration:none;transition:transform 150ms;margin-top:8px;font-family:var(--sans)}
+.pf-whatsapp-btn:hover{transform:scale(1.02)}
+.pf-whatsapp-btn.prominent{transform:scale(1.03);box-shadow:0 0 20px rgba(37,211,102,.3)}
+.pf-submit-note{font-size:11px;color:var(--text-mute);font-family:var(--mono);margin-top:10px;text-align:center}
 
 /* ===== CONFIG BAR RESPONSIVE ===== */
 @media(max-width:768px){
@@ -456,6 +465,8 @@ footer{border-top:1px solid var(--line);padding:32px;font-family:var(--mono);fon
   .pf-meta{text-align:left}
   .pf-table{font-size:11px}
   .pf-table th,.pf-table td{padding:8px 6px}
+  .pf-buyer-form{grid-template-columns:1fr}
+  .pf-buyer-form .pf-field.full{grid-column:1}
 }
 </style>
 </head>
@@ -483,7 +494,7 @@ footer{border-top:1px solid var(--line);padding:32px;font-family:var(--mono);fon
   </div>
   <div class="sb-right">
     <button class="sb-btn sb-btn-primary" onclick="scrollToConfig()">Configurar mi camper &rarr;</button>
-    <a href="https://wa.me/5491112345678?text=Hola%20Aduanex!%20Me%20interesa%20el%20SEPHIROTH%20Pickup%20Camper" class="sb-btn sb-btn-outline" target="_blank">WhatsApp</a>
+    <a href="https://wa.me/542257617922?text=Hola%20Aduanex!%20Me%20interesa%20el%20SEPHIROTH%20Pickup%20Camper" class="sb-btn sb-btn-outline" target="_blank">WhatsApp</a>
   </div>
 </div>
 
@@ -1126,11 +1137,15 @@ footer{border-top:1px solid var(--line);padding:32px;font-family:var(--mono);fon
         </div>
         <div>
           <div class="pf-party-label">COMPRADOR</div>
-          <div class="pf-party-detail" style="font-size:11px;color:var(--text-mute);margin-bottom:8px">Completa tus datos para generar la proforma oficial</div>
+          <div class="pf-party-detail" style="font-size:11px;color:var(--text-mute);margin-bottom:8px">Completa tus datos para descargar la proforma</div>
           <div class="pf-buyer-form">
-            <input type="text" class="pf-buyer-input" id="pf-buyer-name" placeholder="Nombre completo">
-            <input type="email" class="pf-buyer-input" id="pf-buyer-email" placeholder="email@empresa.com">
-            <input type="text" class="pf-buyer-input" id="pf-buyer-company" placeholder="Empresa (opcional)">
+            <div class="pf-field"><label class="pf-field-label">Nombre completo *</label><input type="text" class="pf-buyer-input" id="pf-buyer-name" placeholder="Tu nombre completo" required></div>
+            <div class="pf-field"><label class="pf-field-label">Email *</label><input type="email" class="pf-buyer-input" id="pf-buyer-email" placeholder="email@empresa.com" required></div>
+            <div class="pf-field"><label class="pf-field-label">Telefono / WhatsApp *</label><input type="tel" class="pf-buyer-input" id="pf-buyer-phone" placeholder="+54 11..." required></div>
+            <div class="pf-field"><label class="pf-field-label">Empresa</label><input type="text" class="pf-buyer-input" id="pf-buyer-company" placeholder="Nombre de tu empresa"></div>
+            <div class="pf-field"><label class="pf-field-label">Ciudad / Provincia *</label><input type="text" class="pf-buyer-input" id="pf-buyer-city" placeholder="Ej: Buenos Aires, Cordoba..." required></div>
+            <div class="pf-field"><label class="pf-field-label">Modelo de pickup</label><select class="pf-buyer-input" id="pf-buyer-pickup"><option value="">Selecciona tu pickup</option><option>Ford F-150</option><option>RAM 1500/2500</option><option>Toyota Hilux</option><option>VW Amarok</option><option>Ford Ranger</option><option>GWM Poer</option><option>Kia Tasman</option><option>KGM Rexton</option><option>Otro</option></select></div>
+            <div class="pf-field"><label class="pf-field-label">CUIT / DNI</label><input type="text" class="pf-buyer-input" id="pf-buyer-cuit" placeholder="XX-XXXXXXXX-X"></div>
           </div>
         </div>
       </div>
@@ -1152,8 +1167,15 @@ footer{border-top:1px solid var(--line);padding:32px;font-family:var(--mono);fon
       </div>
 
       <div class="pf-actions">
-        <button class="pf-submit-btn" id="pf-submit-btn" onclick="submitProforma()">Solicitar Cotizacion Oficial &rarr;</button>
-        <div class="pf-submit-note">Sin compromiso &middot; Respondemos en 24hs</div>
+        <button class="pf-download-btn" id="pf-download-btn" onclick="downloadProformaPDF()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Descargar Proforma + Packing List
+        </button>
+        <a class="pf-whatsapp-btn" id="pf-whatsapp-link" href="https://wa.me/542257617922" target="_blank">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492l4.632-1.467A11.933 11.933 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818c-2.168 0-4.19-.586-5.93-1.608l-.425-.253-2.746.87.886-2.68-.278-.442A9.77 9.77 0 012.182 12c0-5.424 4.394-9.818 9.818-9.818S21.818 6.576 21.818 12s-4.394 9.818-9.818 9.818z"/></svg>
+          Hablar por WhatsApp
+        </a>
+        <div class="pf-submit-note">Descarga tu proforma y contactanos para avanzar</div>
       </div>
     </div>
 
@@ -1192,8 +1214,15 @@ footer{border-top:1px solid var(--line);padding:32px;font-family:var(--mono);fon
       </div>
 
       <div class="pf-actions">
-        <button class="pf-submit-btn" onclick="submitProforma()">Solicitar Cotizacion Oficial &rarr;</button>
-        <div class="pf-submit-note">Sin compromiso &middot; Respondemos en 24hs</div>
+        <button class="pf-download-btn" id="pf-download-btn-pl" onclick="downloadProformaPDF()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Descargar Proforma + Packing List
+        </button>
+        <a class="pf-whatsapp-btn" id="pf-whatsapp-link-pl" href="https://wa.me/542257617922" target="_blank">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492l4.632-1.467A11.933 11.933 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818c-2.168 0-4.19-.586-5.93-1.608l-.425-.253-2.746.87.886-2.68-.278-.442A9.77 9.77 0 012.182 12c0-5.424 4.394-9.818 9.818-9.818S21.818 6.576 21.818 12s-4.394 9.818-9.818 9.818z"/></svg>
+          Hablar por WhatsApp
+        </a>
+        <div class="pf-submit-note">Descarga tu proforma y contactanos para avanzar</div>
       </div>
     </div>
   </div>
@@ -1483,24 +1512,13 @@ function buildProformaTable() {
     rows += '<tr><td style="padding-left:24px;color:var(--text-dim)">&#8627; ' + name + '</td><td>' + (card.querySelector('.upg-detail').textContent) + '</td><td style="text-align:center">1</td><td>$' + price.toLocaleString() + '</td><td>$' + price.toLocaleString() + '</td></tr>';
   });
 
-  // Subtotal
-  rows += '<tr class="pf-row-sub"><td colspan="4" style="text-align:right;font-weight:600">Subtotal</td><td>$' + subtotal.toLocaleString() + '</td></tr>';
+  // Subtotal (only show if there are upgrades)
+  if (selected.length > 0) {
+    rows += '<tr class="pf-row-sub"><td colspan="4" style="text-align:right;font-weight:600">Subtotal</td><td>$' + subtotal.toLocaleString() + '</td></tr>';
+  }
 
-  // Freight estimate
-  const freightLabel = currentMethod === 'sea' ? 'Flete maritimo estimado' : 'Flete aereo estimado';
-  const freightAmt = currentMethod === 'sea' ? 3500 : 8000;
-  rows += '<tr class="pf-row-sub"><td colspan="4" style="text-align:right">' + freightLabel + '</td><td>~$' + freightAmt.toLocaleString() + '</td></tr>';
-
-  // Duties estimate
-  const duties = Math.round(subtotal * 0.15);
-  rows += '<tr class="pf-row-sub"><td colspan="4" style="text-align:right">Derechos e impuestos estimados (~15%)</td><td>~$' + duties.toLocaleString() + '</td></tr>';
-
-  // Aduanex management
-  rows += '<tr class="pf-row-included"><td colspan="4" style="text-align:right">Gestion aduanera Aduanex</td><td>Incluido</td></tr>';
-
-  // Grand total
-  const grandTotal = subtotal + freightAmt + duties;
-  rows += '<tr class="pf-row-total"><td colspan="4" style="text-align:right">TOTAL ESTIMADO</td><td>$' + grandTotal.toLocaleString() + '</td></tr>';
+  // Total (prices are already nationalized)
+  rows += '<tr class="pf-row-total"><td colspan="4" style="text-align:right">TOTAL</td><td>$' + subtotal.toLocaleString() + '</td></tr>';
 
   tbody.innerHTML = rows;
 }
@@ -1535,6 +1553,7 @@ function buildPackingList() {
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script>
 const SUPA_URL = 'https://qsirhluidhpmrpnejwdp.supabase.co';
 const SUPA_KEY = 'sb_publishable_1kOHBeoCsSY1ufV1_1DjKw_GNt60bPd';
@@ -1566,7 +1585,6 @@ async function submitRFQ(form) {
     btn.textContent = '✓ Solicitud enviada!';
     btn.style.background = '#88CE02';
     form.reset();
-    // Re-select the default product
     form.querySelector('[name="producto"]').selectedIndex = 1;
     setTimeout(() => { btn.textContent = origText; btn.disabled = false; btn.style.background = ''; }, 4000);
   } catch(e) {
@@ -1592,7 +1610,6 @@ async function loadContainerGauge() {
     fill.querySelector('.ctn-bar-label').textContent = data.used_cbm.toFixed(1) + ' / ' + data.capacity_cbm.toFixed(0) + ' CBM';
     setTimeout(() => { fill.style.width = percent + '%'; }, 400);
 
-    // Update meta
     const metaItems = document.querySelectorAll('.ctn-meta-item');
     if (data.nombre && metaItems[0]) {
       metaItems[0].innerHTML = '<svg viewBox="0 0 24 24" stroke-linecap="round"><rect x="1" y="3" width="22" height="14" rx="2"/></svg>' + data.nombre;
@@ -1610,52 +1627,233 @@ supa.auth.getSession().then(({ data: { session } }) => {
   if (session && btn) { btn.textContent = 'Mi cuenta'; btn.href = 'mis-pedidos.html'; }
 });
 
-// ===== SUBMIT PROFORMA =====
-async function submitProforma() {
-  const btn = document.getElementById('pf-submit-btn');
-  const origText = btn.textContent;
-  btn.textContent = 'Enviando...';
-  btn.disabled = true;
+// ===== DOWNLOAD PROFORMA PDF =====
+async function downloadProformaPDF() {
+  // --- a) Validate buyer form ---
+  const nombre = document.getElementById('pf-buyer-name').value.trim();
+  const email = document.getElementById('pf-buyer-email').value.trim();
+  const telefono = document.getElementById('pf-buyer-phone').value.trim();
+  const empresa = document.getElementById('pf-buyer-company').value.trim();
+  const ciudad = document.getElementById('pf-buyer-city').value.trim();
+  const modeloPickup = document.getElementById('pf-buyer-pickup').value;
+  const cuit = document.getElementById('pf-buyer-cuit').value.trim();
+
+  const requiredFields = [
+    { el: document.getElementById('pf-buyer-name'), val: nombre },
+    { el: document.getElementById('pf-buyer-email'), val: email },
+    { el: document.getElementById('pf-buyer-phone'), val: telefono },
+    { el: document.getElementById('pf-buyer-city'), val: ciudad }
+  ];
+
+  let valid = true;
+  document.querySelectorAll('.pf-buyer-input').forEach(i => i.classList.remove('invalid'));
+  requiredFields.forEach(f => {
+    if (!f.val) { f.el.classList.add('invalid'); valid = false; }
+  });
+  if (!valid) {
+    const firstInvalid = document.querySelector('.pf-buyer-input.invalid');
+    if (firstInvalid) firstInvalid.focus();
+    return;
+  }
+
+  // --- Gather config data ---
+  const dlBtn = document.getElementById('pf-download-btn');
+  const dlBtnPl = document.getElementById('pf-download-btn-pl');
+  const origText = dlBtn.innerHTML;
+  [dlBtn, dlBtnPl].forEach(b => { if(b) { b.innerHTML = 'Generando...'; b.disabled = true; } });
 
   const selected = document.querySelectorAll('.upg-card.selected');
-  const upgNames = [];
-  selected.forEach(c => upgNames.push(c.querySelector('.upg-name').textContent));
-
   const basePrice = parseInt(PRICES[currentMethod]['t' + currentTier].replace(/\D/g, ''));
   let upgTotal = 0;
-  selected.forEach(c => upgTotal += parseInt(c.dataset.price || 0));
+  const upgradesList = [];
+  selected.forEach(c => {
+    const price = parseInt(c.dataset.price || 0);
+    upgTotal += price;
+    upgradesList.push({ name: c.querySelector('.upg-name').textContent, price: price });
+  });
+  const total = basePrice + upgTotal;
   const qty = currentTier === 3 ? 5 : currentTier === 2 ? 2 : 1;
+  const method = PRICES[currentMethod].label;
 
-  const data = {
-    client_name: document.getElementById('pf-buyer-name').value || '',
-    client_email: document.getElementById('pf-buyer-email').value || '',
-    client_company: document.getElementById('pf-buyer-company').value || '',
-    products_description: 'SEPHIROTH Pickup Camper - ' + PRICES[currentMethod].label + ' - Tier ' + currentTier + ' (' + qty + ' uds)',
-    notes: 'Proforma ' + proformaNumber + ' | Base: $' + basePrice.toLocaleString() + ' | Upgrades (' + upgNames.length + '): ' + (upgNames.join(', ') || 'Ninguno') + ' | Total upgrades: $' + upgTotal.toLocaleString() + ' | Metodo: ' + currentMethod,
-    origin_country: 'China',
-    transport_type: currentMethod === 'sea' ? 'maritime' : 'air',
-    status: 'pendiente',
-    priority: 'normal',
-    source: 'shop-proforma'
-  };
-
+  // --- b) Save to Supabase ---
   try {
-    const { error } = await supa.from('quote_requests').insert([data]);
-    if (error) throw error;
-    btn.textContent = '✓ Solicitud enviada!';
-    btn.style.background = '#88CE02';
-    setTimeout(() => {
-      closeProforma();
-      btn.textContent = origText;
-      btn.disabled = false;
-      btn.style.background = '';
-    }, 2500);
+    const insertData = {
+      client_name: nombre,
+      client_email: email,
+      client_phone: telefono,
+      client_company: empresa,
+      products_description: 'SEPHIROTH™ Pickup Camper - ' + method + ' - ' + qty + ' uds',
+      products_data: {
+        proforma_number: proformaNumber,
+        base_price: basePrice,
+        method: currentMethod,
+        tier: currentTier,
+        qty: qty,
+        upgrades: upgradesList,
+        total: total,
+        pickup_model: modeloPickup,
+        city: ciudad,
+        cuit: cuit,
+        generated_at: new Date().toISOString()
+      },
+      notes: 'Proforma ' + proformaNumber + ' | Modelo: ' + modeloPickup + ' | Ciudad: ' + ciudad + ' | CUIT: ' + cuit,
+      origin_country: 'China',
+      transport_type: currentMethod === 'sea' ? 'maritime' : 'air',
+      status: 'pendiente',
+      priority: 'normal',
+      source: 'shop'
+    };
+    const { error } = await supa.from('quote_requests').insert([insertData]);
+    if (error) console.error('Supabase insert error:', error);
   } catch(e) {
-    console.error(e);
-    btn.textContent = 'Error, intenta de nuevo';
-    btn.style.background = '#ff6b6b';
-    setTimeout(() => { btn.textContent = origText; btn.disabled = false; btn.style.background = ''; }, 3000);
+    console.error('Supabase save failed:', e);
   }
+
+  // --- c) Generate PDF ---
+  try {
+    const dateStr = new Date().toLocaleDateString('es-AR', { year: 'numeric', month: 'long', day: 'numeric' });
+
+    // Build upgrade rows for invoice
+    let invoiceUpgRows = '';
+    upgradesList.forEach(u => {
+      invoiceUpgRows += '<tr><td style="padding:8px 12px;border-bottom:1px solid #e0e0e0;color:#555;padding-left:24px">↳ ' + u.name + '</td><td style="padding:8px 12px;border-bottom:1px solid #e0e0e0;text-align:center">1</td><td style="padding:8px 12px;border-bottom:1px solid #e0e0e0;text-align:right;font-family:monospace;font-weight:600">$' + u.price.toLocaleString() + '</td></tr>';
+    });
+
+    // Subtotal row (only if upgrades)
+    let subtotalRow = '';
+    if (upgradesList.length > 0) {
+      subtotalRow = '<tr><td colspan="2" style="padding:8px 12px;text-align:right;font-weight:600;color:#888;font-size:12px;border-bottom:1px solid #e0e0e0">Subtotal</td><td style="padding:8px 12px;text-align:right;font-family:monospace;font-weight:600;color:#888;font-size:12px;border-bottom:1px solid #e0e0e0">$' + total.toLocaleString() + '</td></tr>';
+    }
+
+    // Packing list rows
+    const plDesc = 'SEPHIROTH™ Pickup Camper' + (upgradesList.length > 0 ? ' + ' + upgradesList.length + ' upgrades' : '');
+
+    const pdfHtml = '' +
+      '<div style="font-family:Helvetica,Arial,sans-serif;color:#222;padding:0;line-height:1.5">' +
+        // --- HEADER ---
+        '<div style="background:#0a0c0a;padding:28px 32px;border-radius:12px 12px 0 0;display:flex;justify-content:space-between;align-items:center">' +
+          '<div style="color:#fff;font-size:22px;font-weight:800;letter-spacing:.04em">ADUA<span style="color:#88CE02">NEX</span> <span style="font-size:11px;font-weight:400;letter-spacing:.12em;border:1px solid rgba(136,206,2,.4);border-radius:100px;padding:3px 10px;margin-left:8px;vertical-align:middle;color:#88CE02">SHOP</span></div>' +
+          '<div style="text-align:right;color:#aaa;font-size:11px">Buenos Aires, Argentina<br>aduanex-shop.vercel.app</div>' +
+        '</div>' +
+        // --- PROFORMA INVOICE SECTION ---
+        '<div style="padding:28px 32px">' +
+          '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px">' +
+            '<div><div style="font-size:18px;font-weight:800;letter-spacing:-.01em">PROFORMA INVOICE</div><div style="font-size:11px;color:#888;margin-top:2px">FACTURA PROFORMA</div></div>' +
+            '<div style="text-align:right;font-family:monospace;font-size:11px;color:#666">' + proformaNumber + '<br>' + dateStr + '</div>' +
+          '</div>' +
+          // Buyer info
+          '<div style="background:#f8f9fa;border:1px solid #e0e0e0;border-radius:8px;padding:16px 20px;margin-bottom:20px;display:flex;gap:40px">' +
+            '<div style="flex:1"><div style="font-family:monospace;font-size:9px;letter-spacing:.1em;color:#88CE02;margin-bottom:6px;text-transform:uppercase">VENDEDOR</div><div style="font-weight:700;font-size:13px">ADUANEX SHOP</div><div style="font-size:11px;color:#666">Buenos Aires, Argentina</div></div>' +
+            '<div style="flex:1"><div style="font-family:monospace;font-size:9px;letter-spacing:.1em;color:#88CE02;margin-bottom:6px;text-transform:uppercase">COMPRADOR</div><div style="font-weight:700;font-size:13px">' + nombre + '</div><div style="font-size:11px;color:#666">' + (empresa ? empresa + '<br>' : '') + email + '<br>' + telefono + (ciudad ? '<br>' + ciudad : '') + (modeloPickup ? '<br>Pickup: ' + modeloPickup : '') + (cuit ? '<br>CUIT: ' + cuit : '') + '</div></div>' +
+          '</div>' +
+          // Invoice table
+          '<table style="width:100%;border-collapse:collapse;margin-bottom:20px">' +
+            '<thead><tr style="background:#0a0c0a">' +
+              '<th style="padding:10px 12px;text-align:left;font-family:monospace;font-size:10px;letter-spacing:.06em;color:#88CE02;font-weight:600">DESCRIPCION</th>' +
+              '<th style="padding:10px 12px;text-align:center;font-family:monospace;font-size:10px;letter-spacing:.06em;color:#88CE02;font-weight:600">CANT.</th>' +
+              '<th style="padding:10px 12px;text-align:right;font-family:monospace;font-size:10px;letter-spacing:.06em;color:#88CE02;font-weight:600">TOTAL USD</th>' +
+            '</tr></thead>' +
+            '<tbody>' +
+              '<tr><td style="padding:10px 12px;border-bottom:1px solid #e0e0e0;font-weight:600">SEPHIROTH™ Pickup Camper — Config base (3 modulos)</td><td style="padding:10px 12px;border-bottom:1px solid #e0e0e0;text-align:center">1</td><td style="padding:10px 12px;border-bottom:1px solid #e0e0e0;text-align:right;font-family:monospace;font-weight:700">$' + basePrice.toLocaleString() + '</td></tr>' +
+              invoiceUpgRows +
+              subtotalRow +
+              '<tr style="background:#f0fad6"><td colspan="2" style="padding:12px;text-align:right;font-weight:800;font-size:15px">TOTAL</td><td style="padding:12px;text-align:right;font-family:monospace;font-weight:800;font-size:15px;color:#4a7c00">$' + total.toLocaleString() + ' USD</td></tr>' +
+            '</tbody>' +
+          '</table>' +
+          // Notes
+          '<div style="background:#f8f9fa;border:1px solid #e0e0e0;border-radius:8px;padding:14px 18px;margin-bottom:12px;font-size:11px;color:#666">' +
+            '<div style="font-family:monospace;font-size:9px;letter-spacing:.1em;color:#88CE02;margin-bottom:6px">CONDICIONES</div>' +
+            '50% anticipo + 50% contra embarque &bull; Validez: 30 dias &bull; ' + method + ' (' + PRICES[currentMethod].days + ')<br>' +
+            '<span style="color:#999;font-size:10px">Precios en USD nacionalizado (incluye flete, impuestos y gestion aduanera).</span>' +
+          '</div>' +
+        '</div>' +
+        // --- PAGE BREAK ---
+        '<div style="page-break-before:always"></div>' +
+        // --- PACKING LIST SECTION ---
+        '<div style="background:#0a0c0a;padding:20px 32px;display:flex;justify-content:space-between;align-items:center">' +
+          '<div style="color:#fff;font-size:22px;font-weight:800;letter-spacing:.04em">ADUA<span style="color:#88CE02">NEX</span> <span style="font-size:11px;font-weight:400;letter-spacing:.12em;border:1px solid rgba(136,206,2,.4);border-radius:100px;padding:3px 10px;margin-left:8px;vertical-align:middle;color:#88CE02">SHOP</span></div>' +
+          '<div style="text-align:right;color:#aaa;font-size:11px">' + proformaNumber + '<br>' + dateStr + '</div>' +
+        '</div>' +
+        '<div style="padding:28px 32px">' +
+          '<div style="font-size:18px;font-weight:800;margin-bottom:4px">PACKING LIST</div>' +
+          '<div style="font-size:11px;color:#888;margin-bottom:20px">LISTA DE EMPAQUE</div>' +
+          '<table style="width:100%;border-collapse:collapse;margin-bottom:20px">' +
+            '<thead><tr style="background:#0a0c0a">' +
+              '<th style="padding:10px 12px;text-align:center;font-family:monospace;font-size:10px;letter-spacing:.06em;color:#88CE02;font-weight:600">BULTO</th>' +
+              '<th style="padding:10px 12px;text-align:left;font-family:monospace;font-size:10px;letter-spacing:.06em;color:#88CE02;font-weight:600">DESCRIPCION</th>' +
+              '<th style="padding:10px 12px;text-align:center;font-family:monospace;font-size:10px;letter-spacing:.06em;color:#88CE02;font-weight:600">DIMS (cm)</th>' +
+              '<th style="padding:10px 12px;text-align:right;font-family:monospace;font-size:10px;letter-spacing:.06em;color:#88CE02;font-weight:600">PESO BRUTO</th>' +
+              '<th style="padding:10px 12px;text-align:right;font-family:monospace;font-size:10px;letter-spacing:.06em;color:#88CE02;font-weight:600">PESO NETO</th>' +
+              '<th style="padding:10px 12px;text-align:right;font-family:monospace;font-size:10px;letter-spacing:.06em;color:#88CE02;font-weight:600">CBM</th>' +
+            '</tr></thead>' +
+            '<tbody><tr>' +
+              '<td style="padding:10px 12px;border-bottom:1px solid #e0e0e0;text-align:center;font-weight:600">1</td>' +
+              '<td style="padding:10px 12px;border-bottom:1px solid #e0e0e0">' + plDesc + '</td>' +
+              '<td style="padding:10px 12px;border-bottom:1px solid #e0e0e0;text-align:center;font-family:monospace">340 x 180 x 175</td>' +
+              '<td style="padding:10px 12px;border-bottom:1px solid #e0e0e0;text-align:right;font-family:monospace">580 kg</td>' +
+              '<td style="padding:10px 12px;border-bottom:1px solid #e0e0e0;text-align:right;font-family:monospace">550 kg</td>' +
+              '<td style="padding:10px 12px;border-bottom:1px solid #e0e0e0;text-align:right;font-family:monospace">10.71</td>' +
+            '</tr></tbody>' +
+          '</table>' +
+          // Container info
+          '<div style="background:#f8f9fa;border:1px solid #e0e0e0;border-radius:8px;padding:14px 18px;font-size:11px;color:#666">' +
+            '<div style="font-family:monospace;font-size:9px;letter-spacing:.1em;color:#88CE02;margin-bottom:6px">CONTENEDOR</div>' +
+            (currentTier === 3 ? '40ft' : currentTier === 2 ? '20ft' : 'LCL') + ' &bull; ' + qty + ' unidad' + (qty > 1 ? 'es' : '') + ' &bull; ' + (qty * 10.71).toFixed(1) + ' CBM total &bull; Origen: Qingdao, China' +
+          '</div>' +
+        '</div>' +
+        // --- FOOTER ---
+        '<div style="padding:16px 32px;border-top:1px solid #e0e0e0;font-size:9px;color:#999;text-align:center;font-family:monospace">' +
+          'ADUANEX SHOP • Buenos Aires, Argentina • Despachante matriculado • aduanex-shop.vercel.app' +
+        '</div>' +
+      '</div>';
+
+    // Create temp element for PDF
+    const pdfContainer = document.createElement('div');
+    pdfContainer.innerHTML = pdfHtml;
+    pdfContainer.style.position = 'absolute';
+    pdfContainer.style.left = '-9999px';
+    pdfContainer.style.top = '0';
+    pdfContainer.style.background = '#fff';
+    pdfContainer.style.width = '800px';
+    document.body.appendChild(pdfContainer);
+
+    const opt = {
+      margin: 0,
+      filename: 'Proforma-' + proformaNumber + '.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff' },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+      pagebreak: { mode: ['css'] }
+    };
+
+    await html2pdf().set(opt).from(pdfContainer).save();
+    document.body.removeChild(pdfContainer);
+  } catch(e) {
+    console.error('PDF generation failed:', e);
+  }
+
+  // --- d) Update WhatsApp link ---
+  const upgCount = upgradesList.length;
+  const msg = 'Hola Aduanex! 👋 Me interesa el SEPHIROTH™ Pickup Camper.\n\n📋 Proforma: ' + proformaNumber + '\n🚛 Modelo: ' + (modeloPickup || 'No especificado') + '\n💰 Config: Base $' + basePrice.toLocaleString() + ' + ' + upgCount + ' upgrades = Total $' + total.toLocaleString() + ' USD\n📍 Ciudad: ' + ciudad + '\n👤 ' + nombre + (empresa ? ' - ' + empresa : '');
+  const waLink = 'https://wa.me/542257617922?text=' + encodeURIComponent(msg);
+  document.querySelectorAll('#pf-whatsapp-link, #pf-whatsapp-link-pl').forEach(a => { a.href = waLink; });
+
+  // --- e) Success state ---
+  [dlBtn, dlBtnPl].forEach(b => {
+    if (b) {
+      b.innerHTML = '✓ Proforma descargada';
+      b.classList.add('success');
+    }
+  });
+  document.querySelectorAll('.pf-whatsapp-btn').forEach(a => a.classList.add('prominent'));
+
+  // Reset after 6 seconds
+  setTimeout(() => {
+    [dlBtn, dlBtnPl].forEach(b => {
+      if (b) { b.innerHTML = origText; b.disabled = false; b.classList.remove('success'); }
+    });
+    document.querySelectorAll('.pf-whatsapp-btn').forEach(a => a.classList.remove('prominent'));
+  }, 6000);
 }
 </script>
 
