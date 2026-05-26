@@ -24,8 +24,12 @@ a{text-decoration:none;color:inherit}img{display:block;max-width:100%}
 button,input,select{font-family:var(--sans)}button{cursor:pointer}
 
 /* TOPBAR */
-.topbar{background:var(--accent);color:var(--bg);text-align:center;padding:7px 16px;font-size:12px;font-weight:600;letter-spacing:.02em}
+.topbar{background:var(--accent);color:var(--bg);text-align:center;padding:7px 16px;font-size:12px;font-weight:600;letter-spacing:.02em;display:flex;align-items:center;justify-content:center;gap:16px}
+.topbar-text{flex:1;text-align:center}
 .topbar span{opacity:.7;font-weight:400}
+.mode-toggle{display:flex;background:rgba(0,0,0,.15);border-radius:100px;padding:2px;flex-shrink:0}
+.mode-btn{padding:4px 14px;border-radius:100px;border:none;background:transparent;color:var(--bg);font-family:var(--sans);font-size:11px;font-weight:600;cursor:pointer;transition:all 150ms;opacity:.6}
+.mode-btn.active{background:var(--bg);color:var(--accent);opacity:1}
 
 /* NAV */
 .nav{position:sticky;top:0;z-index:100;background:rgba(0,0,0,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
@@ -245,7 +249,13 @@ button,input,select{font-family:var(--sans)}button{cursor:pointer}
 <body>
 
 <!-- TOPBAR -->
-<div class="topbar">Importacion gestionada de China a Argentina <span>· Precio nacionalizado en 24hs · Despachante matriculado</span></div>
+<div class="topbar">
+  <span class="topbar-text">Importacion gestionada de China a Argentina <span>· Precio nacionalizado en 24hs</span></span>
+  <div class="mode-toggle" id="mode-toggle">
+    <button class="mode-btn active" data-mode="mayorista" onclick="setMode('mayorista')">Mayorista</button>
+    <button class="mode-btn" data-mode="minorista" onclick="setMode('minorista')">Minorista</button>
+  </div>
+</div>
 
 <!-- NAV -->
 <nav class="nav">
@@ -362,7 +372,7 @@ button,input,select{font-family:var(--sans)}button{cursor:pointer}
         <div class="pcard-cat">IIMT &middot; COFFEE ROBOT</div>
         <a href="producto.html" class="pcard-name">Double Arm Coffee Shop</a>
         <div class="pcard-desc">Doble brazo robotico, 70 seg/cafe, latte art automatico. El mas vendido para alto volumen.</div>
-        <div class="pcard-pricing" data-sea-price="$23,500" data-air-price="$31,200" data-sea-days="60-90 dias" data-air-days="15-20 dias" data-sea-port="FOB Shanghai" data-air-port="CIF Ezeiza">
+        <div class="pcard-pricing" data-sea-price="$23,500" data-air-price="$31,200" data-retail-sea="$29,375" data-retail-air="$39,000" data-sea-days="60-90 dias" data-air-days="15-20 dias" data-sea-port="FOB Shanghai" data-air-port="CIF Ezeiza">
           <div class="pr-tabs">
             <button class="pr-tab active" data-method="sea"><svg viewBox="0 0 24 24"><path d="M2 20l.8-2.4A7.58 7.58 0 012 14.5C2 10.36 6.03 7 11 7s9 3.36 9 7.5a7 7 0 01-.8 3.1L20 20"/><path d="M6.5 7V4a1 1 0 011-1h3a1 1 0 011 1v3"/></svg>Maritimo</button>
             <button class="pr-tab" data-method="air"><svg viewBox="0 0 24 24"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.4-.1.9.3 1.1L11 12l-2 3H6l-1 1 3 2 2 3 1-1v-3l3-2 3.7 7.3c.2.4.7.5 1.1.3l.5-.3c.4-.2.5-.6.5-1.1z"/></svg>Aereo</button>
@@ -380,8 +390,7 @@ button,input,select{font-family:var(--sans)}button{cursor:pointer}
           <span class="pcard-tag">Latte art</span>
         </div>
         <div class="pcard-foot">
-          <a href="producto.html" class="pcard-btn btn-sec">Ver detalle</a>
-          <a href="producto.html#contacto" class="pcard-btn btn-main">Cotizar</a>
+          <a href="producto.html" class="pcard-btn btn-main" style="flex:1;text-align:center">Ver detalles →</a>
         </div>
       </div>
     </div>
@@ -404,7 +413,7 @@ button,input,select{font-family:var(--sans)}button{cursor:pointer}
         <div class="pcard-cat">IIMT &middot; COFFEE ROBOT</div>
         <a href="producto.html" class="pcard-name">Single Arm Coffee Shop</a>
         <div class="pcard-desc">Brazo robotico individual, operacion 24/7 autonoma. Ideal para oficinas y locales.</div>
-        <div class="pcard-pricing" data-sea-price="$15,200" data-air-price="$20,800" data-sea-days="60-90 dias" data-air-days="15-20 dias" data-sea-port="FOB Shanghai" data-air-port="CIF Ezeiza">
+        <div class="pcard-pricing" data-sea-price="$15,200" data-air-price="$20,800" data-retail-sea="$19,000" data-retail-air="$26,000" data-sea-days="60-90 dias" data-air-days="15-20 dias" data-sea-port="FOB Shanghai" data-air-port="CIF Ezeiza">
           <div class="pr-tabs">
             <button class="pr-tab active" data-method="sea"><svg viewBox="0 0 24 24"><path d="M2 20l.8-2.4A7.58 7.58 0 012 14.5C2 10.36 6.03 7 11 7s9 3.36 9 7.5a7 7 0 01-.8 3.1L20 20"/><path d="M6.5 7V4a1 1 0 011-1h3a1 1 0 011 1v3"/></svg>Maritimo</button>
             <button class="pr-tab" data-method="air"><svg viewBox="0 0 24 24"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.4-.1.9.3 1.1L11 12l-2 3H6l-1 1 3 2 2 3 1-1v-3l3-2 3.7 7.3c.2.4.7.5 1.1.3l.5-.3c.4-.2.5-.6.5-1.1z"/></svg>Aereo</button>
@@ -422,8 +431,7 @@ button,input,select{font-family:var(--sans)}button{cursor:pointer}
           <span class="pcard-tag">1 brazo</span>
         </div>
         <div class="pcard-foot">
-          <a href="producto.html" class="pcard-btn btn-sec">Ver detalle</a>
-          <a href="producto.html#contacto" class="pcard-btn btn-main">Cotizar</a>
+          <a href="producto.html" class="pcard-btn btn-main" style="flex:1;text-align:center">Ver detalles →</a>
         </div>
       </div>
     </div>
@@ -447,7 +455,7 @@ button,input,select{font-family:var(--sans)}button{cursor:pointer}
         <div class="pcard-cat">IIMT &middot; COFFEE ROBOT</div>
         <a href="producto.html" class="pcard-name">Integrated Delivery Coffee Shop</a>
         <div class="pcard-desc">Entrega autonoma con robot, desinfeccion por vapor, pantalla publicitaria. Lo mas completo.</div>
-        <div class="pcard-pricing" data-sea-price="$38,000" data-air-price="$49,500" data-sea-days="75-100 dias" data-air-days="18-25 dias" data-sea-port="FOB Shanghai" data-air-port="CIF Ezeiza">
+        <div class="pcard-pricing" data-sea-price="$38,000" data-air-price="$49,500" data-retail-sea="$47,500" data-retail-air="$61,875" data-sea-days="75-100 dias" data-air-days="18-25 dias" data-sea-port="FOB Shanghai" data-air-port="CIF Ezeiza">
           <div class="pr-tabs">
             <button class="pr-tab active" data-method="sea"><svg viewBox="0 0 24 24"><path d="M2 20l.8-2.4A7.58 7.58 0 012 14.5C2 10.36 6.03 7 11 7s9 3.36 9 7.5a7 7 0 01-.8 3.1L20 20"/><path d="M6.5 7V4a1 1 0 011-1h3a1 1 0 011 1v3"/></svg>Maritimo</button>
             <button class="pr-tab" data-method="air"><svg viewBox="0 0 24 24"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.4-.1.9.3 1.1L11 12l-2 3H6l-1 1 3 2 2 3 1-1v-3l3-2 3.7 7.3c.2.4.7.5 1.1.3l.5-.3c.4-.2.5-.6.5-1.1z"/></svg>Aereo</button>
@@ -465,8 +473,7 @@ button,input,select{font-family:var(--sans)}button{cursor:pointer}
           <span class="pcard-tag">180 tazas</span>
         </div>
         <div class="pcard-foot">
-          <a href="producto.html" class="pcard-btn btn-sec">Ver detalle</a>
-          <a href="producto.html#contacto" class="pcard-btn btn-main">Cotizar</a>
+          <a href="producto.html" class="pcard-btn btn-main" style="flex:1;text-align:center">Ver detalles →</a>
         </div>
       </div>
     </div>
@@ -490,7 +497,7 @@ button,input,select{font-family:var(--sans)}button{cursor:pointer}
         <div class="pcard-cat">VENDLIFE &middot; VENDING</div>
         <a href="#" class="pcard-name">Smart Vending Machine Pro</a>
         <div class="pcard-desc">Maquina expendedora inteligente con pantalla tactil, pago QR y gestion remota de inventario.</div>
-        <div class="pcard-pricing" data-sea-price="$4,800" data-air-price="$7,200" data-sea-days="45-60 dias" data-air-days="10-15 dias" data-sea-port="FOB Guangzhou" data-air-port="CIF Ezeiza">
+        <div class="pcard-pricing" data-sea-price="$4,800" data-air-price="$7,200" data-retail-sea="$6,720" data-retail-air="$10,080" data-sea-days="45-60 dias" data-air-days="10-15 dias" data-sea-port="FOB Guangzhou" data-air-port="CIF Ezeiza">
           <div class="pr-tabs">
             <button class="pr-tab active" data-method="sea"><svg viewBox="0 0 24 24"><path d="M2 20l.8-2.4A7.58 7.58 0 012 14.5C2 10.36 6.03 7 11 7s9 3.36 9 7.5a7 7 0 01-.8 3.1L20 20"/><path d="M6.5 7V4a1 1 0 011-1h3a1 1 0 011 1v3"/></svg>Maritimo</button>
             <button class="pr-tab" data-method="air"><svg viewBox="0 0 24 24"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.4-.1.9.3 1.1L11 12l-2 3H6l-1 1 3 2 2 3 1-1v-3l3-2 3.7 7.3c.2.4.7.5 1.1.3l.5-.3c.4-.2.5-.6.5-1.1z"/></svg>Aereo</button>
@@ -507,8 +514,7 @@ button,input,select{font-family:var(--sans)}button{cursor:pointer}
           <span class="pcard-tag">Remoto</span>
         </div>
         <div class="pcard-foot">
-          <a href="#" class="pcard-btn btn-sec">Ver detalle</a>
-          <a href="producto.html#contacto" class="pcard-btn btn-main">Cotizar</a>
+          <a href="#" class="pcard-btn btn-main" style="flex:1;text-align:center" onclick="event.preventDefault()">Ver detalles →</a>
         </div>
       </div>
     </div>
@@ -532,7 +538,7 @@ button,input,select{font-family:var(--sans)}button{cursor:pointer}
         <div class="pcard-cat">VENDLIFE &middot; VENDING</div>
         <a href="#" class="pcard-name">Frozen Food Vending Machine</a>
         <div class="pcard-desc">Expendedora de alimentos congelados con sistema de refrigeracion -18&deg;C. Ideal para helados y comidas.</div>
-        <div class="pcard-pricing" data-sea-price="$6,200" data-air-price="$9,100" data-sea-days="45-60 dias" data-air-days="10-15 dias" data-sea-port="FOB Guangzhou" data-air-port="CIF Ezeiza">
+        <div class="pcard-pricing" data-sea-price="$6,200" data-air-price="$9,100" data-retail-sea="$8,680" data-retail-air="$12,740" data-sea-days="45-60 dias" data-air-days="10-15 dias" data-sea-port="FOB Guangzhou" data-air-port="CIF Ezeiza">
           <div class="pr-tabs">
             <button class="pr-tab active" data-method="sea"><svg viewBox="0 0 24 24"><path d="M2 20l.8-2.4A7.58 7.58 0 012 14.5C2 10.36 6.03 7 11 7s9 3.36 9 7.5a7 7 0 01-.8 3.1L20 20"/><path d="M6.5 7V4a1 1 0 011-1h3a1 1 0 011 1v3"/></svg>Maritimo</button>
             <button class="pr-tab" data-method="air"><svg viewBox="0 0 24 24"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.4-.1.9.3 1.1L11 12l-2 3H6l-1 1 3 2 2 3 1-1v-3l3-2 3.7 7.3c.2.4.7.5 1.1.3l.5-.3c.4-.2.5-.6.5-1.1z"/></svg>Aereo</button>
@@ -549,8 +555,7 @@ button,input,select{font-family:var(--sans)}button{cursor:pointer}
           <span class="pcard-tag">60 slots</span>
         </div>
         <div class="pcard-foot">
-          <a href="#" class="pcard-btn btn-sec">Ver detalle</a>
-          <a href="producto.html#contacto" class="pcard-btn btn-main">Cotizar</a>
+          <a href="#" class="pcard-btn btn-main" style="flex:1;text-align:center" onclick="event.preventDefault()">Ver detalles →</a>
         </div>
       </div>
     </div>
@@ -576,7 +581,7 @@ button,input,select{font-family:var(--sans)}button{cursor:pointer}
         <div class="pcard-cat">CRTLY &middot; KIOSCOS</div>
         <a href="#" class="pcard-name">Self-Service Order Kiosk</a>
         <div class="pcard-desc">Kiosco de autoservicio para restaurantes y fast food. Pantalla 32", impresora integrada, pago NFC.</div>
-        <div class="pcard-pricing" data-sea-price="$3,500" data-air-price="$5,400" data-sea-days="30-45 dias" data-air-days="10-15 dias" data-sea-port="FOB Shenzhen" data-air-port="CIF Ezeiza">
+        <div class="pcard-pricing" data-sea-price="$3,500" data-air-price="$5,400" data-retail-sea="$4,900" data-retail-air="$7,560" data-sea-days="30-45 dias" data-air-days="10-15 dias" data-sea-port="FOB Shenzhen" data-air-port="CIF Ezeiza">
           <div class="pr-tabs">
             <button class="pr-tab active" data-method="sea"><svg viewBox="0 0 24 24"><path d="M2 20l.8-2.4A7.58 7.58 0 012 14.5C2 10.36 6.03 7 11 7s9 3.36 9 7.5a7 7 0 01-.8 3.1L20 20"/><path d="M6.5 7V4a1 1 0 011-1h3a1 1 0 011 1v3"/></svg>Maritimo</button>
             <button class="pr-tab" data-method="air"><svg viewBox="0 0 24 24"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.4-.1.9.3 1.1L11 12l-2 3H6l-1 1 3 2 2 3 1-1v-3l3-2 3.7 7.3c.2.4.7.5 1.1.3l.5-.3c.4-.2.5-.6.5-1.1z"/></svg>Aereo</button>
@@ -593,8 +598,7 @@ button,input,select{font-family:var(--sans)}button{cursor:pointer}
           <span class="pcard-tag">Impresora</span>
         </div>
         <div class="pcard-foot">
-          <a href="#" class="pcard-btn btn-sec">Ver detalle</a>
-          <a href="producto.html#contacto" class="pcard-btn btn-main">Cotizar</a>
+          <a href="#" class="pcard-btn btn-main" style="flex:1;text-align:center" onclick="event.preventDefault()">Ver detalles →</a>
         </div>
       </div>
     </div>
@@ -848,7 +852,11 @@ document.querySelectorAll('.pr-tabs').forEach(tabs => {
       const daysEl = pricing.querySelector('.pr-days');
       const portEl = pricing.querySelector('.pr-port');
       const savingsEl = pricing.querySelector('.pr-savings');
-      const price = pricing.dataset[method + 'Price'];
+      const mode = getMode();
+      const isRetail = mode === 'minorista';
+      const seaP = isRetail ? (pricing.dataset.retailSea || pricing.dataset.seaPrice) : pricing.dataset.seaPrice;
+      const airP = isRetail ? (pricing.dataset.retailAir || pricing.dataset.airPrice) : pricing.dataset.airPrice;
+      const price = method === 'sea' ? seaP : airP;
       const days = pricing.dataset[method + 'Days'];
       const port = pricing.dataset[method + 'Port'];
       // Animate
@@ -881,6 +889,52 @@ function filterCat(cat) {
     applyFilters();
   }, 400);
 }
+
+// ===== MODE TOGGLE =====
+function getMode() { return localStorage.getItem('aduanex_mode') || 'mayorista'; }
+function setMode(mode) {
+  localStorage.setItem('aduanex_mode', mode);
+  document.querySelectorAll('.mode-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.mode === mode);
+  });
+  applyMode(mode);
+}
+function applyMode(mode) {
+  document.querySelectorAll('.pcard-pricing').forEach(pricing => {
+    const isRetail = mode === 'minorista';
+    const seaPrice = isRetail ? (pricing.dataset.retailSea || pricing.dataset.seaPrice) : pricing.dataset.seaPrice;
+    const airPrice = isRetail ? (pricing.dataset.retailAir || pricing.dataset.airPrice) : pricing.dataset.airPrice;
+
+    // Update displayed price based on active tab
+    const activeTab = pricing.querySelector('.pr-tab.active');
+    const method = activeTab ? activeTab.dataset.method : 'sea';
+    const price = method === 'sea' ? seaPrice : airPrice;
+    const amountEl = pricing.querySelector('.pr-amount');
+    if (amountEl) amountEl.innerHTML = price + '<span class="pr-cur">USD</span>';
+
+    // Store both prices for tab switching
+    pricing.dataset.currentSeaPrice = seaPrice;
+    pricing.dataset.currentAirPrice = airPrice;
+
+    // Hide/show savings in retail mode
+    const savings = pricing.querySelector('.pr-savings');
+    if (savings) savings.style.display = isRetail ? 'none' : '';
+  });
+
+  // Update topbar text
+  const topbarText = document.querySelector('.topbar-text');
+  if (topbarText) {
+    topbarText.innerHTML = mode === 'minorista'
+      ? 'Importa unidades individuales desde China <span>· Precio puerta a puerta</span>'
+      : 'Importacion gestionada de China a Argentina <span>· Precio nacionalizado en 24hs</span>';
+  }
+}
+
+// Init mode on load
+document.addEventListener('DOMContentLoaded', function() {
+  const mode = getMode();
+  setMode(mode);
+});
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
