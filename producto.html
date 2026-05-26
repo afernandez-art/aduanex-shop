@@ -36,16 +36,8 @@ a{text-decoration:none;color:inherit}
 img{display:block;max-width:100%}
 button{font-family:var(--sans);cursor:pointer}
 
-/* ===== TOPBAR ===== */
-.topbar{background:var(--accent);color:var(--bg);text-align:center;padding:7px 16px;font-size:12px;font-weight:600;letter-spacing:.02em;display:flex;align-items:center;justify-content:center;gap:16px;position:fixed;top:0;left:0;right:0;z-index:101}
-.topbar-text{flex:1;text-align:center}
-.topbar .topbar-text span{opacity:.7;font-weight:400}
-.mode-toggle{display:flex;background:rgba(0,0,0,.15);border-radius:100px;padding:2px;flex-shrink:0}
-.mode-btn{padding:4px 14px;border-radius:100px;border:none;background:transparent;color:var(--bg);font-family:var(--sans);font-size:11px;font-weight:600;cursor:pointer;transition:all 150ms;opacity:.6}
-.mode-btn.active{background:var(--bg);color:var(--accent);opacity:1}
-
 /* ===== NAV ===== */
-.nav{position:fixed;top:33px;left:0;right:0;z-index:100;padding:14px 32px;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(16px) saturate(180%);background:rgba(0,0,0,.75);border-bottom:1px solid var(--line)}
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:14px 32px;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(16px) saturate(180%);background:rgba(0,0,0,.75);border-bottom:1px solid var(--line)}
 .logo{font-size:20px;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
 .logo-a{color:var(--accent)}
 .logo-badge{font-size:10px;font-family:var(--mono);letter-spacing:.12em;color:var(--accent);margin-left:10px;padding:3px 10px;border:1px solid var(--accent-mid);border-radius:100px;text-transform:uppercase;vertical-align:middle}
@@ -58,7 +50,7 @@ button{font-family:var(--sans);cursor:pointer}
 .cart-badge{position:absolute;top:-8px;right:-10px;width:18px;height:18px;border-radius:50%;background:var(--accent);color:var(--bg);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:var(--mono)}
 
 /* ===== STICKY PRODUCT BAR ===== */
-.sticky-bar{position:fixed;top:86px;left:0;right:0;z-index:90;padding:10px 32px;backdrop-filter:blur(16px) saturate(180%);background:rgba(0,0,0,.8);border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;transform:translateY(-100%);opacity:0;transition:transform 300ms,opacity 300ms}
+.sticky-bar{position:fixed;top:53px;left:0;right:0;z-index:90;padding:10px 32px;backdrop-filter:blur(16px) saturate(180%);background:rgba(0,0,0,.8);border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;transform:translateY(-100%);opacity:0;transition:transform 300ms,opacity 300ms}
 .sticky-bar.visible{transform:translateY(0);opacity:1}
 .sb-left{display:flex;align-items:center;gap:16px}
 .sb-name{font-size:14px;font-weight:700}
@@ -70,7 +62,7 @@ button{font-family:var(--sans);cursor:pointer}
 .sb-btn-outline{background:transparent;color:var(--text);border:1px solid var(--line-strong)}
 
 /* ===== BREADCRUMB ===== */
-.breadcrumb{padding:105px 32px 0;max-width:var(--max-w);margin:0 auto}
+.breadcrumb{padding:72px 32px 0;max-width:var(--max-w);margin:0 auto}
 .breadcrumb-inner{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:var(--text-mute);padding:16px 0}
 .breadcrumb-inner a{color:var(--text-mute);transition:color 200ms}
 .breadcrumb-inner a:hover{color:var(--accent)}
@@ -350,6 +342,27 @@ footer{border-top:1px solid var(--line);padding:32px;font-family:var(--mono);fon
 .envio-card-list li{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--text-dim);line-height:1.45}
 .envio-card-list li::before{content:'';width:6px;height:6px;min-width:6px;border-radius:50%;background:var(--accent);margin-top:6px}
 
+/* ===== PRICING PATHS ===== */
+.pricing-paths{display:flex;flex-direction:column;gap:16px;margin-top:20px}
+.path-card{background:var(--bg-card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;transition:border-color 200ms}
+.path-card:hover{border-color:var(--line-strong)}
+.path-mayorista{border-color:var(--accent-mid);border-left:3px solid var(--accent)}
+.path-header{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.path-icon{font-size:24px}
+.path-title{font-size:15px;font-weight:700;letter-spacing:-.01em}
+.path-subtitle{font-size:11px;color:var(--text-mute);margin-top:1px}
+.path-cta{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px;border-radius:100px;font-size:14px;font-weight:700;border:none;cursor:pointer;transition:transform 150ms;margin-top:16px}
+.path-cta:hover{transform:scale(1.02)}
+.path-cta-primary{background:var(--accent);color:var(--bg)}
+.path-cta-whatsapp{background:#25D366;color:#fff;text-decoration:none}
+.path-ship-toggle{display:flex;gap:6px;margin-bottom:12px}
+.path-ship-btn{flex:1;padding:8px;background:var(--bg-elev);border:1px solid var(--line);border-radius:var(--radius-sm);font-size:12px;font-weight:500;color:var(--text-dim);cursor:pointer;transition:all 150ms;text-align:center}
+.path-ship-btn.active{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.path-retail-price{text-align:center;padding:16px 0 8px}
+.path-retail-amount{font-family:var(--mono);font-size:28px;font-weight:800;color:var(--text)}
+.path-retail-cur{font-family:var(--mono);font-size:12px;color:var(--text-mute);margin-left:4px}
+.path-retail-note{text-align:center;font-size:11px;color:var(--text-mute);font-family:var(--mono)}
+
 @media(max-width:1024px){
   .product-hero{grid-template-columns:1fr;gap:32px}
   .gallery{position:static}
@@ -390,14 +403,6 @@ footer{border-top:1px solid var(--line);padding:32px;font-family:var(--mono);fon
 </style>
 </head>
 <body>
-
-<div class="topbar">
-  <span class="topbar-text">Importacion gestionada de China a Argentina <span>· Precio nacionalizado en 24hs</span></span>
-  <div class="mode-toggle" id="mode-toggle">
-    <button class="mode-btn active" data-mode="mayorista" onclick="setMode('mayorista')">Mayorista</button>
-    <button class="mode-btn" data-mode="minorista" onclick="setMode('minorista')">Minorista</button>
-  </div>
-</div>
 
 <nav class="nav">
   <a href="index.html" class="logo">ADUA<span class="logo-a">NEX</span><span class="logo-badge">Shop</span></a>
@@ -463,60 +468,98 @@ footer{border-top:1px solid var(--line);padding:32px;font-family:var(--mono);fon
       <div class="pi-highlight"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><strong>2</strong>&nbsp;brazos</div>
     </div>
 
-    <div class="price-block" id="price-block">
-      <!-- Toggle: Maritimo / Aereo -->
-      <div class="pb-toggle">
-        <button class="pb-toggle-btn active" data-method="sea" onclick="toggleShip(this)">
-          <svg viewBox="0 0 24 24"><path d="M2 20l.8-2.4A7.58 7.58 0 012 14.5C2 10.36 6.03 7 11 7s9 3.36 9 7.5a7 7 0 01-.8 3.1L20 20"/><path d="M6.5 7V4a1 1 0 011-1h3a1 1 0 011 1v3"/></svg>
-          Maritimo
-        </button>
-        <button class="pb-toggle-btn" data-method="air" onclick="toggleShip(this)">
-          <svg viewBox="0 0 24 24"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.4-.1.9.3 1.1L11 12l-2 3H6l-1 1 3 2 2 3 1-1v-3l3-2 3.7 7.3c.2.4.7.5 1.1.3l.5-.3c.4-.2.5-.6.5-1.1z"/></svg>
-          Aereo
-        </button>
-      </div>
+    <!-- PRICING PATHS -->
+    <div class="pricing-paths">
 
-      <!-- Big price -->
-      <div class="pb-hero">
-        <span class="pb-hero-amount" id="pb-amount">$23,500</span>
-        <span class="pb-hero-cur">USD</span>
-      </div>
-      <div class="pb-hero-basis" id="pb-basis">FOB Shanghai &middot; 6+ unidades</div>
-      <div class="pb-hero-delivery" id="pb-delivery">
-        <svg viewBox="0 0 24 24" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        60-90 dias de entrega &rarr; Buenos Aires
-      </div>
-
-      <!-- Volume cards -->
-      <div class="pb-volumes">
-        <div class="pb-vol" data-tier="1" onclick="selectTier(this)">
-          <div class="pb-vol-qty">1 unidad</div>
-          <div class="pb-vol-price" id="pv-1">$28,500</div>
-          <div class="pb-vol-tag">&nbsp;</div>
+      <!-- PATH 1: MAYORISTA -->
+      <div class="path-card path-mayorista">
+        <div class="path-header">
+          <div class="path-icon">📦</div>
+          <div>
+            <div class="path-title">Importación por mayor</div>
+            <div class="path-subtitle">Para negocios e importadores</div>
+          </div>
         </div>
-        <div class="pb-vol" data-tier="2" onclick="selectTier(this)">
-          <div class="pb-vol-qty">3-5 uds</div>
-          <div class="pb-vol-price" id="pv-2">$25,900</div>
-          <div class="pb-vol-tag">&nbsp;</div>
+
+        <div class="price-block" id="price-block">
+          <!-- Toggle: Maritimo / Aereo -->
+          <div class="pb-toggle">
+            <button class="pb-toggle-btn active" data-method="sea" onclick="toggleShip(this)">
+              <svg viewBox="0 0 24 24"><path d="M2 20l.8-2.4A7.58 7.58 0 012 14.5C2 10.36 6.03 7 11 7s9 3.36 9 7.5a7 7 0 01-.8 3.1L20 20"/><path d="M6.5 7V4a1 1 0 011-1h3a1 1 0 011 1v3"/></svg>
+              Maritimo
+            </button>
+            <button class="pb-toggle-btn" data-method="air" onclick="toggleShip(this)">
+              <svg viewBox="0 0 24 24"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.4-.1.9.3 1.1L11 12l-2 3H6l-1 1 3 2 2 3 1-1v-3l3-2 3.7 7.3c.2.4.7.5 1.1.3l.5-.3c.4-.2.5-.6.5-1.1z"/></svg>
+              Aereo
+            </button>
+          </div>
+
+          <!-- Big price -->
+          <div class="pb-hero">
+            <span class="pb-hero-amount" id="pb-amount">$23,500</span>
+            <span class="pb-hero-cur">USD</span>
+          </div>
+          <div class="pb-hero-basis" id="pb-basis">FOB Shanghai &middot; 6+ unidades</div>
+          <div class="pb-hero-delivery" id="pb-delivery">
+            <svg viewBox="0 0 24 24" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            60-90 dias de entrega &rarr; Buenos Aires
+          </div>
+
+          <!-- Volume cards -->
+          <div class="pb-volumes">
+            <div class="pb-vol" data-tier="1" onclick="selectTier(this)">
+              <div class="pb-vol-qty">1 unidad</div>
+              <div class="pb-vol-price" id="pv-1">$28,500</div>
+              <div class="pb-vol-tag">&nbsp;</div>
+            </div>
+            <div class="pb-vol" data-tier="2" onclick="selectTier(this)">
+              <div class="pb-vol-qty">3-5 uds</div>
+              <div class="pb-vol-price" id="pv-2">$25,900</div>
+              <div class="pb-vol-tag">&nbsp;</div>
+            </div>
+            <div class="pb-vol active" data-tier="3" onclick="selectTier(this)">
+              <div class="pb-vol-qty">6+ uds</div>
+              <div class="pb-vol-price" id="pv-3">$23,500</div>
+              <div class="pb-vol-tag">MEJOR PRECIO</div>
+            </div>
+          </div>
+
+          <!-- Savings hint -->
+          <div class="pb-savings" id="pb-savings">
+            <svg viewBox="0 0 24 24" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Maritimo ahorra ~$7,700 USD vs aereo en 6+ uds
+          </div>
         </div>
-        <div class="pb-vol active" data-tier="3" onclick="selectTier(this)">
-          <div class="pb-vol-qty">6+ uds</div>
-          <div class="pb-vol-price" id="pv-3">$23,500</div>
-          <div class="pb-vol-tag">MEJOR PRECIO</div>
-        </div>
+
+        <button id="btn-add-cart" class="path-cta path-cta-primary" onclick="addToCart()">Iniciar importación →</button>
       </div>
 
-      <!-- Savings hint -->
-      <div class="pb-savings" id="pb-savings">
-        <svg viewBox="0 0 24 24" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        Maritimo ahorra ~$7,700 USD vs aereo en 6+ uds
+      <!-- PATH 2: UNITARIO -->
+      <div class="path-card path-unitario">
+        <div class="path-header">
+          <div class="path-icon">🏪</div>
+          <div>
+            <div class="path-title">Compra unitaria</div>
+            <div class="path-subtitle">1 unidad, precio puerta a puerta</div>
+          </div>
+        </div>
+        <div class="path-price-display">
+          <div class="path-ship-toggle">
+            <button class="path-ship-btn active" onclick="switchRetailMethod('sea')">🚢 Marítimo</button>
+            <button class="path-ship-btn" onclick="switchRetailMethod('air')">✈️ Aéreo</button>
+          </div>
+          <div class="path-retail-price" id="retail-price">
+            <span class="path-retail-amount">$29,375</span>
+            <span class="path-retail-cur">USD</span>
+          </div>
+          <div class="path-retail-note">Precio incluye importación + despacho + entrega</div>
+        </div>
+        <a class="path-cta path-cta-whatsapp" href="https://wa.me/5491112345678?text=Hola%2C%20me%20interesa%20comprar%201%20unidad%20del%20Double%20Arm%20Coffee%20Robot.%20%C2%BFCu%C3%A1l%20es%20el%20precio%20final%3F" target="_blank">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 00.612.616l4.552-1.46A11.956 11.956 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.387 0-4.591-.837-6.313-2.232l-.44-.36-2.872.921.958-2.804-.386-.461A9.955 9.955 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+          Consultar por WhatsApp
+        </a>
       </div>
 
-    </div>
-
-    <div class="pi-ctas">
-      <button id="btn-add-cart" class="btn-lg btn-lg-primary" onclick="addToCart()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="18" height="18"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg><span id="cta-text">Iniciar importación</span></button>
-      <a href="https://wa.me/5491112345678?text=Hola%20Aduanex!%20Me%20interesa%20el%20Double%20Arm%20Coffee%20Robot" class="btn-lg btn-lg-outline" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>WhatsApp</a>
     </div>
 
     <!-- Container consolidado -->
@@ -1035,49 +1078,12 @@ async function loadContainerGauge() {
 }
 loadContainerGauge();
 
-// ===== MODE TOGGLE =====
-function getMode() { return localStorage.getItem('aduanex_mode') || 'mayorista'; }
-function setMode(mode) {
-  localStorage.setItem('aduanex_mode', mode);
-  document.querySelectorAll('.mode-btn').forEach(b => {
-    b.classList.toggle('active', b.dataset.mode === mode);
-  });
-  applyMode(mode);
-}
-
-function applyMode(mode) {
-  const isRetail = mode === 'minorista';
-
-  // Update CTA text
-  const ctaText = document.getElementById('cta-text');
-  const sbCtaText = document.getElementById('sb-cta-text');
-  if (ctaText) ctaText.textContent = isRetail ? 'Consultar importación' : 'Iniciar importación';
-  if (sbCtaText) sbCtaText.textContent = isRetail ? 'Consultar importación' : 'Iniciar importación';
-
-  // Update topbar text
-  const topbarText = document.querySelector('.topbar-text');
-  if (topbarText) {
-    topbarText.innerHTML = isRetail
-      ? 'Importa unidades individuales desde China <span>· Precio puerta a puerta</span>'
-      : 'Importacion gestionada de China a Argentina <span>· Precio nacionalizado en 24hs</span>';
-  }
-
-  // Show/hide quantity tiers based on mode
-  const tierSection = document.querySelector('.tier-section');
-  if (tierSection) {
-    if (isRetail) {
-      tierSection.style.display = 'none';
-    } else {
-      tierSection.style.display = '';
-    }
-  }
-
-  // For retail mode: auto-select qty 1 and update price display
-  if (isRetail) {
-    // Select the first tier (1 unit) if tier buttons exist
-    const firstTier = document.querySelector('.tier-btn');
-    if (firstTier) firstTier.click();
-  }
+// ===== RETAIL SHIP TOGGLE =====
+function switchRetailMethod(method) {
+  const prices = { sea: '$29,375', air: '$39,000' };
+  document.getElementById('retail-price').querySelector('.path-retail-amount').textContent = prices[method];
+  document.querySelectorAll('.path-ship-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
 }
 
 // Cart helpers
@@ -1120,9 +1126,6 @@ supa.auth.getSession().then(({ data: { session } }) => {
   if (session && btn) { btn.textContent = 'Mi cuenta'; btn.href = 'mis-pedidos.html'; }
 });
 updateCartBadge();
-
-// Init mode
-setMode(getMode());
 </script>
 
 </body>
