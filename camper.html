@@ -107,14 +107,34 @@ button{font-family:var(--sans);cursor:pointer}
 .path-cta{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px;border-radius:100px;font-size:14px;font-weight:700;border:none;cursor:pointer;transition:transform 150ms;margin-top:16px}
 .path-cta:hover{transform:scale(1.02)}
 .path-cta-primary{background:var(--accent);color:var(--bg)}
-.path-cta-whatsapp{background:#25D366;color:#fff;text-decoration:none}
-.path-ship-toggle{display:flex;gap:6px;margin-bottom:12px}
-.path-ship-btn{flex:1;padding:8px;background:var(--bg-elev);border:1px solid var(--line);border-radius:var(--radius-sm);font-size:12px;font-weight:500;color:var(--text-dim);cursor:pointer;transition:all 150ms;text-align:center}
-.path-ship-btn.active{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
-.path-retail-price{text-align:center;padding:16px 0 8px}
-.path-retail-amount{font-family:var(--mono);font-size:28px;font-weight:800;color:var(--text)}
-.path-retail-cur{font-family:var(--mono);font-size:12px;color:var(--text-mute);margin-left:4px}
-.path-retail-note{text-align:center;font-size:11px;color:var(--text-mute);font-family:var(--mono)}
+
+/* ===== CONFIGURATOR (TAB) ===== */
+.cfg-module{background:var(--bg-card);border:1px solid var(--line);border-radius:var(--radius);padding:24px;margin-bottom:16px;transition:border-color 300ms}
+.cfg-module:hover{border-color:var(--line-strong)}
+.cfg-module-header{display:flex;align-items:center;gap:14px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--line)}
+.cfg-module-icon{width:44px;height:44px;border-radius:12px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.cfg-module-title{font-size:16px;font-weight:700;letter-spacing:-.01em}
+.cfg-module-price{font-family:var(--mono);font-size:12px;color:var(--accent);margin-top:2px}
+.cfg-module-tag{margin-left:auto;font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-mute);padding:4px 12px;border:1px solid var(--line);border-radius:100px;white-space:nowrap}
+.cfg-module-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cfg-item{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;background:var(--bg-elev);border:1px solid var(--line);border-radius:var(--radius-sm);transition:border-color 200ms}
+.cfg-item:hover{border-color:var(--accent-mid)}
+.cfg-item strong{font-size:13px;font-weight:600;display:block;margin-bottom:2px}
+.cfg-check{color:var(--accent);font-size:14px;font-weight:700;margin-top:1px;flex-shrink:0}
+.cfg-note{font-size:11px;color:var(--text-mute);line-height:1.4;display:block}
+
+/* ===== UPGRADES GRID ===== */
+.upg-category-label{grid-column:1/-1;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);padding:20px 0 4px;border-bottom:1px solid var(--accent-mid)}
+.upg-category-label:first-child{padding-top:0}
+.upgrades-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.upg-card{display:flex;align-items:center;gap:14px;padding:14px 16px;background:var(--bg-card);border:1px solid var(--line);border-radius:var(--radius-sm);transition:border-color 200ms,transform 200ms;cursor:default}
+.upg-card:hover{border-color:var(--accent-mid);transform:translateY(-1px)}
+.upg-featured{border-color:var(--accent-mid);background:linear-gradient(135deg,var(--bg-card),var(--accent-glow))}
+.upg-icon{width:38px;height:38px;border-radius:10px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.upg-info{flex:1;min-width:0}
+.upg-name{font-size:13px;font-weight:600;margin-bottom:2px}
+.upg-detail{font-size:11px;color:var(--text-mute);line-height:1.4}
+.upg-price{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--accent);white-space:nowrap;flex-shrink:0}
 
 /* PRICE BLOCK */
 .price-block{margin-bottom:18px}
@@ -311,6 +331,10 @@ footer{border-top:1px solid var(--line);padding:32px;font-family:var(--mono);fon
   .tab-btn{padding:12px 18px;font-size:13px}
   .overview-grid{grid-template-columns:1fr}
   .usecases-grid{grid-template-columns:1fr 1fr}
+  .cfg-module-grid{grid-template-columns:1fr}
+  .upgrades-grid{grid-template-columns:1fr}
+  .cfg-module-header{flex-wrap:wrap}
+  .cfg-module-tag{margin-left:0}
   .rfq{padding:60px 20px 80px}
   .rfq-inner{padding:28px;gap:32px}
   .rfq-row{grid-template-columns:1fr}
@@ -461,32 +485,6 @@ footer{border-top:1px solid var(--line);padding:32px;font-family:var(--mono);fon
         <button id="btn-add-cart" class="path-cta path-cta-primary" onclick="addToCart()">Iniciar importacion &rarr;</button>
       </div>
 
-      <!-- PATH 2: UNITARIO -->
-      <div class="path-card path-unitario">
-        <div class="path-header">
-          <div class="path-icon">&#127978;</div>
-          <div>
-            <div class="path-title">Compra unitaria</div>
-            <div class="path-subtitle">1 unidad, precio puerta a puerta</div>
-          </div>
-        </div>
-        <div class="path-price-display">
-          <div class="path-ship-toggle">
-            <button class="path-ship-btn active" onclick="switchRetailMethod('sea', this)">&#128674; Maritimo</button>
-            <button class="path-ship-btn" onclick="switchRetailMethod('air', this)">&#9992;&#65039; Aereo</button>
-          </div>
-          <div class="path-retail-price" id="retail-price">
-            <span class="path-retail-amount">$18,500</span>
-            <span class="path-retail-cur">USD</span>
-          </div>
-          <div class="path-retail-note">Precio incluye importacion + despacho + entrega</div>
-        </div>
-        <a class="path-cta path-cta-whatsapp" href="https://wa.me/5491112345678?text=Hola%2C%20me%20interesa%20comprar%201%20unidad%20del%20SEPHIROTH%20Pickup%20Camper.%20%C2%BFCu%C3%A1l%20es%20el%20precio%20final%3F" target="_blank">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 00.612.616l4.552-1.46A11.956 11.956 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.387 0-4.591-.837-6.313-2.232l-.44-.36-2.872.921.958-2.804-.386-.461A9.955 9.955 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
-          Consultar por WhatsApp
-        </a>
-      </div>
-
     </div>
 
     <!-- Container consolidado -->
@@ -531,6 +529,7 @@ footer{border-top:1px solid var(--line);padding:32px;font-family:var(--mono);fon
 <div class="tabs-section">
   <div class="tabs-nav" id="tabs-nav">
     <button class="tab-btn active" data-tab="overview">Overview</button>
+    <button class="tab-btn" data-tab="config">Configuracion</button>
     <button class="tab-btn" data-tab="specs">Especificaciones</button>
     <button class="tab-btn" data-tab="faq">FAQ</button>
     <button class="tab-btn" data-tab="envio">Envio</button>
@@ -586,71 +585,194 @@ footer{border-top:1px solid var(--line);padding:32px;font-family:var(--mono);fon
     </div>
   </div>
 
+  <!-- ===== CONFIGURACION ===== -->
+  <div class="tab-panel" id="panel-config">
+    <h2 style="font-size:24px;font-weight:800;letter-spacing:-.03em;margin-bottom:6px">Configuracion base + upgrades</h2>
+    <p style="font-size:14px;color:var(--text-dim);margin-bottom:32px">El camper viene con una configuracion base completa. Podes sumar upgrades opcionales segun tu necesidad.</p>
+
+    <!-- BASE CONFIG: 3 MODULES -->
+    <div style="display:flex;flex-direction:column;gap:20px;margin-bottom:48px">
+
+      <!-- MODULE 1: ESTRUCTURA -->
+      <div class="cfg-module">
+        <div class="cfg-module-header">
+          <div class="cfg-module-icon">&#127959;</div>
+          <div>
+            <div class="cfg-module-title">Estructura &amp; Habitaculo</div>
+            <div class="cfg-module-price">Incluido en base</div>
+          </div>
+          <div class="cfg-module-tag">MODULO 1</div>
+        </div>
+        <div class="cfg-module-grid">
+          <div class="cfg-item"><span class="cfg-check">&#10003;</span><div><strong>Frame aluminio europeo</strong><span class="cfg-note">Perfiles con mas superficie de carga que tubos tradicionales</span></div></div>
+          <div class="cfg-item"><span class="cfg-check">&#10003;</span><div><strong>Skin 5052 Al-Mg</strong><span class="cfg-note">Soldadura laser, reparable por chapa, estilos diversos</span></div></div>
+          <div class="cfg-item"><span class="cfg-check">&#10003;</span><div><strong>Pintura armour antiexplosion</strong><span class="cfg-note">Tratamiento de alta resistencia superficial</span></div></div>
+          <div class="cfg-item"><span class="cfg-check">&#10003;</span><div><strong>Puerta RV aluminio patentada</strong><span class="cfg-note">Aleacion Al-Mg de altura extendida</span></div></div>
+          <div class="cfg-item"><span class="cfg-check">&#10003;</span><div><strong>Ventanas aluminio doble capa</strong><span class="cfg-note">Con cortina de privacidad y mosquitero</span></div></div>
+          <div class="cfg-item"><span class="cfg-check">&#10003;</span><div><strong>Cama pull-out</strong><span class="cfg-note">1900-2100 &times; 1300-1600 mm, plegable</span></div></div>
+          <div class="cfg-item"><span class="cfg-check">&#10003;</span><div><strong>Techo pop-up manual</strong><span class="cfg-note">Modo manual de respaldo ante falla electrica</span></div></div>
+          <div class="cfg-item"><span class="cfg-check">&#10003;</span><div><strong>Aislacion de tela impermeable</strong><span class="cfg-note">Transpirable, anti-arrugas, doble capa termica</span></div></div>
+          <div class="cfg-item"><span class="cfg-check">&#10003;</span><div><strong>Muebles livianos</strong><span class="cfg-note">Multilaminado marino E0, liviano y resistente</span></div></div>
+          <div class="cfg-item"><span class="cfg-check">&#10003;</span><div><strong>Mesa elevable</strong><span class="cfg-note">Se combina como cama simple en planta baja</span></div></div>
+          <div class="cfg-item"><span class="cfg-check">&#10003;</span><div><strong>Piso microcristalino SPC</strong><span class="cfg-note">Anti-humedad, aislante, resistente al desgaste</span></div></div>
+          <div class="cfg-item"><span class="cfg-check">&#10003;</span><div><strong>Colchon esponja 60D</strong><span class="cfg-note">Opcional: espuma, perlas, latex</span></div></div>
+          <div class="cfg-item"><span class="cfg-check">&#10003;</span><div><strong>Accesorios decorativos</strong><span class="cfg-note">Herrajes, sellado, aislacion, terminaciones</span></div></div>
+          <div class="cfg-item"><span class="cfg-check">&#10003;</span><div><strong>Kit outdoor</strong><span class="cfg-note">Tabla de traccion, pala ingeniera, gear aluminio</span></div></div>
+          <div class="cfg-item"><span class="cfg-check">&#10003;</span><div><strong>Kit de herramientas + fijaciones</strong><span class="cfg-note">Armado, mantenimiento basico y patas RV</span></div></div>
+        </div>
+      </div>
+
+      <!-- MODULE 2: ELECTRICA -->
+      <div class="cfg-module">
+        <div class="cfg-module-header">
+          <div class="cfg-module-icon">&#9889;</div>
+          <div>
+            <div class="cfg-module-title">Sistema Electrico</div>
+            <div class="cfg-module-price">Incluido en base</div>
+          </div>
+          <div class="cfg-module-tag">MODULO 2</div>
+        </div>
+        <div class="cfg-module-grid">
+          <div class="cfg-item"><span class="cfg-check">&#10003;</span><div><strong>Kit de carga 220V</strong><span class="cfg-note">Conector 6 pines estandar nacional</span></div></div>
+          <div class="cfg-item"><span class="cfg-check">&#10003;</span><div><strong>Iluminacion interior &times;2 + exterior &times;3</strong><span class="cfg-note">Tira LED ambiental calida incluida</span></div></div>
+          <div class="cfg-item"><span class="cfg-check">&#10003;</span><div><strong>Cocina de induccion empotrada</strong><span class="cfg-note">Para hervir agua y cocinar</span></div></div>
+          <div class="cfg-item"><span class="cfg-check">&#10003;</span><div><strong>Enchufes &times;5, USB &times;3, Type-C &times;2</strong><span class="cfg-note">Cubre multiples escenarios de uso</span></div></div>
+          <div class="cfg-item"><span class="cfg-check">&#10003;</span><div><strong>Compartimento de bateria con control termico</strong><span class="cfg-note">Temperatura regulable del bay de baterias</span></div></div>
+          <div class="cfg-item"><span class="cfg-check">&#10003;</span><div><strong>Bateria litio 1800W / 1024Wh</strong><span class="cfg-note">Cubre necesidades basicas de energia off-grid</span></div></div>
+        </div>
+      </div>
+
+      <!-- MODULE 3: AGUA -->
+      <div class="cfg-module">
+        <div class="cfg-module-header">
+          <div class="cfg-module-icon">&#128167;</div>
+          <div>
+            <div class="cfg-module-title">Sistema de Agua</div>
+            <div class="cfg-module-price">Incluido en base</div>
+          </div>
+          <div class="cfg-module-tag">MODULO 3</div>
+        </div>
+        <div class="cfg-module-grid">
+          <div class="cfg-item"><span class="cfg-check">&#10003;</span><div><strong>Tanque inox 304 custom</strong><span class="cfg-note">Material food-grade, resistente y duradero</span></div></div>
+          <div class="cfg-item"><span class="cfg-check">&#10003;</span><div><strong>Bomba de diafragma silenciosa</strong><span class="cfg-note">Arranque/parada automatico por presion</span></div></div>
+          <div class="cfg-item"><span class="cfg-check">&#10003;</span><div><strong>Sensor de nivel + display digital</strong><span class="cfg-note">Nivel de agua visible en tiempo real</span></div></div>
+          <div class="cfg-item"><span class="cfg-check">&#10003;</span><div><strong>Entrada de agua exterior multifuncion</strong><span class="cfg-note">Switch de bomba, quick-connect, ventilacion</span></div></div>
+          <div class="cfg-item"><span class="cfg-check">&#10003;</span><div><strong>Canerias food-grade</strong><span class="cfg-note">Aptas para agua potable</span></div></div>
+          <div class="cfg-item"><span class="cfg-check">&#10003;</span><div><strong>Bacha inox con panel de vidrio + grifo rebatible</strong><span class="cfg-note">Set completo para uso interior</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- UPGRADES OPCIONALES -->
+    <h2 style="font-size:22px;font-weight:800;letter-spacing:-.02em;margin-bottom:6px">Upgrades opcionales</h2>
+    <p style="font-size:13px;color:var(--text-dim);margin-bottom:24px">Sumale lo que necesites. Cada upgrade se agrega en fabrica antes del envio. Precios de referencia en RMB (fabrica).</p>
+
+    <div class="upgrades-grid">
+      <!-- ENERGY -->
+      <div class="upg-category-label">ENERGIA &amp; CLIMA</div>
+      <div class="upg-card" data-rmb="9500"><div class="upg-icon">&#128267;</div><div class="upg-info"><div class="upg-name">Bateria LiFePO4 3 kWh</div><div class="upg-detail">+ Cargador/inversor 3.6kW, generacion vehicular, controlador solar MPPT</div></div><div class="upg-price">&yen;9,500</div></div>
+      <div class="upg-card" data-rmb="12500"><div class="upg-icon">&#128267;</div><div class="upg-info"><div class="upg-name">Bateria LiFePO4 11 kWh</div><div class="upg-detail">+ Cargador/inversor 3.6kW, generacion vehicular, controlador solar MPPT</div></div><div class="upg-price">&yen;12,500</div></div>
+      <div class="upg-card" data-rmb="2200"><div class="upg-icon">&#10052;</div><div class="upg-info"><div class="upg-name">Aire acondicionado inverter</div><div class="upg-detail">Frio, variable, bajo consumo</div></div><div class="upg-price">&yen;2,200</div></div>
+      <div class="upg-card" data-rmb="1800"><div class="upg-icon">&#9728;</div><div class="upg-info"><div class="upg-name">Panel solar 400W</div><div class="upg-detail">Carga la bateria en ruta o estacionado</div></div><div class="upg-price">&yen;1,800</div></div>
+      <div class="upg-card" data-rmb="3200"><div class="upg-icon">&#128293;</div><div class="upg-info"><div class="upg-name">Calefaccion diesel</div><div class="upg-detail">Con tanque de combustible externo</div></div><div class="upg-price">&yen;3,200</div></div>
+      <div class="upg-card" data-rmb="1000"><div class="upg-icon">&#128704;</div><div class="upg-info"><div class="upg-name">Calentador de agua electrico</div><div class="upg-detail">Agua caliente para ducha y lavado</div></div><div class="upg-price">&yen;1,000</div></div>
+
+      <!-- STRUCTURE -->
+      <div class="upg-category-label">ESTRUCTURA</div>
+      <div class="upg-card" data-rmb="5000"><div class="upg-icon">&#8596;</div><div class="upg-info"><div class="upg-name">Sistema de expansion lateral</div><div class="upg-detail">Patentado, tipo push-out, mas espacio interior</div></div><div class="upg-price">&yen;5,000</div></div>
+      <div class="upg-card" data-rmb="1600"><div class="upg-icon">&#128311;</div><div class="upg-info"><div class="upg-name">Ventana gullwing</div><div class="upg-detail">Apertura tipo ala de gaviota</div></div><div class="upg-price">&yen;1,600</div></div>
+      <div class="upg-card" data-rmb="1800"><div class="upg-icon">&#9744;</div><div class="upg-info"><div class="upg-name">Techo solar / skylight</div><div class="upg-detail">Claraboya custom para luz natural</div></div><div class="upg-price">&yen;1,800</div></div>
+      <div class="upg-card" data-rmb="1000"><div class="upg-icon">&#128682;</div><div class="upg-info"><div class="upg-name">Compuerta de conexion a cabina</div><div class="upg-detail">Acceso directo al habitaculo de la pickup</div></div><div class="upg-price">&yen;1,000</div></div>
+
+      <!-- OTHER -->
+      <div class="upg-category-label">CONFORT &amp; ACCESORIOS</div>
+      <div class="upg-card" data-rmb="1600"><div class="upg-icon">&#128703;</div><div class="upg-info"><div class="upg-name">Ducha interior</div><div class="upg-detail">Cortina, flor, bandeja aluminio, extractor</div></div><div class="upg-price">&yen;1,600</div></div>
+      <div class="upg-card" data-rmb="2700"><div class="upg-icon">&#128703;</div><div class="upg-info"><div class="upg-name">Ducha exterior</div><div class="upg-detail">Para limpieza rapida post-aventura</div></div><div class="upg-price">&yen;2,700</div></div>
+      <div class="upg-card" data-rmb="3000"><div class="upg-icon">&#9969;</div><div class="upg-info"><div class="upg-name">Toldo lateral 3&times;2.5m</div><div class="upg-detail">Sombra instantanea, apertura manual</div></div><div class="upg-price">&yen;3,000</div></div>
+      <div class="upg-card" data-rmb="4300"><div class="upg-icon">&#9969;</div><div class="upg-info"><div class="upg-name">Toldo 270&deg; 2.5m</div><div class="upg-detail">Cobertura envolvente alrededor del vehiculo</div></div><div class="upg-price">&yen;4,300</div></div>
+      <div class="upg-card" data-rmb="1400"><div class="upg-icon">&#129482;</div><div class="upg-info"><div class="upg-name">Heladera compresor</div><div class="upg-detail">Con riel deslizable custom</div></div><div class="upg-price">&yen;1,400</div></div>
+      <div class="upg-card" data-rmb="800"><div class="upg-icon">&#128701;</div><div class="upg-info"><div class="upg-name">Inodoro portatil</div><div class="upg-detail">Compacto, para viajes largos</div></div><div class="upg-price">&yen;800</div></div>
+      <div class="upg-card" data-rmb="3000"><div class="upg-icon">&#127910;</div><div class="upg-info"><div class="upg-name">Kit proyector</div><div class="upg-detail">Cine al aire libre o interior</div></div><div class="upg-price">&yen;3,000</div></div>
+      <div class="upg-card" data-rmb="700"><div class="upg-icon">&#127859;</div><div class="upg-info"><div class="upg-name">Microondas</div><div class="upg-detail">Compacto, para calentar rapido</div></div><div class="upg-price">&yen;700</div></div>
+
+      <!-- FEATURES -->
+      <div class="upg-category-label">UPGRADES DESTACADOS</div>
+      <div class="upg-card upg-featured" data-rmb="2000"><div class="upg-icon">&#9889;</div><div class="upg-info"><div class="upg-name">Techo electrico pop-up</div><div class="upg-detail">Patentado: modo electrico + manual de respaldo</div></div><div class="upg-price">&yen;2,000</div></div>
+      <div class="upg-card upg-featured" data-rmb="700"><div class="upg-icon">&#128682;</div><div class="upg-info"><div class="upg-name">Escalera rebatible patentada</div><div class="upg-detail">Acceso facil al techo, se pliega al ras</div></div><div class="upg-price">&yen;700</div></div>
+    </div>
+
+    <div style="margin-top:24px;padding:16px 20px;background:var(--bg-card);border:1px solid var(--accent-mid);border-radius:var(--radius);display:flex;align-items:center;gap:14px">
+      <div style="font-size:24px">&#128161;</div>
+      <div>
+        <div style="font-size:13px;font-weight:600;margin-bottom:2px">Los upgrades se agregan en fabrica</div>
+        <div style="font-size:12px;color:var(--text-dim)">Elegis lo que necesitas, se fabrica con todo integrado y te llega listo. Precios en RMB son de referencia (fabrica). El precio final nacionalizado se cotiza por separado.</div>
+      </div>
+    </div>
+  </div>
+
   <!-- ===== ESPECIFICACIONES ===== -->
   <div class="tab-panel" id="panel-specs">
     <div class="specs-layout">
       <div>
         <div class="specs-group-title">GENERAL</div>
         <div class="spec-row"><span class="spec-label">Modelo</span><span class="spec-value">SEPHIROTH&trade; Pickup Camper</span></div>
-        <div class="spec-row"><span class="spec-label">Fabricante</span><span class="spec-value">SEPHIROTH RV (est. 2020)</span></div>
-        <div class="spec-row"><span class="spec-label">Origen</span><span class="spec-value">Qingdao, China</span></div>
-        <div class="spec-row"><span class="spec-label">Patentes</span><span class="spec-value"><span class="accent">19 patentes</span></span></div>
+        <div class="spec-row"><span class="spec-label">Fabricante</span><span class="spec-value">SEPHIROTH RV (est. 2020, Qingdao)</span></div>
+        <div class="spec-row"><span class="spec-label">Patentes</span><span class="spec-value"><span class="accent">19 patentes registradas</span></span></div>
         <div class="spec-row"><span class="spec-label">Compatibilidad</span><span class="spec-value">F150, RAM 1500, Hilux, Rexton, Tasman</span></div>
-        <div class="spec-row"><span class="spec-label">Peso</span><span class="spec-value"><span class="accent">~550 kg</span></span></div>
+        <div class="spec-row"><span class="spec-label">Peso total</span><span class="spec-value"><span class="accent">~550 kg</span></span></div>
         <div class="spec-row"><span class="spec-label">Volumen CBM</span><span class="spec-value">10.56 m&sup3; / unidad</span></div>
 
-        <div class="specs-group-title">MATERIALES</div>
-        <div class="spec-row"><span class="spec-label">Estructura / Frame</span><span class="spec-value">Aluminio</span></div>
-        <div class="spec-row"><span class="spec-label">Skin exterior</span><span class="spec-value"><span class="accent">Aleacion 5052 Al-Mg</span></span></div>
+        <div class="specs-group-title">ESTRUCTURA &amp; MATERIALES</div>
+        <div class="spec-row"><span class="spec-label">Frame</span><span class="spec-value">Perfil aluminio europeo (mas superficie de carga)</span></div>
+        <div class="spec-row"><span class="spec-label">Skin exterior</span><span class="spec-value"><span class="accent">Aleacion 5052 Al-Mg</span> (soldadura laser)</span></div>
         <div class="spec-row"><span class="spec-label">Pintura</span><span class="spec-value">Armour antiexplosion</span></div>
+        <div class="spec-row"><span class="spec-label">Puerta</span><span class="spec-value">Aluminio RV patentada, Al-Mg alta</span></div>
+        <div class="spec-row"><span class="spec-label">Ventanas</span><span class="spec-value">Aluminio aviacion, doble capa, aislante</span></div>
+        <div class="spec-row"><span class="spec-label">Piso</span><span class="spec-value">SPC microcristalino + base honeycomb + zocalo aluminio</span></div>
 
         <div class="specs-group-title">HABITACULO</div>
-        <div class="spec-row"><span class="spec-label">Cama (pull-out)</span><span class="spec-value">1900-2100 &times; 1300-1600 mm</span></div>
-        <div class="spec-row"><span class="spec-label">Techo</span><span class="spec-value"><span class="accent">Pop-up X-brace</span></span></div>
-        <div class="spec-row"><span class="spec-label">Ventanas</span><span class="spec-value">Si (multiples)</span></div>
+        <div class="spec-row"><span class="spec-label">Cama superior (pull-out)</span><span class="spec-value">1900-2100 &times; 1300-1600 mm</span></div>
+        <div class="spec-row"><span class="spec-label">Colchon</span><span class="spec-value">Esponja 60D (opcional latex/perlas)</span></div>
+        <div class="spec-row"><span class="spec-label">Mesa</span><span class="spec-value">Elevable, se convierte en cama simple (PB)</span></div>
+        <div class="spec-row"><span class="spec-label">Muebles</span><span class="spec-value">Multilaminado marino E0, ultraliviano</span></div>
+        <div class="spec-row"><span class="spec-label">Techo pop-up</span><span class="spec-value"><span class="accent">Manual (upgrade a electrico disponible)</span></span></div>
+        <div class="spec-row"><span class="spec-label">Tela pop-up</span><span class="spec-value">Impermeable, transpirable, anti-arrugas, doble aislacion</span></div>
 
-        <div class="specs-group-title">ENERGIA</div>
+        <div class="specs-group-title">SISTEMA ELECTRICO</div>
         <div class="spec-row"><span class="spec-label">Bateria</span><span class="spec-value"><span class="accent">1800W / 1024Wh litio</span></span></div>
-        <div class="spec-row"><span class="spec-label">Inversor</span><span class="spec-value">1800W</span></div>
-        <div class="spec-row"><span class="spec-label">Paneles solares</span><span class="spec-value">Opcional (upgrade)</span></div>
+        <div class="spec-row"><span class="spec-label">Carga</span><span class="spec-value">220V 6 pines estandar</span></div>
+        <div class="spec-row"><span class="spec-label">Iluminacion</span><span class="spec-value">Interior &times;2, exterior &times;3, LED ambiental</span></div>
+        <div class="spec-row"><span class="spec-label">Cocina</span><span class="spec-value"><span class="accent">Induccion empotrada</span></span></div>
+        <div class="spec-row"><span class="spec-label">Enchufes</span><span class="spec-value">&times;5 tomas + USB &times;3 + Type-C &times;2</span></div>
+        <div class="spec-row"><span class="spec-label">Bay de baterias</span><span class="spec-value">Con control de temperatura</span></div>
 
-        <div class="specs-group-title">AGUA</div>
-        <div class="spec-row"><span class="spec-label">Tanque</span><span class="spec-value">Acero inoxidable 304</span></div>
-        <div class="spec-row"><span class="spec-label">Bomba</span><span class="spec-value">Presion electrica</span></div>
+        <div class="specs-group-title">SISTEMA DE AGUA</div>
+        <div class="spec-row"><span class="spec-label">Tanque</span><span class="spec-value">Acero inoxidable 304 food-grade</span></div>
+        <div class="spec-row"><span class="spec-label">Bomba</span><span class="spec-value">Diafragma silenciosa, auto on/off por presion</span></div>
+        <div class="spec-row"><span class="spec-label">Nivel</span><span class="spec-value">Sensor + display digital tiempo real</span></div>
+        <div class="spec-row"><span class="spec-label">Entrada exterior</span><span class="spec-value">Multifuncion: switch bomba, quick-connect, venteo</span></div>
+        <div class="spec-row"><span class="spec-label">Canerias</span><span class="spec-value">Food-grade</span></div>
+        <div class="spec-row"><span class="spec-label">Bacha</span><span class="spec-value">Inox + vidrio, grifo rebatible</span></div>
 
-        <div class="specs-group-title">COCINA</div>
-        <div class="spec-row"><span class="spec-label">Tipo</span><span class="spec-value"><span class="accent">Induccion</span></span></div>
+        <div class="specs-group-title">OTROS INCLUIDOS</div>
+        <div class="spec-row"><span class="spec-label">Kit outdoor</span><span class="spec-value">Tabla traccion, pala, gear aluminio</span></div>
+        <div class="spec-row"><span class="spec-label">Herramientas</span><span class="spec-value">Kit completo + fijaciones + patas RV</span></div>
+        <div class="spec-row"><span class="spec-label">Cortinas</span><span class="spec-value">Privacidad + mosquitero en ventanas</span></div>
 
-        <div class="specs-group-title">ENVIO</div>
+        <div class="specs-group-title">LOGISTICA</div>
         <div class="spec-row"><span class="spec-label">Contenedor 20ft</span><span class="spec-value">2 unidades</span></div>
         <div class="spec-row"><span class="spec-label">Contenedor 40ft</span><span class="spec-value"><span class="accent">5 unidades</span></span></div>
-        <div class="spec-row"><span class="spec-label">Precio fabrica (ref.)</span><span class="spec-value">~49,800 RMB (~$6,900 USD)</span></div>
 
-        <div class="config-section">
-          <div class="config-title">UPGRADES OPCIONALES</div>
-          <div class="config-grid">
-            <span class="config-tag">Aire acondicionado</span>
-            <span class="config-tag">Panel solar</span>
-            <span class="config-tag">Toldo lateral (awning)</span>
-            <span class="config-tag">Heladera / Fridge</span>
-            <span class="config-tag">Calentador de agua</span>
-            <span class="config-tag">Bateria extra</span>
-            <span class="config-tag">Ducha exterior</span>
-            <span class="config-tag">TV / Monitor</span>
-            <span class="config-tag">Calefaccion Diesel</span>
-            <span class="config-tag">Portabicicletas</span>
-          </div>
-        </div>
         <div class="download-row">
-          <a href="assets/camper/file_2.pdf" class="dl-btn" target="_blank"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Catalogo PDF<span class="dl-size">PDF</span></a>
-          <a href="assets/camper/file_3.pdf" class="dl-btn" target="_blank"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Ficha tecnica<span class="dl-size">PDF</span></a>
+          <a href="assets/camper/file_2.pdf" class="dl-btn" target="_blank"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Config completa (CN+EN)<span class="dl-size">PDF</span></a>
+          <a href="assets/camper/file_3.pdf" class="dl-btn" target="_blank"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Config resumida (EN)<span class="dl-size">PDF</span></a>
         </div>
       </div>
       <div>
         <div class="dims-card">
-          <div style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:20px">DIMENSIONES ESTIMADAS</div>
-          <div class="dims-visual"><div class="dims-box">10.56 m&sup3;<span class="dims-label-w">Ancho pickup</span><span class="dims-label-h">~1800 mm</span><span class="dims-label-d">Largo caja</span></div></div>
-          <div class="dims-note">Dimensiones varian segun modelo de pickup. Consultar ficha tecnica para medidas exactas.</div>
+          <div style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:20px">VOLUMEN Y TRANSPORTE</div>
+          <div class="dims-visual"><div class="dims-box">10.56 m&sup3;<span class="dims-label-w">~550 kg</span><span class="dims-label-h">CBM/unidad</span><span class="dims-label-d">Pickup full/mid-size</span></div></div>
+          <div class="dims-note">2 por contenedor 20ft &middot; 5 por contenedor 40ft. Dimensiones varian segun modelo de pickup.</div>
         </div>
         <div class="systems-card">
           <div class="systems-title">PICKUPS COMPATIBLES</div>
@@ -660,20 +782,22 @@ footer{border-top:1px solid var(--line);padding:32px;font-family:var(--mono);fon
             <div class="systems-item"><span class="systems-check">&#10003;</span> Toyota Hilux</div>
             <div class="systems-item"><span class="systems-check">&#10003;</span> KGM Rexton Sports</div>
             <div class="systems-item"><span class="systems-check">&#10003;</span> Kia Tasman</div>
-            <div class="systems-item"><span class="systems-check">&#10003;</span> Otras (consultar)</div>
+            <div class="systems-item"><span class="systems-check">&#10003;</span> Otras pickups (consultar)</div>
           </div>
         </div>
         <div class="systems-card">
-          <div class="systems-title">INCLUIDO EN CONFIGURACION BASE</div>
+          <div class="systems-title">RESUMEN CONFIG BASE (3 MODULOS)</div>
           <div class="systems-list">
-            <div class="systems-item"><span class="systems-check">&#10003;</span> Estructura aluminio completa</div>
-            <div class="systems-item"><span class="systems-check">&#10003;</span> Techo pop-up X-brace</div>
-            <div class="systems-item"><span class="systems-check">&#10003;</span> Cama pull-out</div>
-            <div class="systems-item"><span class="systems-check">&#10003;</span> Cocina induccion</div>
-            <div class="systems-item"><span class="systems-check">&#10003;</span> Bateria litio 1024Wh</div>
-            <div class="systems-item"><span class="systems-check">&#10003;</span> Tanque agua SS304</div>
-            <div class="systems-item"><span class="systems-check">&#10003;</span> Bomba de agua</div>
-            <div class="systems-item"><span class="systems-check">&#10003;</span> Ventanas</div>
+            <div class="systems-item"><span class="systems-check">&#10003;</span> Estructura aluminio + skin Al-Mg 5052</div>
+            <div class="systems-item"><span class="systems-check">&#10003;</span> Techo pop-up + aislacion doble capa</div>
+            <div class="systems-item"><span class="systems-check">&#10003;</span> Cama pull-out + mesa elevable</div>
+            <div class="systems-item"><span class="systems-check">&#10003;</span> Muebles marinos E0 + piso SPC</div>
+            <div class="systems-item"><span class="systems-check">&#10003;</span> Bateria litio 1800W/1024Wh</div>
+            <div class="systems-item"><span class="systems-check">&#10003;</span> Cocina induccion + enchufes/USB/TypeC</div>
+            <div class="systems-item"><span class="systems-check">&#10003;</span> Tanque SS304 + bomba + sensor nivel</div>
+            <div class="systems-item"><span class="systems-check">&#10003;</span> Bacha inox + grifo + canerias food-grade</div>
+            <div class="systems-item"><span class="systems-check">&#10003;</span> Ventanas doble capa + cortina + mosquitero</div>
+            <div class="systems-item"><span class="systems-check">&#10003;</span> Kit outdoor + herramientas + patas RV</div>
           </div>
         </div>
       </div>
@@ -833,7 +957,6 @@ const PRICES = {
   sea: { t1: '$14,900', t2: '$13,500', t3: '$12,500', days: '60-90 dias de entrega → Buenos Aires', basis_port: 'FOB Qingdao', label: 'Maritimo' },
   air: { t1: '$19,800', t2: '$18,200', t3: '$16,900', days: '15-20 dias de entrega → Buenos Aires', basis_port: 'CIF Ezeiza', label: 'Aereo' }
 };
-const RETAIL = { sea: '$18,500', air: '$24,500' };
 const TIER_LABELS = { 1: '1 unidad', 2: '2 unidades (20ft)', 3: '5+ unidades (40ft)' };
 let currentMethod = 'sea';
 let currentTier = 3;
@@ -930,13 +1053,6 @@ new IntersectionObserver(([e]) => {
   if (!fill) return;
   fill.style.width = '0%';
 })();
-
-// Retail ship toggle
-function switchRetailMethod(method, btn) {
-  document.getElementById('retail-price').querySelector('.path-retail-amount').textContent = RETAIL[method];
-  document.querySelectorAll('.path-ship-btn').forEach(b => b.classList.remove('active'));
-  if (btn) btn.classList.add('active');
-}
 
 // Cart helpers
 function getCart() { return JSON.parse(localStorage.getItem('aduanex_cart') || '[]'); }
