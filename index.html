@@ -114,6 +114,7 @@ button,input,select{font-family:var(--sans)}button{cursor:pointer}
 .pcard-img svg.prod-illust{width:100px;height:100px;opacity:.85;transition:transform 300ms,opacity 300ms}
 .pcard:hover .pcard-img svg.prod-illust{transform:scale(1.08);opacity:1}
 .pcard-img::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,var(--bg-card))}
+.pcard-img img{width:100%;height:100%;object-fit:cover}
 
 .pcard-body{padding:16px 18px 18px;flex:1;display:flex;flex-direction:column}
 .pcard-cat{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-mute);margin-bottom:6px}
@@ -272,8 +273,8 @@ button,input,select{font-family:var(--sans)}button{cursor:pointer}
   <!-- HERO MINI -->
   <div class="hero-mini">
     <div class="hero-mini-left">
-      <h1>Importa <span>tecnologia</span> directo de fabrica</h1>
-      <p>Marketplace B2B de productos chinos con importacion gestionada. Elegis, cotizamos en 24hs, y te lo llevamos puerta a puerta.</p>
+      <h1>Importa tu <span>camper</span> directo de fabrica</h1>
+      <p>SEPHIROTH™ Pickup Camper con techo elevable, cocina y bateria de litio. Importacion gestionada desde China, puerta a puerta.</p>
     </div>
     <div class="hero-mini-stats">
       <div class="hero-mini-stat">
@@ -311,10 +312,10 @@ button,input,select{font-family:var(--sans)}button{cursor:pointer}
   <!-- TOOLBAR -->
   <div class="toolbar" id="toolbar">
     <button class="cat-chip active" data-cat="all">Todos</button>
-    <button class="cat-chip" data-cat="robotica">Robotica & Vending</button>
-    <button class="cat-chip" data-cat="expendedoras">Maquinas expendedoras</button>
-    <button class="cat-chip" data-cat="equipamiento">Equipamiento comercial</button>
-    <button class="cat-chip" data-cat="kioscos">Kioscos inteligentes</button>
+    <button class="cat-chip" data-cat="overlanding">Overlanding</button>
+    <button class="cat-chip" data-cat="campers">Campers</button>
+    <button class="cat-chip" data-cat="accesorios">Accesorios</button>
+    <button class="cat-chip" data-cat="equipamiento">Equipamiento</button>
     <div class="toolbar-spacer"></div>
     <div class="sort-wrap">
       <label>Ordenar:</label>
@@ -329,7 +330,7 @@ button,input,select{font-family:var(--sans)}button{cursor:pointer}
 
   <!-- RESULTS BAR -->
   <div class="results-bar">
-    <div class="results-count" id="results-count">Mostrando <strong>6</strong> productos</div>
+    <div class="results-count" id="results-count">Mostrando <strong>1</strong> producto</div>
     <div class="view-toggle">
       <button class="view-btn active" id="grid-view" title="Vista grilla">
         <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
@@ -343,252 +344,36 @@ button,input,select{font-family:var(--sans)}button{cursor:pointer}
   <!-- PRODUCT GRID -->
   <div class="pgrid" id="pgrid">
 
-    <!-- Double Arm Coffee Shop -->
-    <div class="pcard feat" data-cat="robotica" data-price="23500" data-name="Double Arm Coffee Shop" data-new="0" data-pop="3">
-      <span class="pcard-badge badge-pop">MAS POPULAR</span>
-      <a href="producto.html" class="pcard-img">
-        <svg class="prod-illust" viewBox="0 0 120 120" fill="none">
-          <defs><linearGradient id="g1" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse"><stop stop-color="#88CE02" stop-opacity=".3"/><stop offset="1" stop-color="#88CE02" stop-opacity=".05"/></linearGradient></defs>
-          <rect x="10" y="40" width="100" height="65" rx="8" fill="url(#g1)" stroke="#88CE02" stroke-opacity=".3"/>
-          <rect x="30" y="50" width="24" height="32" rx="4" fill="#88CE02" fill-opacity=".15" stroke="#88CE02" stroke-opacity=".4"/>
-          <rect x="66" y="50" width="24" height="32" rx="4" fill="#88CE02" fill-opacity=".15" stroke="#88CE02" stroke-opacity=".4"/>
-          <circle cx="42" cy="30" r="10" fill="#88CE02" fill-opacity=".12" stroke="#88CE02" stroke-opacity=".5"/>
-          <circle cx="78" cy="30" r="10" fill="#88CE02" fill-opacity=".12" stroke="#88CE02" stroke-opacity=".5"/>
-          <path d="M42 20v-6M78 20v-6" stroke="#88CE02" stroke-opacity=".4" stroke-width="2" stroke-linecap="round"/>
-          <rect x="38" y="88" width="44" height="8" rx="4" fill="#88CE02" fill-opacity=".2"/>
-        </svg>
+    <!-- SEPHIROTH Pickup Camper -->
+    <div class="pcard feat" data-cat="overlanding" data-price="14900" data-name="SEPHIROTH Pickup Camper" data-new="1" data-pop="3" style="grid-column:1/-1">
+      <span class="pcard-badge badge-pop">DESTACADO</span>
+      <a href="camper.html" class="pcard-img" style="height:320px">
+        <img src="assets/camper/file_0.jpeg" alt="SEPHIROTH Pickup Camper" style="width:100%;height:100%;object-fit:cover">
       </a>
       <div class="pcard-body">
-        <div class="pcard-cat">IIMT &middot; COFFEE ROBOT</div>
-        <a href="producto.html" class="pcard-name">Double Arm Coffee Shop</a>
-        <div class="pcard-desc">Doble brazo robotico, 70 seg/cafe, latte art automatico. El mas vendido para alto volumen.</div>
-        <div class="pcard-pricing" data-sea-price="$23,500" data-air-price="$31,200" data-retail-sea="$29,375" data-retail-air="$39,000" data-sea-days="60-90 dias" data-air-days="15-20 dias" data-sea-port="FOB Shanghai" data-air-port="CIF Ezeiza">
+        <div class="pcard-cat">OVERLANDING &middot; SEPHIROTH RV</div>
+        <a href="camper.html" class="pcard-name" style="font-size:20px">SEPHIROTH&trade; Pickup Camper</a>
+        <div class="pcard-desc" style="-webkit-line-clamp:3">Camper para pickup con techo elevable, cocina integrada, bateria de litio 1024Wh y diseno off-road. Compatible con Ford F150, RAM, Toyota Hilux y mas. Transforma tu camioneta en un hogar sobre ruedas.</div>
+        <div class="pcard-pricing" data-sea-price="$14,900" data-air-price="$19,800" data-retail-sea="$18,500" data-retail-air="$24,500" data-sea-days="60-90 dias" data-air-days="15-20 dias" data-sea-port="FOB Qingdao" data-air-port="CIF Ezeiza">
           <div class="pr-tabs">
             <button class="pr-tab active" data-method="sea"><svg viewBox="0 0 24 24"><path d="M2 20l.8-2.4A7.58 7.58 0 012 14.5C2 10.36 6.03 7 11 7s9 3.36 9 7.5a7 7 0 01-.8 3.1L20 20"/><path d="M6.5 7V4a1 1 0 011-1h3a1 1 0 011 1v3"/></svg>Maritimo</button>
             <button class="pr-tab" data-method="air"><svg viewBox="0 0 24 24"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.4-.1.9.3 1.1L11 12l-2 3H6l-1 1 3 2 2 3 1-1v-3l3-2 3.7 7.3c.2.4.7.5 1.1.3l.5-.3c.4-.2.5-.6.5-1.1z"/></svg>Aereo</button>
           </div>
           <div class="pr-body">
-            <div><div class="pr-amount">$23,500<span class="pr-cur">USD</span></div></div>
-            <div class="pr-detail"><div class="pr-days">60-90 dias</div><div class="pr-port">FOB Shanghai</div></div>
+            <div><div class="pr-amount">$14,900<span class="pr-cur">USD</span></div></div>
+            <div class="pr-detail"><div class="pr-days">60-90 dias</div><div class="pr-port">FOB Qingdao</div></div>
           </div>
-          <div class="pr-savings"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>Maritimo ahorra ~$7,700 vs aereo</div>
+          <div class="pr-savings"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>Maritimo ahorra ~$4,900 vs aereo</div>
         </div>
         <div class="pcard-tags">
-          <span class="pcard-tag">70s/cafe</span>
-          <span class="pcard-tag">&lt;1.5m&sup2;</span>
-          <span class="pcard-tag">2 brazos</span>
-          <span class="pcard-tag">Latte art</span>
+          <span class="pcard-tag">~550 kg</span>
+          <span class="pcard-tag">Techo elevable</span>
+          <span class="pcard-tag">Bateria 1024Wh</span>
+          <span class="pcard-tag">Cocina</span>
+          <span class="pcard-tag">Cama doble</span>
         </div>
         <div class="pcard-foot">
-          <a href="producto.html" class="pcard-btn btn-main" style="flex:1;text-align:center">Ver detalles →</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Single Arm Coffee Shop -->
-    <div class="pcard" data-cat="robotica" data-price="15200" data-name="Single Arm Coffee Shop" data-new="1" data-pop="2">
-      <span class="pcard-badge badge-new">NUEVO</span>
-      <a href="producto.html" class="pcard-img">
-        <svg class="prod-illust" viewBox="0 0 120 120" fill="none">
-          <defs><linearGradient id="g2" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse"><stop stop-color="#88CE02" stop-opacity=".25"/><stop offset="1" stop-color="#88CE02" stop-opacity=".03"/></linearGradient></defs>
-          <rect x="20" y="40" width="80" height="65" rx="8" fill="url(#g2)" stroke="#88CE02" stroke-opacity=".3"/>
-          <rect x="42" y="50" width="36" height="35" rx="6" fill="#88CE02" fill-opacity=".12" stroke="#88CE02" stroke-opacity=".4"/>
-          <circle cx="60" cy="30" r="12" fill="#88CE02" fill-opacity=".12" stroke="#88CE02" stroke-opacity=".5"/>
-          <path d="M60 18v-8" stroke="#88CE02" stroke-opacity=".4" stroke-width="2" stroke-linecap="round"/>
-          <path d="M54 64h12" stroke="#88CE02" stroke-opacity=".3" stroke-width="1.5"/>
-          <rect x="44" y="90" width="32" height="6" rx="3" fill="#88CE02" fill-opacity=".2"/>
-        </svg>
-      </a>
-      <div class="pcard-body">
-        <div class="pcard-cat">IIMT &middot; COFFEE ROBOT</div>
-        <a href="producto.html" class="pcard-name">Single Arm Coffee Shop</a>
-        <div class="pcard-desc">Brazo robotico individual, operacion 24/7 autonoma. Ideal para oficinas y locales.</div>
-        <div class="pcard-pricing" data-sea-price="$15,200" data-air-price="$20,800" data-retail-sea="$19,000" data-retail-air="$26,000" data-sea-days="60-90 dias" data-air-days="15-20 dias" data-sea-port="FOB Shanghai" data-air-port="CIF Ezeiza">
-          <div class="pr-tabs">
-            <button class="pr-tab active" data-method="sea"><svg viewBox="0 0 24 24"><path d="M2 20l.8-2.4A7.58 7.58 0 012 14.5C2 10.36 6.03 7 11 7s9 3.36 9 7.5a7 7 0 01-.8 3.1L20 20"/><path d="M6.5 7V4a1 1 0 011-1h3a1 1 0 011 1v3"/></svg>Maritimo</button>
-            <button class="pr-tab" data-method="air"><svg viewBox="0 0 24 24"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.4-.1.9.3 1.1L11 12l-2 3H6l-1 1 3 2 2 3 1-1v-3l3-2 3.7 7.3c.2.4.7.5 1.1.3l.5-.3c.4-.2.5-.6.5-1.1z"/></svg>Aereo</button>
-          </div>
-          <div class="pr-body">
-            <div><div class="pr-amount">$15,200<span class="pr-cur">USD</span></div></div>
-            <div class="pr-detail"><div class="pr-days">60-90 dias</div><div class="pr-port">FOB Shanghai</div></div>
-          </div>
-          <div class="pr-savings"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>Maritimo ahorra ~$5,600 vs aereo</div>
-        </div>
-        <div class="pcard-tags">
-          <span class="pcard-tag">24/7</span>
-          <span class="pcard-tag">&lt;1.5m&sup2;</span>
-          <span class="pcard-tag">180 tazas</span>
-          <span class="pcard-tag">1 brazo</span>
-        </div>
-        <div class="pcard-foot">
-          <a href="producto.html" class="pcard-btn btn-main" style="flex:1;text-align:center">Ver detalles →</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Integrated Delivery -->
-    <div class="pcard" data-cat="robotica" data-price="38000" data-name="Integrated Delivery Coffee Shop" data-new="0" data-pop="1">
-      <span class="pcard-badge badge-prem">PREMIUM</span>
-      <a href="producto.html" class="pcard-img">
-        <svg class="prod-illust" viewBox="0 0 120 120" fill="none">
-          <defs><linearGradient id="g3" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse"><stop stop-color="#88CE02" stop-opacity=".2"/><stop offset="1" stop-color="#88CE02" stop-opacity=".05"/></linearGradient></defs>
-          <rect x="15" y="30" width="90" height="70" rx="10" fill="url(#g3)" stroke="#88CE02" stroke-opacity=".3"/>
-          <circle cx="60" cy="55" r="18" fill="#88CE02" fill-opacity=".1" stroke="#88CE02" stroke-opacity=".5"/>
-          <circle cx="60" cy="55" r="8" fill="#88CE02" fill-opacity=".2"/>
-          <rect x="35" y="78" width="50" height="12" rx="6" fill="#88CE02" fill-opacity=".12" stroke="#88CE02" stroke-opacity=".3"/>
-          <path d="M50 20l10-10 10 10" stroke="#88CE02" stroke-opacity=".4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <circle cx="40" cy="108" r="5" fill="#88CE02" fill-opacity=".15" stroke="#88CE02" stroke-opacity=".4"/>
-          <circle cx="80" cy="108" r="5" fill="#88CE02" fill-opacity=".15" stroke="#88CE02" stroke-opacity=".4"/>
-        </svg>
-      </a>
-      <div class="pcard-body">
-        <div class="pcard-cat">IIMT &middot; COFFEE ROBOT</div>
-        <a href="producto.html" class="pcard-name">Integrated Delivery Coffee Shop</a>
-        <div class="pcard-desc">Entrega autonoma con robot, desinfeccion por vapor, pantalla publicitaria. Lo mas completo.</div>
-        <div class="pcard-pricing" data-sea-price="$38,000" data-air-price="$49,500" data-retail-sea="$47,500" data-retail-air="$61,875" data-sea-days="75-100 dias" data-air-days="18-25 dias" data-sea-port="FOB Shanghai" data-air-port="CIF Ezeiza">
-          <div class="pr-tabs">
-            <button class="pr-tab active" data-method="sea"><svg viewBox="0 0 24 24"><path d="M2 20l.8-2.4A7.58 7.58 0 012 14.5C2 10.36 6.03 7 11 7s9 3.36 9 7.5a7 7 0 01-.8 3.1L20 20"/><path d="M6.5 7V4a1 1 0 011-1h3a1 1 0 011 1v3"/></svg>Maritimo</button>
-            <button class="pr-tab" data-method="air"><svg viewBox="0 0 24 24"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.4-.1.9.3 1.1L11 12l-2 3H6l-1 1 3 2 2 3 1-1v-3l3-2 3.7 7.3c.2.4.7.5 1.1.3l.5-.3c.4-.2.5-.6.5-1.1z"/></svg>Aereo</button>
-          </div>
-          <div class="pr-body">
-            <div><div class="pr-amount">$38,000<span class="pr-cur">USD</span></div></div>
-            <div class="pr-detail"><div class="pr-days">75-100 dias</div><div class="pr-port">FOB Shanghai</div></div>
-          </div>
-          <div class="pr-savings"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>Maritimo ahorra ~$11,500 vs aereo</div>
-        </div>
-        <div class="pcard-tags">
-          <span class="pcard-tag">24/7</span>
-          <span class="pcard-tag">Delivery robot</span>
-          <span class="pcard-tag">Vapor</span>
-          <span class="pcard-tag">180 tazas</span>
-        </div>
-        <div class="pcard-foot">
-          <a href="producto.html" class="pcard-btn btn-main" style="flex:1;text-align:center">Ver detalles →</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Smart Vending Machine -->
-    <div class="pcard" data-cat="expendedoras" data-price="4800" data-name="Smart Vending Machine Pro" data-new="1" data-pop="1">
-      <span class="pcard-badge badge-new">NUEVO</span>
-      <a href="#" class="pcard-img">
-        <svg class="prod-illust" viewBox="0 0 120 120" fill="none">
-          <defs><linearGradient id="g4" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse"><stop stop-color="#88CE02" stop-opacity=".25"/><stop offset="1" stop-color="#88CE02" stop-opacity=".03"/></linearGradient></defs>
-          <rect x="28" y="15" width="64" height="90" rx="6" fill="url(#g4)" stroke="#88CE02" stroke-opacity=".3"/>
-          <rect x="34" y="22" width="52" height="36" rx="4" fill="#88CE02" fill-opacity=".1" stroke="#88CE02" stroke-opacity=".4"/>
-          <rect x="34" y="64" width="24" height="8" rx="2" fill="#88CE02" fill-opacity=".15"/>
-          <rect x="62" y="64" width="24" height="8" rx="2" fill="#88CE02" fill-opacity=".15"/>
-          <rect x="34" y="76" width="24" height="8" rx="2" fill="#88CE02" fill-opacity=".1"/>
-          <rect x="62" y="76" width="24" height="8" rx="2" fill="#88CE02" fill-opacity=".1"/>
-          <circle cx="60" cy="96" r="4" fill="#88CE02" fill-opacity=".3"/>
-        </svg>
-      </a>
-      <div class="pcard-body">
-        <div class="pcard-cat">VENDLIFE &middot; VENDING</div>
-        <a href="#" class="pcard-name">Smart Vending Machine Pro</a>
-        <div class="pcard-desc">Maquina expendedora inteligente con pantalla tactil, pago QR y gestion remota de inventario.</div>
-        <div class="pcard-pricing" data-sea-price="$4,800" data-air-price="$7,200" data-retail-sea="$6,720" data-retail-air="$10,080" data-sea-days="45-60 dias" data-air-days="10-15 dias" data-sea-port="FOB Guangzhou" data-air-port="CIF Ezeiza">
-          <div class="pr-tabs">
-            <button class="pr-tab active" data-method="sea"><svg viewBox="0 0 24 24"><path d="M2 20l.8-2.4A7.58 7.58 0 012 14.5C2 10.36 6.03 7 11 7s9 3.36 9 7.5a7 7 0 01-.8 3.1L20 20"/><path d="M6.5 7V4a1 1 0 011-1h3a1 1 0 011 1v3"/></svg>Maritimo</button>
-            <button class="pr-tab" data-method="air"><svg viewBox="0 0 24 24"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.4-.1.9.3 1.1L11 12l-2 3H6l-1 1 3 2 2 3 1-1v-3l3-2 3.7 7.3c.2.4.7.5 1.1.3l.5-.3c.4-.2.5-.6.5-1.1z"/></svg>Aereo</button>
-          </div>
-          <div class="pr-body">
-            <div><div class="pr-amount">$4,800<span class="pr-cur">USD</span></div></div>
-            <div class="pr-detail"><div class="pr-days">45-60 dias</div><div class="pr-port">FOB Guangzhou</div></div>
-          </div>
-          <div class="pr-savings"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>Maritimo ahorra ~$2,400 vs aereo</div>
-        </div>
-        <div class="pcard-tags">
-          <span class="pcard-tag">Touch screen</span>
-          <span class="pcard-tag">Pago QR</span>
-          <span class="pcard-tag">Remoto</span>
-        </div>
-        <div class="pcard-foot">
-          <a href="#" class="pcard-btn btn-main" style="flex:1;text-align:center" onclick="event.preventDefault()">Ver detalles →</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Frozen Food Vending -->
-    <div class="pcard" data-cat="expendedoras" data-price="6200" data-name="Frozen Food Vending Machine" data-new="0" data-pop="0">
-      <a href="#" class="pcard-img">
-        <svg class="prod-illust" viewBox="0 0 120 120" fill="none">
-          <defs><linearGradient id="g5" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse"><stop stop-color="#88CE02" stop-opacity=".2"/><stop offset="1" stop-color="#88CE02" stop-opacity=".03"/></linearGradient></defs>
-          <rect x="25" y="18" width="70" height="88" rx="6" fill="url(#g5)" stroke="#88CE02" stroke-opacity=".3"/>
-          <rect x="32" y="26" width="56" height="34" rx="4" fill="#88CE02" fill-opacity=".08" stroke="#88CE02" stroke-opacity=".3"/>
-          <path d="M60 34v18M51 43h18" stroke="#88CE02" stroke-opacity=".5" stroke-width="2" stroke-linecap="round"/>
-          <rect x="32" y="66" width="26" height="10" rx="2" fill="#88CE02" fill-opacity=".12"/>
-          <rect x="62" y="66" width="26" height="10" rx="2" fill="#88CE02" fill-opacity=".12"/>
-          <rect x="32" y="80" width="26" height="10" rx="2" fill="#88CE02" fill-opacity=".08"/>
-          <rect x="62" y="80" width="26" height="10" rx="2" fill="#88CE02" fill-opacity=".08"/>
-          <circle cx="60" cy="100" r="3" fill="#88CE02" fill-opacity=".25"/>
-        </svg>
-      </a>
-      <div class="pcard-body">
-        <div class="pcard-cat">VENDLIFE &middot; VENDING</div>
-        <a href="#" class="pcard-name">Frozen Food Vending Machine</a>
-        <div class="pcard-desc">Expendedora de alimentos congelados con sistema de refrigeracion -18&deg;C. Ideal para helados y comidas.</div>
-        <div class="pcard-pricing" data-sea-price="$6,200" data-air-price="$9,100" data-retail-sea="$8,680" data-retail-air="$12,740" data-sea-days="45-60 dias" data-air-days="10-15 dias" data-sea-port="FOB Guangzhou" data-air-port="CIF Ezeiza">
-          <div class="pr-tabs">
-            <button class="pr-tab active" data-method="sea"><svg viewBox="0 0 24 24"><path d="M2 20l.8-2.4A7.58 7.58 0 012 14.5C2 10.36 6.03 7 11 7s9 3.36 9 7.5a7 7 0 01-.8 3.1L20 20"/><path d="M6.5 7V4a1 1 0 011-1h3a1 1 0 011 1v3"/></svg>Maritimo</button>
-            <button class="pr-tab" data-method="air"><svg viewBox="0 0 24 24"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.4-.1.9.3 1.1L11 12l-2 3H6l-1 1 3 2 2 3 1-1v-3l3-2 3.7 7.3c.2.4.7.5 1.1.3l.5-.3c.4-.2.5-.6.5-1.1z"/></svg>Aereo</button>
-          </div>
-          <div class="pr-body">
-            <div><div class="pr-amount">$6,200<span class="pr-cur">USD</span></div></div>
-            <div class="pr-detail"><div class="pr-days">45-60 dias</div><div class="pr-port">FOB Guangzhou</div></div>
-          </div>
-          <div class="pr-savings"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>Maritimo ahorra ~$2,900 vs aereo</div>
-        </div>
-        <div class="pcard-tags">
-          <span class="pcard-tag">-18&deg;C</span>
-          <span class="pcard-tag">Touch</span>
-          <span class="pcard-tag">60 slots</span>
-        </div>
-        <div class="pcard-foot">
-          <a href="#" class="pcard-btn btn-main" style="flex:1;text-align:center" onclick="event.preventDefault()">Ver detalles →</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Self-Service Kiosk -->
-    <div class="pcard" data-cat="kioscos" data-price="3500" data-name="Self-Service Order Kiosk" data-new="0" data-pop="0">
-      <a href="#" class="pcard-img">
-        <svg class="prod-illust" viewBox="0 0 120 120" fill="none">
-          <defs><linearGradient id="g6" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse"><stop stop-color="#88CE02" stop-opacity=".2"/><stop offset="1" stop-color="#88CE02" stop-opacity=".04"/></linearGradient></defs>
-          <rect x="30" y="10" width="60" height="80" rx="6" fill="url(#g6)" stroke="#88CE02" stroke-opacity=".3"/>
-          <rect x="36" y="16" width="48" height="56" rx="3" fill="#88CE02" fill-opacity=".08" stroke="#88CE02" stroke-opacity=".35"/>
-          <rect x="44" y="28" width="32" height="4" rx="2" fill="#88CE02" fill-opacity=".2"/>
-          <rect x="44" y="36" width="24" height="4" rx="2" fill="#88CE02" fill-opacity=".15"/>
-          <rect x="44" y="48" width="16" height="12" rx="3" fill="#88CE02" fill-opacity=".2" stroke="#88CE02" stroke-opacity=".3"/>
-          <rect x="64" y="48" width="16" height="12" rx="3" fill="#88CE02" fill-opacity=".15"/>
-          <rect x="50" y="78" width="20" height="4" rx="2" fill="#88CE02" fill-opacity=".2"/>
-          <rect x="45" y="95" width="30" height="6" rx="3" fill="#88CE02" fill-opacity=".15" stroke="#88CE02" stroke-opacity=".25"/>
-          <rect x="55" y="101" width="10" height="12" fill="#88CE02" fill-opacity=".08"/>
-          <rect x="42" y="113" width="36" height="4" rx="2" fill="#88CE02" fill-opacity=".15"/>
-        </svg>
-      </a>
-      <div class="pcard-body">
-        <div class="pcard-cat">CRTLY &middot; KIOSCOS</div>
-        <a href="#" class="pcard-name">Self-Service Order Kiosk</a>
-        <div class="pcard-desc">Kiosco de autoservicio para restaurantes y fast food. Pantalla 32", impresora integrada, pago NFC.</div>
-        <div class="pcard-pricing" data-sea-price="$3,500" data-air-price="$5,400" data-retail-sea="$4,900" data-retail-air="$7,560" data-sea-days="30-45 dias" data-air-days="10-15 dias" data-sea-port="FOB Shenzhen" data-air-port="CIF Ezeiza">
-          <div class="pr-tabs">
-            <button class="pr-tab active" data-method="sea"><svg viewBox="0 0 24 24"><path d="M2 20l.8-2.4A7.58 7.58 0 012 14.5C2 10.36 6.03 7 11 7s9 3.36 9 7.5a7 7 0 01-.8 3.1L20 20"/><path d="M6.5 7V4a1 1 0 011-1h3a1 1 0 011 1v3"/></svg>Maritimo</button>
-            <button class="pr-tab" data-method="air"><svg viewBox="0 0 24 24"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.4-.1.9.3 1.1L11 12l-2 3H6l-1 1 3 2 2 3 1-1v-3l3-2 3.7 7.3c.2.4.7.5 1.1.3l.5-.3c.4-.2.5-.6.5-1.1z"/></svg>Aereo</button>
-          </div>
-          <div class="pr-body">
-            <div><div class="pr-amount">$3,500<span class="pr-cur">USD</span></div></div>
-            <div class="pr-detail"><div class="pr-days">30-45 dias</div><div class="pr-port">FOB Shenzhen</div></div>
-          </div>
-          <div class="pr-savings"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>Maritimo ahorra ~$1,900 vs aereo</div>
-        </div>
-        <div class="pcard-tags">
-          <span class="pcard-tag">32"</span>
-          <span class="pcard-tag">NFC</span>
-          <span class="pcard-tag">Impresora</span>
-        </div>
-        <div class="pcard-foot">
-          <a href="#" class="pcard-btn btn-main" style="flex:1;text-align:center" onclick="event.preventDefault()">Ver detalles →</a>
+          <a href="camper.html" class="pcard-btn btn-main" style="flex:1;text-align:center">Ver detalles →</a>
         </div>
       </div>
     </div>
@@ -676,7 +461,7 @@ button,input,select{font-family:var(--sans)}button{cursor:pointer}
       <h3>No encontras lo que buscas? <span>Importamos lo que necesites.</span></h3>
       <p>Nuestro equipo cotiza cualquier producto de China en 24hs. Desde una unidad hasta contenedores completos.</p>
     </div>
-    <a href="producto.html#contacto" class="cta-bar-btn">Pedir cotizacion personalizada</a>
+    <a href="camper.html#contacto" class="cta-bar-btn">Pedir cotizacion personalizada</a>
   </div>
 
 </div>
@@ -695,16 +480,16 @@ button,input,select{font-family:var(--sans)}button{cursor:pointer}
       </div>
       <div class="footer-col">
         <h5>Catalogo</h5>
-        <a href="#" onclick="filterCat('robotica')">Robotica & Vending</a>
-        <a href="#" onclick="filterCat('expendedoras')">Maquinas expendedoras</a>
-        <a href="#" onclick="filterCat('kioscos')">Kioscos inteligentes</a>
-        <a href="#" onclick="filterCat('equipamiento')">Equipamiento comercial</a>
+        <a href="#" onclick="filterCat('overlanding')">Overlanding</a>
+        <a href="#" onclick="filterCat('campers')">Campers</a>
+        <a href="#" onclick="filterCat('accesorios')">Accesorios</a>
+        <a href="#" onclick="filterCat('equipamiento')">Equipamiento</a>
       </div>
       <div class="footer-col">
         <h5>Empresa</h5>
         <a href="#por-que">Por que Aduanex</a>
         <a href="#como">Como funciona</a>
-        <a href="producto.html#contacto">Contacto</a>
+        <a href="camper.html#contacto">Contacto</a>
       </div>
       <div class="footer-col">
         <h5>Legal</h5>
