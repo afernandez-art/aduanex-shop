@@ -14,8 +14,8 @@
   --bg-card: #131513;
   --bg-card-hover: #1a1d1a;
   --text: #F3F4F1;
-  --text-dim: #8B8E89;
-  --text-mute: #5C5F5A;
+  --text-dim: #D0D2CE;
+  --text-mute: #A8ABA6;
   --line: rgba(243,244,241,0.07);
   --line-strong: rgba(243,244,241,0.14);
   --accent: #88CE02;
@@ -135,6 +135,28 @@ button{font-family:var(--sans);cursor:pointer}
 .upg-name{font-size:13px;font-weight:600;margin-bottom:2px}
 .upg-detail{font-size:11px;color:var(--text-mute);line-height:1.4}
 .upg-price{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--accent);white-space:nowrap;flex-shrink:0}
+
+/* ===== VARIANTS ===== */
+.variants-section{margin-top:64px}
+.variants-title{font-size:24px;font-weight:800;letter-spacing:-.03em;margin-bottom:6px}
+.variants-sub{font-size:14px;color:var(--text-dim);margin-bottom:32px}
+.variants-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.variant-card{background:var(--bg-card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:border-color 300ms,transform 300ms;cursor:default}
+.variant-card:hover{border-color:var(--accent);transform:translateY(-3px)}
+.variant-img{aspect-ratio:16/10;overflow:hidden;background:var(--bg-elev)}
+.variant-img img{width:100%;height:100%;object-fit:cover;transition:transform 400ms}
+.variant-card:hover .variant-img img{transform:scale(1.04)}
+.variant-body{padding:16px}
+.variant-name{font-size:15px;font-weight:700;margin-bottom:4px}
+.variant-detail{font-size:12px;color:var(--text-dim);line-height:1.45}
+.variant-tag{display:inline-block;margin-top:8px;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);padding:3px 10px;border:1px solid var(--accent-mid);border-radius:100px}
+
+/* ===== VIDEO SECTION ===== */
+.video-section{margin-top:64px}
+.video-title{font-size:24px;font-weight:800;letter-spacing:-.03em;margin-bottom:6px}
+.video-sub{font-size:14px;color:var(--text-dim);margin-bottom:24px}
+.video-wrap{position:relative;max-width:600px;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);background:var(--bg-card)}
+.video-wrap video{width:100%;display:block;border-radius:var(--radius)}
 
 /* PRICE BLOCK */
 .price-block{margin-bottom:18px}
@@ -333,6 +355,7 @@ footer{border-top:1px solid var(--line);padding:32px;font-family:var(--mono);fon
   .usecases-grid{grid-template-columns:1fr 1fr}
   .cfg-module-grid{grid-template-columns:1fr}
   .upgrades-grid{grid-template-columns:1fr}
+  .variants-grid{grid-template-columns:1fr 1fr}
   .cfg-module-header{flex-wrap:wrap}
   .cfg-module-tag{margin-left:0}
   .rfq{padding:60px 20px 80px}
@@ -351,6 +374,7 @@ footer{border-top:1px solid var(--line);padding:32px;font-family:var(--mono);fon
 @media(max-width:480px){
   .pi-trust{flex-direction:column;gap:12px}
   .usecases-grid{grid-template-columns:1fr}
+  .variants-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -400,10 +424,10 @@ footer{border-top:1px solid var(--line);padding:32px;font-family:var(--mono);fon
     </div>
     <div class="gallery-thumbs">
       <div class="gallery-thumb active" data-img="assets/camper/file_0.jpeg"><img src="assets/camper/file_0.jpeg" alt="Principal"></div>
-      <div class="gallery-thumb" data-img=""><div class="gallery-thumb-label">LATERAL</div></div>
-      <div class="gallery-thumb" data-img=""><div class="gallery-thumb-label">INTERIOR</div></div>
-      <div class="gallery-thumb" data-img=""><div class="gallery-thumb-label">TECHO</div></div>
-      <div class="gallery-thumb" data-img=""><div class="gallery-thumb-label">COCINA</div></div>
+      <div class="gallery-thumb" data-img="assets/camper/variant_1.png"><img src="assets/camper/variant_1.png" alt="F-150"></div>
+      <div class="gallery-thumb" data-img="assets/camper/variant_2.png"><img src="assets/camper/variant_2.png" alt="RAM"></div>
+      <div class="gallery-thumb" data-img="assets/camper/variant_3.png"><img src="assets/camper/variant_3.png" alt="Land Cruiser"></div>
+      <div class="gallery-thumb" data-img="assets/camper/variant_4.png"><img src="assets/camper/variant_4.png" alt="Hilux"></div>
     </div>
   </div>
 
@@ -583,6 +607,58 @@ footer{border-top:1px solid var(--line);padding:32px;font-family:var(--mono);fon
       <div class="uc-card"><div class="uc-img"><span class="uc-img-icon">&#128739;</span></div><div class="uc-body"><div class="uc-name">Viaje por ruta</div><div class="uc-detail">Road trip sin reservar alojamiento. Para donde quieras, dormi donde quieras.</div></div></div>
       <div class="uc-card"><div class="uc-img"><span class="uc-img-icon">&#128187;</span></div><div class="uc-body"><div class="uc-name">Trabajo remoto</div><div class="uc-detail">Oficina movil con energia de litio. Trabaja desde cualquier ubicacion.</div></div></div>
     </div>
+
+    <!-- VARIANTES POR MODELO -->
+    <div class="variants-section">
+      <h2 class="variants-title">Compatible con tu pickup</h2>
+      <p class="variants-sub">El camper se fabrica a medida para cada modelo. Elegi tu plataforma y lo armamos en fabrica.</p>
+      <div class="variants-grid">
+        <div class="variant-card">
+          <div class="variant-img"><img src="assets/camper/variant_1.png" alt="SEPHIROTH en Ford F-150"></div>
+          <div class="variant-body">
+            <div class="variant-name">Ford F-150</div>
+            <div class="variant-detail">Full-size americana. La plataforma mas popular para overlanding y campers.</div>
+            <span class="variant-tag">Full-size</span>
+          </div>
+        </div>
+        <div class="variant-card">
+          <div class="variant-img"><img src="assets/camper/variant_2.png" alt="SEPHIROTH en RAM 1500"></div>
+          <div class="variant-body">
+            <div class="variant-name">RAM 1500 / 2500</div>
+            <div class="variant-detail">Potencia y confort. Ideal para cargar el camper con todos los upgrades.</div>
+            <span class="variant-tag">Full-size</span>
+          </div>
+        </div>
+        <div class="variant-card">
+          <div class="variant-img"><img src="assets/camper/variant_4.png" alt="SEPHIROTH en Hilux / Amarok"></div>
+          <div class="variant-body">
+            <div class="variant-name">Hilux / Amarok / Similares</div>
+            <div class="variant-detail">Pickups mid-size. Compatible con Hilux, Amarok, Ranger, Tasman, GWM y mas.</div>
+            <span class="variant-tag">Mid-size</span>
+          </div>
+        </div>
+        <div class="variant-card">
+          <div class="variant-img"><img src="assets/camper/variant_3.png" alt="SEPHIROTH en Toyota Land Cruiser 70"></div>
+          <div class="variant-body">
+            <div class="variant-name">Camionetas clasicas</div>
+            <div class="variant-detail">Toyota Land Cruiser serie 70, Defender y clasicas. Fabricacion custom a medida.</div>
+            <span class="variant-tag">Custom</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIDEO REEL -->
+    <div class="video-section">
+      <h2 class="video-title">Miralo en accion</h2>
+      <p class="video-sub">Asi se ve el SEPHIROTH en la ruta</p>
+      <div class="video-wrap">
+        <video controls preload="metadata" poster="assets/camper/variant_1.png">
+          <source src="assets/camper/video-reel.mp4" type="video/mp4">
+          Tu navegador no soporta video.
+        </video>
+      </div>
+    </div>
   </div>
 
   <!-- ===== CONFIGURACION ===== -->
@@ -665,47 +741,47 @@ footer{border-top:1px solid var(--line);padding:32px;font-family:var(--mono);fon
 
     <!-- UPGRADES OPCIONALES -->
     <h2 style="font-size:22px;font-weight:800;letter-spacing:-.02em;margin-bottom:6px">Upgrades opcionales</h2>
-    <p style="font-size:13px;color:var(--text-dim);margin-bottom:24px">Sumale lo que necesites. Cada upgrade se agrega en fabrica antes del envio. Precios de referencia en RMB (fabrica).</p>
+    <p style="font-size:13px;color:var(--text-dim);margin-bottom:24px">Sumale lo que necesites. Cada upgrade se agrega en fabrica antes del envio. Precios estimados en USD (fabrica).</p>
 
     <div class="upgrades-grid">
       <!-- ENERGY -->
       <div class="upg-category-label">ENERGIA &amp; CLIMA</div>
-      <div class="upg-card" data-rmb="9500"><div class="upg-icon">&#128267;</div><div class="upg-info"><div class="upg-name">Bateria LiFePO4 3 kWh</div><div class="upg-detail">+ Cargador/inversor 3.6kW, generacion vehicular, controlador solar MPPT</div></div><div class="upg-price">&yen;9,500</div></div>
-      <div class="upg-card" data-rmb="12500"><div class="upg-icon">&#128267;</div><div class="upg-info"><div class="upg-name">Bateria LiFePO4 11 kWh</div><div class="upg-detail">+ Cargador/inversor 3.6kW, generacion vehicular, controlador solar MPPT</div></div><div class="upg-price">&yen;12,500</div></div>
-      <div class="upg-card" data-rmb="2200"><div class="upg-icon">&#10052;</div><div class="upg-info"><div class="upg-name">Aire acondicionado inverter</div><div class="upg-detail">Frio, variable, bajo consumo</div></div><div class="upg-price">&yen;2,200</div></div>
-      <div class="upg-card" data-rmb="1800"><div class="upg-icon">&#9728;</div><div class="upg-info"><div class="upg-name">Panel solar 400W</div><div class="upg-detail">Carga la bateria en ruta o estacionado</div></div><div class="upg-price">&yen;1,800</div></div>
-      <div class="upg-card" data-rmb="3200"><div class="upg-icon">&#128293;</div><div class="upg-info"><div class="upg-name">Calefaccion diesel</div><div class="upg-detail">Con tanque de combustible externo</div></div><div class="upg-price">&yen;3,200</div></div>
-      <div class="upg-card" data-rmb="1000"><div class="upg-icon">&#128704;</div><div class="upg-info"><div class="upg-name">Calentador de agua electrico</div><div class="upg-detail">Agua caliente para ducha y lavado</div></div><div class="upg-price">&yen;1,000</div></div>
+      <div class="upg-card"><div class="upg-icon">&#128267;</div><div class="upg-info"><div class="upg-name">Bateria LiFePO4 3 kWh</div><div class="upg-detail">+ Cargador/inversor 3.6kW, generacion vehicular, controlador solar MPPT</div></div><div class="upg-price">$1,380</div></div>
+      <div class="upg-card"><div class="upg-icon">&#128267;</div><div class="upg-info"><div class="upg-name">Bateria LiFePO4 11 kWh</div><div class="upg-detail">+ Cargador/inversor 3.6kW, generacion vehicular, controlador solar MPPT</div></div><div class="upg-price">$1,810</div></div>
+      <div class="upg-card"><div class="upg-icon">&#10052;</div><div class="upg-info"><div class="upg-name">Aire acondicionado inverter</div><div class="upg-detail">Frio, variable, bajo consumo</div></div><div class="upg-price">$320</div></div>
+      <div class="upg-card"><div class="upg-icon">&#9728;</div><div class="upg-info"><div class="upg-name">Panel solar 400W</div><div class="upg-detail">Carga la bateria en ruta o estacionado</div></div><div class="upg-price">$260</div></div>
+      <div class="upg-card"><div class="upg-icon">&#128293;</div><div class="upg-info"><div class="upg-name">Calefaccion diesel</div><div class="upg-detail">Con tanque de combustible externo</div></div><div class="upg-price">$465</div></div>
+      <div class="upg-card"><div class="upg-icon">&#128704;</div><div class="upg-info"><div class="upg-name">Calentador de agua electrico</div><div class="upg-detail">Agua caliente para ducha y lavado</div></div><div class="upg-price">$145</div></div>
 
       <!-- STRUCTURE -->
       <div class="upg-category-label">ESTRUCTURA</div>
-      <div class="upg-card" data-rmb="5000"><div class="upg-icon">&#8596;</div><div class="upg-info"><div class="upg-name">Sistema de expansion lateral</div><div class="upg-detail">Patentado, tipo push-out, mas espacio interior</div></div><div class="upg-price">&yen;5,000</div></div>
-      <div class="upg-card" data-rmb="1600"><div class="upg-icon">&#128311;</div><div class="upg-info"><div class="upg-name">Ventana gullwing</div><div class="upg-detail">Apertura tipo ala de gaviota</div></div><div class="upg-price">&yen;1,600</div></div>
-      <div class="upg-card" data-rmb="1800"><div class="upg-icon">&#9744;</div><div class="upg-info"><div class="upg-name">Techo solar / skylight</div><div class="upg-detail">Claraboya custom para luz natural</div></div><div class="upg-price">&yen;1,800</div></div>
-      <div class="upg-card" data-rmb="1000"><div class="upg-icon">&#128682;</div><div class="upg-info"><div class="upg-name">Compuerta de conexion a cabina</div><div class="upg-detail">Acceso directo al habitaculo de la pickup</div></div><div class="upg-price">&yen;1,000</div></div>
+      <div class="upg-card"><div class="upg-icon">&#8596;</div><div class="upg-info"><div class="upg-name">Sistema de expansion lateral</div><div class="upg-detail">Patentado, tipo push-out, mas espacio interior</div></div><div class="upg-price">$725</div></div>
+      <div class="upg-card"><div class="upg-icon">&#128311;</div><div class="upg-info"><div class="upg-name">Ventana gullwing</div><div class="upg-detail">Apertura tipo ala de gaviota</div></div><div class="upg-price">$230</div></div>
+      <div class="upg-card"><div class="upg-icon">&#9744;</div><div class="upg-info"><div class="upg-name">Techo solar / skylight</div><div class="upg-detail">Claraboya custom para luz natural</div></div><div class="upg-price">$260</div></div>
+      <div class="upg-card"><div class="upg-icon">&#128682;</div><div class="upg-info"><div class="upg-name">Compuerta de conexion a cabina</div><div class="upg-detail">Acceso directo al habitaculo de la pickup</div></div><div class="upg-price">$145</div></div>
 
       <!-- OTHER -->
       <div class="upg-category-label">CONFORT &amp; ACCESORIOS</div>
-      <div class="upg-card" data-rmb="1600"><div class="upg-icon">&#128703;</div><div class="upg-info"><div class="upg-name">Ducha interior</div><div class="upg-detail">Cortina, flor, bandeja aluminio, extractor</div></div><div class="upg-price">&yen;1,600</div></div>
-      <div class="upg-card" data-rmb="2700"><div class="upg-icon">&#128703;</div><div class="upg-info"><div class="upg-name">Ducha exterior</div><div class="upg-detail">Para limpieza rapida post-aventura</div></div><div class="upg-price">&yen;2,700</div></div>
-      <div class="upg-card" data-rmb="3000"><div class="upg-icon">&#9969;</div><div class="upg-info"><div class="upg-name">Toldo lateral 3&times;2.5m</div><div class="upg-detail">Sombra instantanea, apertura manual</div></div><div class="upg-price">&yen;3,000</div></div>
-      <div class="upg-card" data-rmb="4300"><div class="upg-icon">&#9969;</div><div class="upg-info"><div class="upg-name">Toldo 270&deg; 2.5m</div><div class="upg-detail">Cobertura envolvente alrededor del vehiculo</div></div><div class="upg-price">&yen;4,300</div></div>
-      <div class="upg-card" data-rmb="1400"><div class="upg-icon">&#129482;</div><div class="upg-info"><div class="upg-name">Heladera compresor</div><div class="upg-detail">Con riel deslizable custom</div></div><div class="upg-price">&yen;1,400</div></div>
-      <div class="upg-card" data-rmb="800"><div class="upg-icon">&#128701;</div><div class="upg-info"><div class="upg-name">Inodoro portatil</div><div class="upg-detail">Compacto, para viajes largos</div></div><div class="upg-price">&yen;800</div></div>
-      <div class="upg-card" data-rmb="3000"><div class="upg-icon">&#127910;</div><div class="upg-info"><div class="upg-name">Kit proyector</div><div class="upg-detail">Cine al aire libre o interior</div></div><div class="upg-price">&yen;3,000</div></div>
-      <div class="upg-card" data-rmb="700"><div class="upg-icon">&#127859;</div><div class="upg-info"><div class="upg-name">Microondas</div><div class="upg-detail">Compacto, para calentar rapido</div></div><div class="upg-price">&yen;700</div></div>
+      <div class="upg-card"><div class="upg-icon">&#128703;</div><div class="upg-info"><div class="upg-name">Ducha interior</div><div class="upg-detail">Cortina, flor, bandeja aluminio, extractor</div></div><div class="upg-price">$230</div></div>
+      <div class="upg-card"><div class="upg-icon">&#128703;</div><div class="upg-info"><div class="upg-name">Ducha exterior</div><div class="upg-detail">Para limpieza rapida post-aventura</div></div><div class="upg-price">$390</div></div>
+      <div class="upg-card"><div class="upg-icon">&#9969;</div><div class="upg-info"><div class="upg-name">Toldo lateral 3&times;2.5m</div><div class="upg-detail">Sombra instantanea, apertura manual</div></div><div class="upg-price">$435</div></div>
+      <div class="upg-card"><div class="upg-icon">&#9969;</div><div class="upg-info"><div class="upg-name">Toldo 270&deg; 2.5m</div><div class="upg-detail">Cobertura envolvente alrededor del vehiculo</div></div><div class="upg-price">$625</div></div>
+      <div class="upg-card"><div class="upg-icon">&#129482;</div><div class="upg-info"><div class="upg-name">Heladera compresor</div><div class="upg-detail">Con riel deslizable custom</div></div><div class="upg-price">$200</div></div>
+      <div class="upg-card"><div class="upg-icon">&#128701;</div><div class="upg-info"><div class="upg-name">Inodoro portatil</div><div class="upg-detail">Compacto, para viajes largos</div></div><div class="upg-price">$115</div></div>
+      <div class="upg-card"><div class="upg-icon">&#127910;</div><div class="upg-info"><div class="upg-name">Kit proyector</div><div class="upg-detail">Cine al aire libre o interior</div></div><div class="upg-price">$435</div></div>
+      <div class="upg-card"><div class="upg-icon">&#127859;</div><div class="upg-info"><div class="upg-name">Microondas</div><div class="upg-detail">Compacto, para calentar rapido</div></div><div class="upg-price">$100</div></div>
 
       <!-- FEATURES -->
       <div class="upg-category-label">UPGRADES DESTACADOS</div>
-      <div class="upg-card upg-featured" data-rmb="2000"><div class="upg-icon">&#9889;</div><div class="upg-info"><div class="upg-name">Techo electrico pop-up</div><div class="upg-detail">Patentado: modo electrico + manual de respaldo</div></div><div class="upg-price">&yen;2,000</div></div>
-      <div class="upg-card upg-featured" data-rmb="700"><div class="upg-icon">&#128682;</div><div class="upg-info"><div class="upg-name">Escalera rebatible patentada</div><div class="upg-detail">Acceso facil al techo, se pliega al ras</div></div><div class="upg-price">&yen;700</div></div>
+      <div class="upg-card upg-featured"><div class="upg-icon">&#9889;</div><div class="upg-info"><div class="upg-name">Techo electrico pop-up</div><div class="upg-detail">Patentado: modo electrico + manual de respaldo</div></div><div class="upg-price">$290</div></div>
+      <div class="upg-card upg-featured"><div class="upg-icon">&#128682;</div><div class="upg-info"><div class="upg-name">Escalera rebatible patentada</div><div class="upg-detail">Acceso facil al techo, se pliega al ras</div></div><div class="upg-price">$100</div></div>
     </div>
 
     <div style="margin-top:24px;padding:16px 20px;background:var(--bg-card);border:1px solid var(--accent-mid);border-radius:var(--radius);display:flex;align-items:center;gap:14px">
       <div style="font-size:24px">&#128161;</div>
       <div>
         <div style="font-size:13px;font-weight:600;margin-bottom:2px">Los upgrades se agregan en fabrica</div>
-        <div style="font-size:12px;color:var(--text-dim)">Elegis lo que necesitas, se fabrica con todo integrado y te llega listo. Precios en RMB son de referencia (fabrica). El precio final nacionalizado se cotiza por separado.</div>
+        <div style="font-size:12px;color:var(--text-dim)">Elegis lo que necesitas, se fabrica con todo integrado y te llega listo. Precios en USD son de referencia (fabrica, FOB). El precio final nacionalizado se cotiza por separado.</div>
       </div>
     </div>
   </div>
