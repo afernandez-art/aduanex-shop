@@ -127,8 +127,12 @@ button{font-family:var(--sans);cursor:pointer}
 .upg-category-label{grid-column:1/-1;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);padding:20px 0 4px;border-bottom:1px solid var(--accent-mid)}
 .upg-category-label:first-child{padding-top:0}
 .upgrades-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.upg-card{display:flex;align-items:center;gap:14px;padding:14px 16px;background:var(--bg-card);border:1px solid var(--line);border-radius:var(--radius-sm);transition:border-color 200ms,transform 200ms;cursor:default}
+.upg-card{display:flex;align-items:center;gap:14px;padding:14px 16px;background:var(--bg-card);border:1px solid var(--line);border-radius:var(--radius-sm);transition:border-color 200ms,transform 200ms,background 200ms;cursor:pointer;user-select:none}
 .upg-card:hover{border-color:var(--accent-mid);transform:translateY(-1px)}
+.upg-card.selected{border-color:var(--accent);background:var(--accent-soft)}
+.upg-card.selected .upg-price{color:var(--text)}
+.upg-card .upg-select{width:20px;height:20px;border-radius:6px;border:2px solid var(--line-strong);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 200ms;font-size:12px;color:transparent}
+.upg-card.selected .upg-select{border-color:var(--accent);background:var(--accent);color:var(--bg)}
 .upg-featured{border-color:var(--accent-mid);background:linear-gradient(135deg,var(--bg-card),var(--accent-glow))}
 .upg-icon{width:38px;height:38px;border-radius:10px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
 .upg-info{flex:1;min-width:0}
@@ -376,6 +380,83 @@ footer{border-top:1px solid var(--line);padding:32px;font-family:var(--mono);fon
   .usecases-grid{grid-template-columns:1fr}
   .variants-grid{grid-template-columns:1fr}
 }
+
+/* ===== CONFIG BAR (sticky bottom) ===== */
+.config-bar{position:fixed;bottom:0;left:0;right:0;z-index:95;background:rgba(0,0,0,.92);backdrop-filter:blur(16px) saturate(180%);border-top:1px solid var(--line-strong);padding:12px 32px;transform:translateY(100%);opacity:0;transition:transform 300ms,opacity 300ms}
+.config-bar.visible{transform:translateY(0);opacity:1}
+.config-bar-inner{max-width:var(--max-w);margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.cb-summary{display:flex;align-items:center;gap:16px}
+.cb-base,.cb-upgrades,.cb-total-wrap{display:flex;align-items:center;gap:6px}
+.cb-label{font-size:12px;color:var(--text-dim)}
+.cb-amount{font-family:var(--mono);font-size:14px;font-weight:600;color:var(--text)}
+.cb-plus,.cb-equals{font-family:var(--mono);font-size:16px;color:var(--text-mute);font-weight:300}
+.cb-total{font-family:var(--mono);font-size:20px;font-weight:800;color:var(--accent)}
+.cb-total-label{font-size:10px;color:var(--text-mute);font-family:var(--mono);letter-spacing:.05em}
+.cb-cta{padding:12px 28px;background:var(--accent);color:var(--bg);border:none;border-radius:100px;font-size:14px;font-weight:700;cursor:pointer;transition:transform 150ms;white-space:nowrap}
+.cb-cta:hover{transform:scale(1.03)}
+
+/* ===== PROFORMA MODAL ===== */
+.proforma-overlay{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.85);backdrop-filter:blur(8px);display:none;align-items:flex-start;justify-content:center;padding:40px 20px;overflow-y:auto}
+.proforma-overlay.open{display:flex}
+.proforma-card{background:var(--bg-card);border:1px solid var(--line-strong);border-radius:20px;max-width:900px;width:100%;padding:40px;position:relative}
+.proforma-close{position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:50%;background:var(--bg-elev);border:1px solid var(--line-strong);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;color:var(--text-mute);transition:border-color 200ms}
+.proforma-close:hover{border-color:var(--accent);color:var(--text)}
+.proforma-tabs{display:flex;gap:0;border-bottom:1px solid var(--line);margin-bottom:28px}
+.proforma-tab{padding:12px 24px;font-size:13px;font-weight:500;color:var(--text-mute);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;transition:all 200ms;font-family:var(--sans)}
+.proforma-tab:hover{color:var(--text)}
+.proforma-tab.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:600}
+.proforma-panel{display:none}
+.proforma-panel.active{display:block}
+.pf-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px;flex-wrap:wrap;gap:16px}
+.pf-title{font-size:22px;font-weight:800;letter-spacing:-.02em}
+.pf-subtitle{font-size:12px;color:var(--text-mute);margin-top:4px}
+.pf-meta{text-align:right;font-family:var(--mono);font-size:11px;color:var(--text-dim);line-height:1.8}
+.pf-parties{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:28px;padding:20px;background:var(--bg-elev);border:1px solid var(--line);border-radius:var(--radius-sm)}
+.pf-party-label{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+.pf-party-name{font-size:14px;font-weight:700;margin-bottom:4px}
+.pf-party-detail{font-size:12px;color:var(--text-dim);line-height:1.6}
+.pf-buyer-form{display:flex;flex-direction:column;gap:8px}
+.pf-buyer-input{background:var(--bg-card);border:1px solid var(--line-strong);border-radius:8px;padding:8px 12px;color:var(--text);font-family:var(--sans);font-size:13px;outline:none;transition:border-color 200ms}
+.pf-buyer-input:focus{border-color:var(--accent)}
+.pf-buyer-input::placeholder{color:var(--text-mute)}
+.pf-table{width:100%;border-collapse:collapse;margin-bottom:24px}
+.pf-table th{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-mute);text-align:left;padding:10px 12px;border-bottom:1px solid var(--line-strong);font-weight:500}
+.pf-table th:last-child,.pf-table th:nth-child(4){text-align:right}
+.pf-table td{font-size:13px;color:var(--text-dim);padding:12px;border-bottom:1px solid var(--line);vertical-align:top}
+.pf-table td:last-child,.pf-table td:nth-child(4){text-align:right;font-family:var(--mono);font-weight:600;color:var(--text)}
+.pf-table td:nth-child(3){text-align:center}
+.pf-table tr.pf-row-total td{border-bottom:none;font-weight:800;font-size:15px;color:var(--accent);padding-top:16px}
+.pf-table tr.pf-row-sub td{color:var(--text-mute);font-size:12px}
+.pf-table tr.pf-row-included td:last-child{color:var(--accent);font-style:italic}
+.pf-notes{background:var(--bg-elev);border:1px solid var(--line);border-radius:var(--radius-sm);padding:16px 20px;margin-bottom:24px}
+.pf-notes-title{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+.pf-notes-item{font-size:12px;color:var(--text-dim);line-height:1.6;padding:2px 0}
+.pf-notes-warning{font-size:11px;color:var(--text-mute);margin-top:8px;padding-top:8px;border-top:1px solid var(--line)}
+.pf-container-viz{background:var(--bg-elev);border:1px solid var(--line);border-radius:var(--radius-sm);padding:20px;margin-bottom:24px}
+.pf-container-box{position:relative;height:60px;background:var(--bg-card);border:2px solid var(--line-strong);border-radius:8px;overflow:hidden;margin:12px 0}
+.pf-container-fill{position:absolute;top:0;left:0;bottom:0;background:linear-gradient(90deg,var(--accent-soft),var(--accent-mid));border-radius:6px;transition:width 600ms}
+.pf-container-units{position:absolute;top:0;left:0;bottom:0;display:flex;align-items:center;gap:8px;padding:0 12px}
+.pf-container-unit{width:40px;height:40px;border:1px solid var(--accent);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:16px;background:var(--accent-soft)}
+.pf-container-meta{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--text-mute)}
+.pf-actions{display:flex;flex-direction:column;align-items:center;gap:12px;padding-top:16px;border-top:1px solid var(--line)}
+.pf-submit-btn{padding:16px 36px;background:var(--accent);color:var(--bg);border:none;border-radius:100px;font-size:15px;font-weight:700;cursor:pointer;transition:transform 150ms;font-family:var(--sans)}
+.pf-submit-btn:hover{transform:scale(1.03)}
+.pf-submit-note{font-size:11px;color:var(--text-mute);font-family:var(--mono)}
+
+/* ===== CONFIG BAR RESPONSIVE ===== */
+@media(max-width:768px){
+  .config-bar{padding:10px 16px}
+  .config-bar-inner{flex-direction:column;gap:10px}
+  .cb-summary{flex-direction:column;align-items:flex-start;gap:8px}
+  .cb-total{font-size:18px}
+  .cb-cta{width:100%;text-align:center}
+  .proforma-card{padding:24px 16px}
+  .pf-parties{grid-template-columns:1fr}
+  .pf-header{flex-direction:column}
+  .pf-meta{text-align:left}
+  .pf-table{font-size:11px}
+  .pf-table th,.pf-table td{padding:8px 6px}
+}
 </style>
 </head>
 <body>
@@ -386,8 +467,9 @@ footer{border-top:1px solid var(--line);padding:32px;font-family:var(--mono);fon
     <a href="index.html" class="nav-link">Catalogo</a>
     <a href="#overview" class="nav-link">Producto</a>
     <a href="#specs" class="nav-link">Specs</a>
-    <a href="carrito.html" class="nav-link nav-cart">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+    <a href="carrito.html" class="nav-link nav-cart" style="display:inline-flex;align-items:center;gap:6px">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="22" height="14" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/><line x1="12" y1="3" x2="12" y2="17"/><path d="M1 20h22"/></svg>
+      Mi Importacion
       <span class="cart-badge" style="display:none">0</span>
     </a>
     <a href="login.html" class="nav-cta" id="nav-auth-btn">Iniciar sesion</a>
@@ -397,10 +479,10 @@ footer{border-top:1px solid var(--line);padding:32px;font-family:var(--mono);fon
 <div class="sticky-bar" id="sticky-bar">
   <div class="sb-left">
     <span class="sb-name">SEPHIROTH&trade; Pickup Camper</span>
-    <span class="sb-price">Desde $12,500 USD</span>
+    <span class="sb-price">Desde $25,000 USD</span>
   </div>
   <div class="sb-right">
-    <button class="sb-btn sb-btn-primary" onclick="addToCart()">Iniciar importacion</button>
+    <button class="sb-btn sb-btn-primary" onclick="scrollToConfig()">Configurar mi camper &rarr;</button>
     <a href="https://wa.me/5491112345678?text=Hola%20Aduanex!%20Me%20interesa%20el%20SEPHIROTH%20Pickup%20Camper" class="sb-btn sb-btn-outline" target="_blank">WhatsApp</a>
   </div>
 </div>
@@ -471,7 +553,7 @@ footer{border-top:1px solid var(--line);padding:32px;font-family:var(--mono);fon
 
           <!-- Big price -->
           <div class="pb-hero">
-            <span class="pb-hero-amount" id="pb-amount">$12,500</span>
+            <span class="pb-hero-amount" id="pb-amount">$25,000</span>
             <span class="pb-hero-cur">USD</span>
           </div>
           <div class="pb-hero-basis" id="pb-basis">FOB Qingdao &middot; 5+ unidades (40ft)</div>
@@ -484,17 +566,17 @@ footer{border-top:1px solid var(--line);padding:32px;font-family:var(--mono);fon
           <div class="pb-volumes">
             <div class="pb-vol" data-tier="1" onclick="selectTier(this)">
               <div class="pb-vol-qty">1 unidad</div>
-              <div class="pb-vol-price" id="pv-1">$14,900</div>
+              <div class="pb-vol-price" id="pv-1">$29,800</div>
               <div class="pb-vol-tag">&nbsp;</div>
             </div>
             <div class="pb-vol" data-tier="2" onclick="selectTier(this)">
               <div class="pb-vol-qty">2 uds / 20ft</div>
-              <div class="pb-vol-price" id="pv-2">$13,500</div>
+              <div class="pb-vol-price" id="pv-2">$27,000</div>
               <div class="pb-vol-tag">&nbsp;</div>
             </div>
             <div class="pb-vol active" data-tier="3" onclick="selectTier(this)">
               <div class="pb-vol-qty">5+ uds / 40ft</div>
-              <div class="pb-vol-price" id="pv-3">$12,500</div>
+              <div class="pb-vol-price" id="pv-3">$25,000</div>
               <div class="pb-vol-tag">MEJOR PRECIO</div>
             </div>
           </div>
@@ -502,11 +584,11 @@ footer{border-top:1px solid var(--line);padding:32px;font-family:var(--mono);fon
           <!-- Savings hint -->
           <div class="pb-savings" id="pb-savings">
             <svg viewBox="0 0 24 24" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            Maritimo ahorra ~$4,400 USD vs aereo en 5+ uds
+            Maritimo ahorra ~$8,800 USD vs aereo en 5+ uds
           </div>
         </div>
 
-        <button id="btn-add-cart" class="path-cta path-cta-primary" onclick="addToCart()">Iniciar importacion &rarr;</button>
+        <button id="btn-add-cart" class="path-cta path-cta-primary" onclick="scrollToConfig()">Configurar mi camper &rarr;</button>
       </div>
 
     </div>
@@ -746,42 +828,42 @@ footer{border-top:1px solid var(--line);padding:32px;font-family:var(--mono);fon
     <div class="upgrades-grid">
       <!-- ENERGY -->
       <div class="upg-category-label">ENERGIA &amp; CLIMA</div>
-      <div class="upg-card"><div class="upg-icon">&#128267;</div><div class="upg-info"><div class="upg-name">Bateria LiFePO4 3 kWh</div><div class="upg-detail">+ Cargador/inversor 3.6kW, generacion vehicular, controlador solar MPPT</div></div><div class="upg-price">$1,380</div></div>
-      <div class="upg-card"><div class="upg-icon">&#128267;</div><div class="upg-info"><div class="upg-name">Bateria LiFePO4 11 kWh</div><div class="upg-detail">+ Cargador/inversor 3.6kW, generacion vehicular, controlador solar MPPT</div></div><div class="upg-price">$1,810</div></div>
-      <div class="upg-card"><div class="upg-icon">&#10052;</div><div class="upg-info"><div class="upg-name">Aire acondicionado inverter</div><div class="upg-detail">Frio, variable, bajo consumo</div></div><div class="upg-price">$320</div></div>
-      <div class="upg-card"><div class="upg-icon">&#9728;</div><div class="upg-info"><div class="upg-name">Panel solar 400W</div><div class="upg-detail">Carga la bateria en ruta o estacionado</div></div><div class="upg-price">$260</div></div>
-      <div class="upg-card"><div class="upg-icon">&#128293;</div><div class="upg-info"><div class="upg-name">Calefaccion diesel</div><div class="upg-detail">Con tanque de combustible externo</div></div><div class="upg-price">$465</div></div>
-      <div class="upg-card"><div class="upg-icon">&#128704;</div><div class="upg-info"><div class="upg-name">Calentador de agua electrico</div><div class="upg-detail">Agua caliente para ducha y lavado</div></div><div class="upg-price">$145</div></div>
+      <div class="upg-card" data-price="2760"><div class="upg-icon">&#128267;</div><div class="upg-info"><div class="upg-name">Bateria LiFePO4 3 kWh</div><div class="upg-detail">+ Cargador/inversor 3.6kW, generacion vehicular, controlador solar MPPT</div></div><div class="upg-price">$2,760</div><div class="upg-select">&#10003;</div></div>
+      <div class="upg-card" data-price="3620"><div class="upg-icon">&#128267;</div><div class="upg-info"><div class="upg-name">Bateria LiFePO4 11 kWh</div><div class="upg-detail">+ Cargador/inversor 3.6kW, generacion vehicular, controlador solar MPPT</div></div><div class="upg-price">$3,620</div><div class="upg-select">&#10003;</div></div>
+      <div class="upg-card" data-price="640"><div class="upg-icon">&#10052;</div><div class="upg-info"><div class="upg-name">Aire acondicionado inverter</div><div class="upg-detail">Frio, variable, bajo consumo</div></div><div class="upg-price">$640</div><div class="upg-select">&#10003;</div></div>
+      <div class="upg-card" data-price="520"><div class="upg-icon">&#9728;</div><div class="upg-info"><div class="upg-name">Panel solar 400W</div><div class="upg-detail">Carga la bateria en ruta o estacionado</div></div><div class="upg-price">$520</div><div class="upg-select">&#10003;</div></div>
+      <div class="upg-card" data-price="930"><div class="upg-icon">&#128293;</div><div class="upg-info"><div class="upg-name">Calefaccion diesel</div><div class="upg-detail">Con tanque de combustible externo</div></div><div class="upg-price">$930</div><div class="upg-select">&#10003;</div></div>
+      <div class="upg-card" data-price="290"><div class="upg-icon">&#128704;</div><div class="upg-info"><div class="upg-name">Calentador de agua electrico</div><div class="upg-detail">Agua caliente para ducha y lavado</div></div><div class="upg-price">$290</div><div class="upg-select">&#10003;</div></div>
 
       <!-- STRUCTURE -->
       <div class="upg-category-label">ESTRUCTURA</div>
-      <div class="upg-card"><div class="upg-icon">&#8596;</div><div class="upg-info"><div class="upg-name">Sistema de expansion lateral</div><div class="upg-detail">Patentado, tipo push-out, mas espacio interior</div></div><div class="upg-price">$725</div></div>
-      <div class="upg-card"><div class="upg-icon">&#128311;</div><div class="upg-info"><div class="upg-name">Ventana gullwing</div><div class="upg-detail">Apertura tipo ala de gaviota</div></div><div class="upg-price">$230</div></div>
-      <div class="upg-card"><div class="upg-icon">&#9744;</div><div class="upg-info"><div class="upg-name">Techo solar / skylight</div><div class="upg-detail">Claraboya custom para luz natural</div></div><div class="upg-price">$260</div></div>
-      <div class="upg-card"><div class="upg-icon">&#128682;</div><div class="upg-info"><div class="upg-name">Compuerta de conexion a cabina</div><div class="upg-detail">Acceso directo al habitaculo de la pickup</div></div><div class="upg-price">$145</div></div>
+      <div class="upg-card" data-price="1450"><div class="upg-icon">&#8596;</div><div class="upg-info"><div class="upg-name">Sistema de expansion lateral</div><div class="upg-detail">Patentado, tipo push-out, mas espacio interior</div></div><div class="upg-price">$1,450</div><div class="upg-select">&#10003;</div></div>
+      <div class="upg-card" data-price="460"><div class="upg-icon">&#128311;</div><div class="upg-info"><div class="upg-name">Ventana gullwing</div><div class="upg-detail">Apertura tipo ala de gaviota</div></div><div class="upg-price">$460</div><div class="upg-select">&#10003;</div></div>
+      <div class="upg-card" data-price="520"><div class="upg-icon">&#9744;</div><div class="upg-info"><div class="upg-name">Techo solar / skylight</div><div class="upg-detail">Claraboya custom para luz natural</div></div><div class="upg-price">$520</div><div class="upg-select">&#10003;</div></div>
+      <div class="upg-card" data-price="290"><div class="upg-icon">&#128682;</div><div class="upg-info"><div class="upg-name">Compuerta de conexion a cabina</div><div class="upg-detail">Acceso directo al habitaculo de la pickup</div></div><div class="upg-price">$290</div><div class="upg-select">&#10003;</div></div>
 
       <!-- OTHER -->
       <div class="upg-category-label">CONFORT &amp; ACCESORIOS</div>
-      <div class="upg-card"><div class="upg-icon">&#128703;</div><div class="upg-info"><div class="upg-name">Ducha interior</div><div class="upg-detail">Cortina, flor, bandeja aluminio, extractor</div></div><div class="upg-price">$230</div></div>
-      <div class="upg-card"><div class="upg-icon">&#128703;</div><div class="upg-info"><div class="upg-name">Ducha exterior</div><div class="upg-detail">Para limpieza rapida post-aventura</div></div><div class="upg-price">$390</div></div>
-      <div class="upg-card"><div class="upg-icon">&#9969;</div><div class="upg-info"><div class="upg-name">Toldo lateral 3&times;2.5m</div><div class="upg-detail">Sombra instantanea, apertura manual</div></div><div class="upg-price">$435</div></div>
-      <div class="upg-card"><div class="upg-icon">&#9969;</div><div class="upg-info"><div class="upg-name">Toldo 270&deg; 2.5m</div><div class="upg-detail">Cobertura envolvente alrededor del vehiculo</div></div><div class="upg-price">$625</div></div>
-      <div class="upg-card"><div class="upg-icon">&#129482;</div><div class="upg-info"><div class="upg-name">Heladera compresor</div><div class="upg-detail">Con riel deslizable custom</div></div><div class="upg-price">$200</div></div>
-      <div class="upg-card"><div class="upg-icon">&#128701;</div><div class="upg-info"><div class="upg-name">Inodoro portatil</div><div class="upg-detail">Compacto, para viajes largos</div></div><div class="upg-price">$115</div></div>
-      <div class="upg-card"><div class="upg-icon">&#127910;</div><div class="upg-info"><div class="upg-name">Kit proyector</div><div class="upg-detail">Cine al aire libre o interior</div></div><div class="upg-price">$435</div></div>
-      <div class="upg-card"><div class="upg-icon">&#127859;</div><div class="upg-info"><div class="upg-name">Microondas</div><div class="upg-detail">Compacto, para calentar rapido</div></div><div class="upg-price">$100</div></div>
+      <div class="upg-card" data-price="460"><div class="upg-icon">&#128703;</div><div class="upg-info"><div class="upg-name">Ducha interior</div><div class="upg-detail">Cortina, flor, bandeja aluminio, extractor</div></div><div class="upg-price">$460</div><div class="upg-select">&#10003;</div></div>
+      <div class="upg-card" data-price="780"><div class="upg-icon">&#128703;</div><div class="upg-info"><div class="upg-name">Ducha exterior</div><div class="upg-detail">Para limpieza rapida post-aventura</div></div><div class="upg-price">$780</div><div class="upg-select">&#10003;</div></div>
+      <div class="upg-card" data-price="870"><div class="upg-icon">&#9969;</div><div class="upg-info"><div class="upg-name">Toldo lateral 3&times;2.5m</div><div class="upg-detail">Sombra instantanea, apertura manual</div></div><div class="upg-price">$870</div><div class="upg-select">&#10003;</div></div>
+      <div class="upg-card" data-price="1250"><div class="upg-icon">&#9969;</div><div class="upg-info"><div class="upg-name">Toldo 270&deg; 2.5m</div><div class="upg-detail">Cobertura envolvente alrededor del vehiculo</div></div><div class="upg-price">$1,250</div><div class="upg-select">&#10003;</div></div>
+      <div class="upg-card" data-price="400"><div class="upg-icon">&#129482;</div><div class="upg-info"><div class="upg-name">Heladera compresor</div><div class="upg-detail">Con riel deslizable custom</div></div><div class="upg-price">$400</div><div class="upg-select">&#10003;</div></div>
+      <div class="upg-card" data-price="230"><div class="upg-icon">&#128701;</div><div class="upg-info"><div class="upg-name">Inodoro portatil</div><div class="upg-detail">Compacto, para viajes largos</div></div><div class="upg-price">$230</div><div class="upg-select">&#10003;</div></div>
+      <div class="upg-card" data-price="870"><div class="upg-icon">&#127910;</div><div class="upg-info"><div class="upg-name">Kit proyector</div><div class="upg-detail">Cine al aire libre o interior</div></div><div class="upg-price">$870</div><div class="upg-select">&#10003;</div></div>
+      <div class="upg-card" data-price="200"><div class="upg-icon">&#127859;</div><div class="upg-info"><div class="upg-name">Microondas</div><div class="upg-detail">Compacto, para calentar rapido</div></div><div class="upg-price">$200</div><div class="upg-select">&#10003;</div></div>
 
       <!-- FEATURES -->
       <div class="upg-category-label">UPGRADES DESTACADOS</div>
-      <div class="upg-card upg-featured"><div class="upg-icon">&#9889;</div><div class="upg-info"><div class="upg-name">Techo electrico pop-up</div><div class="upg-detail">Patentado: modo electrico + manual de respaldo</div></div><div class="upg-price">$290</div></div>
-      <div class="upg-card upg-featured"><div class="upg-icon">&#128682;</div><div class="upg-info"><div class="upg-name">Escalera rebatible patentada</div><div class="upg-detail">Acceso facil al techo, se pliega al ras</div></div><div class="upg-price">$100</div></div>
+      <div class="upg-card upg-featured" data-price="580"><div class="upg-icon">&#9889;</div><div class="upg-info"><div class="upg-name">Techo electrico pop-up</div><div class="upg-detail">Patentado: modo electrico + manual de respaldo</div></div><div class="upg-price">$580</div><div class="upg-select">&#10003;</div></div>
+      <div class="upg-card upg-featured" data-price="200"><div class="upg-icon">&#128682;</div><div class="upg-info"><div class="upg-name">Escalera rebatible patentada</div><div class="upg-detail">Acceso facil al techo, se pliega al ras</div></div><div class="upg-price">$200</div><div class="upg-select">&#10003;</div></div>
     </div>
 
     <div style="margin-top:24px;padding:16px 20px;background:var(--bg-card);border:1px solid var(--accent-mid);border-radius:var(--radius);display:flex;align-items:center;gap:14px">
       <div style="font-size:24px">&#128161;</div>
       <div>
         <div style="font-size:13px;font-weight:600;margin-bottom:2px">Los upgrades se agregan en fabrica</div>
-        <div style="font-size:12px;color:var(--text-dim)">Elegis lo que necesitas, se fabrica con todo integrado y te llega listo. Precios en USD son de referencia (fabrica, FOB). El precio final nacionalizado se cotiza por separado.</div>
+        <div style="font-size:12px;color:var(--text-dim)">Selecciona los upgrades que necesitas haciendo click en cada tarjeta. Se fabrican integrados y te llegan listos. Precios en USD valor nacionalizado (incluye flete, impuestos y gestion aduanera estimados).</div>
       </div>
     </div>
   </div>
@@ -991,7 +1073,134 @@ footer{border-top:1px solid var(--line);padding:32px;font-family:var(--mono);fon
   </div>
 </div>
 
+<!-- ===== CONFIG BAR (sticky bottom) ===== -->
+<div class="config-bar" id="config-bar">
+  <div class="config-bar-inner">
+    <div class="cb-summary">
+      <div class="cb-base">
+        <span class="cb-label">SEPHIROTH&#8482; Base</span>
+        <span class="cb-amount" id="cb-base-price">$25,000</span>
+      </div>
+      <div class="cb-upgrades" id="cb-upgrades-info" style="display:none">
+        <span class="cb-plus">+</span>
+        <span class="cb-label"><span id="cb-upg-count">0</span> upgrades</span>
+        <span class="cb-amount" id="cb-upg-total">$0</span>
+      </div>
+      <div class="cb-total-wrap">
+        <span class="cb-equals">=</span>
+        <span class="cb-total" id="cb-total">$25,000</span>
+        <span class="cb-total-label">USD nacionalizado</span>
+      </div>
+    </div>
+    <button class="cb-cta" onclick="openProforma()">Ver Proforma &rarr;</button>
+  </div>
+</div>
+
+<!-- ===== PROFORMA MODAL ===== -->
+<div class="proforma-overlay" id="proforma-modal">
+  <div class="proforma-card">
+    <div class="proforma-close" onclick="closeProforma()">&times;</div>
+    <div class="proforma-tabs">
+      <button class="proforma-tab active" data-ptab="invoice" onclick="switchProformaTab(this)">Proforma Invoice</button>
+      <button class="proforma-tab" data-ptab="packing" onclick="switchProformaTab(this)">Packing List</button>
+    </div>
+
+    <!-- TAB 1: PROFORMA INVOICE -->
+    <div class="proforma-panel active" id="ptab-invoice">
+      <div class="pf-header">
+        <div>
+          <div class="pf-title">PROFORMA INVOICE</div>
+          <div class="pf-subtitle">FACTURA PROFORMA SIMULADA</div>
+        </div>
+        <div class="pf-meta">
+          <div id="pf-number">PRO-2026-0000</div>
+          <div id="pf-date"></div>
+        </div>
+      </div>
+
+      <div class="pf-parties">
+        <div>
+          <div class="pf-party-label">VENDEDOR</div>
+          <div class="pf-party-name">ADUANEX SHOP</div>
+          <div class="pf-party-detail">Buenos Aires, Argentina<br>aduanex-shop.vercel.app</div>
+        </div>
+        <div>
+          <div class="pf-party-label">COMPRADOR</div>
+          <div class="pf-party-detail" style="font-size:11px;color:var(--text-mute);margin-bottom:8px">Completa tus datos para generar la proforma oficial</div>
+          <div class="pf-buyer-form">
+            <input type="text" class="pf-buyer-input" id="pf-buyer-name" placeholder="Nombre completo">
+            <input type="email" class="pf-buyer-input" id="pf-buyer-email" placeholder="email@empresa.com">
+            <input type="text" class="pf-buyer-input" id="pf-buyer-company" placeholder="Empresa (opcional)">
+          </div>
+        </div>
+      </div>
+
+      <table class="pf-table">
+        <thead>
+          <tr><th>Item</th><th>Descripcion</th><th>Cant.</th><th>Precio Unit.</th><th>Total</th></tr>
+        </thead>
+        <tbody id="pf-table-body">
+          <!-- Filled by JS -->
+        </tbody>
+      </table>
+
+      <div class="pf-notes">
+        <div class="pf-notes-title">Condiciones</div>
+        <div class="pf-notes-item">50% anticipo + 50% contra embarque</div>
+        <div class="pf-notes-item">Validez: 30 dias</div>
+        <div class="pf-notes-warning">&#9888; Esta es una proforma estimativa. La cotizacion oficial se envia tras confirmar la solicitud.</div>
+      </div>
+
+      <div class="pf-actions">
+        <button class="pf-submit-btn" id="pf-submit-btn" onclick="submitProforma()">Solicitar Cotizacion Oficial &rarr;</button>
+        <div class="pf-submit-note">Sin compromiso &middot; Respondemos en 24hs</div>
+      </div>
+    </div>
+
+    <!-- TAB 2: PACKING LIST -->
+    <div class="proforma-panel" id="ptab-packing">
+      <div class="pf-header">
+        <div>
+          <div class="pf-title">PACKING LIST</div>
+          <div class="pf-subtitle">LISTA DE EMPAQUE</div>
+        </div>
+        <div class="pf-meta">
+          <div id="pf-number-pl">PRO-2026-0000</div>
+          <div id="pf-date-pl"></div>
+        </div>
+      </div>
+
+      <table class="pf-table">
+        <thead>
+          <tr><th>Bulto</th><th>Descripcion</th><th>Dimensiones (cm)</th><th>Peso Bruto</th><th>Peso Neto</th><th>CBM</th></tr>
+        </thead>
+        <tbody id="pf-packing-body">
+          <!-- Filled by JS -->
+        </tbody>
+      </table>
+
+      <div class="pf-container-viz">
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:8px">CONTENEDOR 40FT (12m x 2.35m)</div>
+        <div class="pf-container-box">
+          <div class="pf-container-fill" id="pf-container-fill" style="width:0%"></div>
+          <div class="pf-container-units" id="pf-container-units"></div>
+        </div>
+        <div class="pf-container-meta">
+          <span id="pf-container-slots">0 / 5 espacios ocupados</span>
+          <span id="pf-container-cbm">0 / 52.8 CBM</span>
+        </div>
+      </div>
+
+      <div class="pf-actions">
+        <button class="pf-submit-btn" onclick="submitProforma()">Solicitar Cotizacion Oficial &rarr;</button>
+        <div class="pf-submit-note">Sin compromiso &middot; Respondemos en 24hs</div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <section class="rfq" id="contacto">
+  <div style="text-align:center;margin-bottom:-40px;padding-top:20px;font-size:13px;color:var(--text-mute);font-family:var(--mono)">O completa el formulario directamente</div>
   <div class="rfq-inner">
     <div class="rfq-left">
       <div class="section-tag">COTIZAR IMPORTACION</div>
@@ -1028,10 +1237,10 @@ footer{border-top:1px solid var(--line);padding:32px;font-family:var(--mono);fon
 <footer><div class="footer-inner"><span>&copy; 2026 ADUANEX SHOP &middot; BUENOS AIRES, ARGENTINA</span><span>DESPACHANTE MATRICULADO &middot; IMPORTACION GESTIONADA</span></div></footer>
 
 <script>
-// ===== PRICING DATA =====
+// ===== PRICING DATA (valor nacionalizado x2) =====
 const PRICES = {
-  sea: { t1: '$14,900', t2: '$13,500', t3: '$12,500', days: '60-90 dias de entrega → Buenos Aires', basis_port: 'FOB Qingdao', label: 'Maritimo' },
-  air: { t1: '$19,800', t2: '$18,200', t3: '$16,900', days: '15-20 dias de entrega → Buenos Aires', basis_port: 'CIF Ezeiza', label: 'Aereo' }
+  sea: { t1: '$29,800', t2: '$27,000', t3: '$25,000', days: '60-90 dias de entrega → Buenos Aires', basis_port: 'FOB Qingdao', label: 'Maritimo' },
+  air: { t1: '$39,600', t2: '$36,400', t3: '$33,800', days: '15-20 dias de entrega → Buenos Aires', basis_port: 'CIF Ezeiza', label: 'Aereo' }
 };
 const TIER_LABELS = { 1: '1 unidad', 2: '2 unidades (20ft)', 3: '5+ unidades (40ft)' };
 let currentMethod = 'sea';
@@ -1069,6 +1278,8 @@ function updateDisplay() {
   // Sticky bar
   const sp = document.querySelector('.sb-price');
   if (sp) sp.textContent = 'Desde ' + p.t3 + ' USD';
+  // Update config total
+  updateConfigTotal();
 }
 
 function toggleShip(btn) {
@@ -1145,7 +1356,7 @@ function addToCart() {
     id: 'sephiroth-camper',
     name: 'SEPHIROTH™ Pickup Camper',
     category: 'Overlanding',
-    prices: { sea: { t1: 14900, t2: 13500, t3: 12500 }, air: { t1: 19800, t2: 18200, t3: 16900 } },
+    prices: { sea: { t1: 29800, t2: 27000, t3: 25000 }, air: { t1: 39600, t2: 36400, t3: 33800 } },
     qty: currentTier === 3 ? 5 : currentTier === 2 ? 2 : 1,
     method: currentMethod,
     image: '🚛'
@@ -1155,15 +1366,172 @@ function addToCart() {
   if (existing) { existing.qty = item.qty; existing.method = item.method; }
   else cart.push(item);
   saveCart(cart);
-  const btn = document.getElementById('btn-add-cart');
-  if (btn) {
-    const orig = btn.innerHTML;
-    btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Agregado al carrito';
-    btn.style.background = 'var(--accent)'; btn.style.color = 'var(--bg)'; btn.style.borderColor = 'var(--accent)';
-    setTimeout(() => { btn.innerHTML = orig; btn.style.background = ''; btn.style.color = ''; btn.style.borderColor = ''; }, 2000);
-  }
 }
 updateCartBadge();
+
+// ===== SCROLL TO CONFIG =====
+function scrollToConfig() {
+  // Activate config tab
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  const configBtn = document.querySelector('[data-tab="config"]');
+  if (configBtn) configBtn.classList.add('active');
+  const configPanel = document.getElementById('panel-config');
+  if (configPanel) configPanel.classList.add('active');
+  // Scroll to the upgrades section
+  setTimeout(() => {
+    const upgradesGrid = document.querySelector('.upgrades-grid');
+    if (upgradesGrid) upgradesGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 100);
+}
+
+// ===== UPGRADE CARD SELECTION =====
+document.querySelectorAll('.upg-card').forEach(card => {
+  card.addEventListener('click', () => {
+    card.classList.toggle('selected');
+    updateConfigTotal();
+  });
+});
+
+// ===== CONFIG TOTAL UPDATE =====
+function updateConfigTotal() {
+  const selected = document.querySelectorAll('.upg-card.selected');
+  let upgTotal = 0;
+  selected.forEach(c => upgTotal += parseInt(c.dataset.price || 0));
+
+  const basePrice = parseInt(PRICES[currentMethod]['t' + currentTier].replace(/\D/g, ''));
+  const total = basePrice + upgTotal;
+
+  const cbBase = document.getElementById('cb-base-price');
+  const cbUpgCount = document.getElementById('cb-upg-count');
+  const cbUpgTotal = document.getElementById('cb-upg-total');
+  const cbUpgInfo = document.getElementById('cb-upgrades-info');
+  const cbTotal = document.getElementById('cb-total');
+
+  if (cbBase) cbBase.textContent = '$' + basePrice.toLocaleString();
+  if (cbUpgCount) cbUpgCount.textContent = selected.length;
+  if (cbUpgTotal) cbUpgTotal.textContent = '$' + upgTotal.toLocaleString();
+  if (cbUpgInfo) cbUpgInfo.style.display = selected.length > 0 ? 'flex' : 'none';
+  if (cbTotal) cbTotal.textContent = '$' + total.toLocaleString();
+}
+
+// ===== CONFIG BAR VISIBILITY =====
+const configBar = document.getElementById('config-bar');
+const productHero = document.getElementById('product-top');
+if (configBar && productHero) {
+  new IntersectionObserver(([e]) => {
+    configBar.classList.toggle('visible', !e.isIntersecting);
+  }, { threshold: 0, rootMargin: '-300px 0px 0px 0px' }).observe(productHero);
+}
+
+// Init config total
+updateConfigTotal();
+
+// ===== PROFORMA FUNCTIONS =====
+let proformaNumber = '';
+
+function openProforma() {
+  proformaNumber = 'PRO-' + new Date().getFullYear() + '-' + String(Math.floor(1000 + Math.random() * 9000));
+  const dateStr = new Date().toLocaleDateString('es-AR', { year: 'numeric', month: 'long', day: 'numeric' });
+
+  document.getElementById('pf-number').textContent = proformaNumber;
+  document.getElementById('pf-date').textContent = dateStr;
+  document.getElementById('pf-number-pl').textContent = proformaNumber;
+  document.getElementById('pf-date-pl').textContent = dateStr;
+
+  buildProformaTable();
+  buildPackingList();
+
+  document.getElementById('proforma-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeProforma() {
+  document.getElementById('proforma-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function switchProformaTab(btn) {
+  document.querySelectorAll('.proforma-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.proforma-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('ptab-' + btn.dataset.ptab).classList.add('active');
+}
+
+// Close modal on overlay click
+document.getElementById('proforma-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeProforma();
+});
+
+function buildProformaTable() {
+  const tbody = document.getElementById('pf-table-body');
+  const basePrice = parseInt(PRICES[currentMethod]['t' + currentTier].replace(/\D/g, ''));
+  const qty = currentTier === 3 ? 5 : currentTier === 2 ? 2 : 1;
+  const selected = document.querySelectorAll('.upg-card.selected');
+
+  let subtotal = basePrice;
+  let rows = '';
+
+  // Base item
+  rows += '<tr><td style="font-weight:600;color:var(--text)">SEPHIROTH&#8482; Pickup Camper</td><td>Configuracion base completa (3 modulos)</td><td style="text-align:center">1</td><td>$' + basePrice.toLocaleString() + '</td><td>$' + basePrice.toLocaleString() + '</td></tr>';
+
+  // Selected upgrades
+  selected.forEach(card => {
+    const name = card.querySelector('.upg-name').textContent;
+    const price = parseInt(card.dataset.price);
+    subtotal += price;
+    rows += '<tr><td style="padding-left:24px;color:var(--text-dim)">&#8627; ' + name + '</td><td>' + (card.querySelector('.upg-detail').textContent) + '</td><td style="text-align:center">1</td><td>$' + price.toLocaleString() + '</td><td>$' + price.toLocaleString() + '</td></tr>';
+  });
+
+  // Subtotal
+  rows += '<tr class="pf-row-sub"><td colspan="4" style="text-align:right;font-weight:600">Subtotal</td><td>$' + subtotal.toLocaleString() + '</td></tr>';
+
+  // Freight estimate
+  const freightLabel = currentMethod === 'sea' ? 'Flete maritimo estimado' : 'Flete aereo estimado';
+  const freightAmt = currentMethod === 'sea' ? 3500 : 8000;
+  rows += '<tr class="pf-row-sub"><td colspan="4" style="text-align:right">' + freightLabel + '</td><td>~$' + freightAmt.toLocaleString() + '</td></tr>';
+
+  // Duties estimate
+  const duties = Math.round(subtotal * 0.15);
+  rows += '<tr class="pf-row-sub"><td colspan="4" style="text-align:right">Derechos e impuestos estimados (~15%)</td><td>~$' + duties.toLocaleString() + '</td></tr>';
+
+  // Aduanex management
+  rows += '<tr class="pf-row-included"><td colspan="4" style="text-align:right">Gestion aduanera Aduanex</td><td>Incluido</td></tr>';
+
+  // Grand total
+  const grandTotal = subtotal + freightAmt + duties;
+  rows += '<tr class="pf-row-total"><td colspan="4" style="text-align:right">TOTAL ESTIMADO</td><td>$' + grandTotal.toLocaleString() + '</td></tr>';
+
+  tbody.innerHTML = rows;
+}
+
+function buildPackingList() {
+  const qty = currentTier === 3 ? 5 : currentTier === 2 ? 2 : 1;
+  const selected = document.querySelectorAll('.upg-card.selected');
+  const upgNames = [];
+  selected.forEach(c => upgNames.push(c.querySelector('.upg-name').textContent));
+  const desc = 'SEPHIROTH&#8482; Pickup Camper' + (upgNames.length > 0 ? ' + ' + upgNames.length + ' upgrades' : '');
+
+  const tbody = document.getElementById('pf-packing-body');
+  tbody.innerHTML = '<tr><td style="text-align:center;font-weight:600">1</td><td>' + desc + '</td><td>340 x 180 x 175</td><td>580 kg</td><td>550 kg</td><td>10.71</td></tr>';
+
+  // Container visualization
+  const fill = document.getElementById('pf-container-fill');
+  const units = document.getElementById('pf-container-units');
+  const slots = document.getElementById('pf-container-slots');
+  const cbm = document.getElementById('pf-container-cbm');
+
+  const fillPct = Math.min((qty / 5) * 100, 100);
+  setTimeout(() => { if (fill) fill.style.width = fillPct + '%'; }, 200);
+
+  let unitsHtml = '';
+  for (let i = 0; i < qty; i++) unitsHtml += '<div class="pf-container-unit">&#128690;</div>';
+  if (units) units.innerHTML = unitsHtml;
+  if (slots) slots.textContent = qty + ' / 5 espacios ocupados';
+  if (cbm) cbm.textContent = (qty * 10.71).toFixed(1) + ' / 52.8 CBM';
+}
+
+
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
@@ -1241,6 +1609,54 @@ supa.auth.getSession().then(({ data: { session } }) => {
   const btn = document.getElementById('nav-auth-btn');
   if (session && btn) { btn.textContent = 'Mi cuenta'; btn.href = 'mis-pedidos.html'; }
 });
+
+// ===== SUBMIT PROFORMA =====
+async function submitProforma() {
+  const btn = document.getElementById('pf-submit-btn');
+  const origText = btn.textContent;
+  btn.textContent = 'Enviando...';
+  btn.disabled = true;
+
+  const selected = document.querySelectorAll('.upg-card.selected');
+  const upgNames = [];
+  selected.forEach(c => upgNames.push(c.querySelector('.upg-name').textContent));
+
+  const basePrice = parseInt(PRICES[currentMethod]['t' + currentTier].replace(/\D/g, ''));
+  let upgTotal = 0;
+  selected.forEach(c => upgTotal += parseInt(c.dataset.price || 0));
+  const qty = currentTier === 3 ? 5 : currentTier === 2 ? 2 : 1;
+
+  const data = {
+    client_name: document.getElementById('pf-buyer-name').value || '',
+    client_email: document.getElementById('pf-buyer-email').value || '',
+    client_company: document.getElementById('pf-buyer-company').value || '',
+    products_description: 'SEPHIROTH Pickup Camper - ' + PRICES[currentMethod].label + ' - Tier ' + currentTier + ' (' + qty + ' uds)',
+    notes: 'Proforma ' + proformaNumber + ' | Base: $' + basePrice.toLocaleString() + ' | Upgrades (' + upgNames.length + '): ' + (upgNames.join(', ') || 'Ninguno') + ' | Total upgrades: $' + upgTotal.toLocaleString() + ' | Metodo: ' + currentMethod,
+    origin_country: 'China',
+    transport_type: currentMethod === 'sea' ? 'maritime' : 'air',
+    status: 'pendiente',
+    priority: 'normal',
+    source: 'shop-proforma'
+  };
+
+  try {
+    const { error } = await supa.from('quote_requests').insert([data]);
+    if (error) throw error;
+    btn.textContent = '✓ Solicitud enviada!';
+    btn.style.background = '#88CE02';
+    setTimeout(() => {
+      closeProforma();
+      btn.textContent = origText;
+      btn.disabled = false;
+      btn.style.background = '';
+    }, 2500);
+  } catch(e) {
+    console.error(e);
+    btn.textContent = 'Error, intenta de nuevo';
+    btn.style.background = '#ff6b6b';
+    setTimeout(() => { btn.textContent = origText; btn.disabled = false; btn.style.background = ''; }, 3000);
+  }
+}
 </script>
 
 </body>
