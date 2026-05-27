@@ -175,16 +175,6 @@ button{font-family:var(--sans);cursor:pointer}
 .pb-hero-basis{font-family:var(--mono);font-size:11px;color:var(--text-mute);margin-bottom:2px}
 .pb-hero-delivery{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--text-dim);margin-bottom:14px}
 .pb-hero-delivery svg{width:14px;height:14px;fill:none;stroke:var(--accent);stroke-width:1.5;flex-shrink:0}
-.pb-volumes{display:flex;gap:6px;margin-bottom:12px}
-.pb-vol{flex:1;padding:10px 12px;background:var(--bg-card);border:1px solid var(--line);border-radius:var(--radius-sm);cursor:pointer;transition:all 180ms;text-align:center}
-.pb-vol:hover{border-color:var(--text-mute)}
-.pb-vol.active{border-color:var(--accent);background:var(--accent-soft)}
-.pb-vol-qty{font-family:var(--mono);font-size:10px;letter-spacing:.05em;color:var(--text-mute);margin-bottom:4px;transition:color 180ms}
-.pb-vol.active .pb-vol-qty{color:var(--accent)}
-.pb-vol-price{font-family:var(--mono);font-size:15px;font-weight:700;color:var(--text);transition:color 180ms}
-.pb-vol.active .pb-vol-price{color:var(--accent)}
-.pb-vol-tag{font-family:var(--mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-top:2px;opacity:0;transition:opacity 180ms;line-height:1}
-.pb-vol.active .pb-vol-tag{opacity:1}
 .pb-savings{display:flex;align-items:center;gap:8px;padding:8px 14px;background:var(--bg-card);border:1px solid var(--line);border-radius:var(--radius-sm);font-family:var(--mono);font-size:10px;color:var(--text-mute);margin-bottom:0}
 .pb-savings svg{width:14px;height:14px;fill:none;stroke:var(--accent);stroke-width:1.5;flex-shrink:0}
 
@@ -525,7 +515,7 @@ select.pf-buyer-input{appearance:none;cursor:pointer}
 <div class="sticky-bar" id="sticky-bar">
   <div class="sb-left">
     <span class="sb-name">SEPHIROTH&trade; Pickup Camper</span>
-    <span class="sb-price">Desde $25,000 USD</span>
+    <span class="sb-price">$20,003 USD + IVA</span>
   </div>
   <div class="sb-right">
     <button class="sb-btn sb-btn-primary" onclick="scrollToConfig()">Configurar mi camper &rarr;</button>
@@ -587,32 +577,16 @@ select.pf-buyer-input{appearance:none;cursor:pointer}
         <div class="price-block" id="price-block">
           <!-- Big price -->
           <div class="pb-hero">
-            <span class="pb-hero-amount" id="pb-amount">$25,000</span>
-            <span class="pb-hero-cur">USD</span>
+            <span class="pb-hero-amount" id="pb-amount">$20,003</span>
+            <span class="pb-hero-cur">USD + IVA</span>
           </div>
-          <div class="pb-hero-basis" id="pb-basis">FOB Qingdao &middot; 5+ unidades (40ft)</div>
+          <div class="pb-hero-basis" id="pb-basis">FOB Qingdao &middot; 1 unidad</div>
           <div class="pb-hero-delivery" id="pb-delivery">
             <svg viewBox="0 0 24 24" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             60-90 dias de entrega &rarr; Buenos Aires
           </div>
-
-          <!-- Volume cards -->
-          <div class="pb-volumes">
-            <div class="pb-vol" data-tier="1" onclick="selectTier(this)">
-              <div class="pb-vol-qty">1 unidad</div>
-              <div class="pb-vol-price" id="pv-1">$29,800</div>
-              <div class="pb-vol-tag">&nbsp;</div>
-            </div>
-            <div class="pb-vol" data-tier="2" onclick="selectTier(this)">
-              <div class="pb-vol-qty">2 uds / 20ft</div>
-              <div class="pb-vol-price" id="pv-2">$27,000</div>
-              <div class="pb-vol-tag">&nbsp;</div>
-            </div>
-            <div class="pb-vol active" data-tier="3" onclick="selectTier(this)">
-              <div class="pb-vol-qty">5+ uds / 40ft</div>
-              <div class="pb-vol-price" id="pv-3">$25,000</div>
-              <div class="pb-vol-tag">MEJOR PRECIO</div>
-            </div>
+          <div style="margin-top:10px;padding:8px 14px;background:var(--accent-soft);border:1px solid var(--accent-mid);border-radius:8px;font-size:12px;color:var(--accent);font-weight:600;display:inline-block">
+            IVA 10.5% incluido en proforma &middot; Total $22,103.32 USD
           </div>
 
         </div>
@@ -1100,7 +1074,7 @@ select.pf-buyer-input{appearance:none;cursor:pointer}
     <div class="cb-summary">
       <div class="cb-base">
         <span class="cb-label">SEPHIROTH&#8482; Base</span>
-        <span class="cb-amount" id="cb-base-price">$25,000</span>
+        <span class="cb-amount" id="cb-base-price">$20,003</span>
       </div>
       <div class="cb-upgrades" id="cb-upgrades-info" style="display:none">
         <span class="cb-plus">+</span>
@@ -1109,8 +1083,8 @@ select.pf-buyer-input{appearance:none;cursor:pointer}
       </div>
       <div class="cb-total-wrap">
         <span class="cb-equals">=</span>
-        <span class="cb-total" id="cb-total">$25,000</span>
-        <span class="cb-total-label">USD nacionalizado</span>
+        <span class="cb-total" id="cb-total">$22,103.32</span>
+        <span class="cb-total-label">USD con IVA</span>
       </div>
     </div>
     <button class="cb-cta" onclick="openProforma()">Ver Proforma &rarr;</button>
@@ -1302,41 +1276,30 @@ select.pf-buyer-input{appearance:none;cursor:pointer}
 <footer><div class="footer-inner"><span>&copy; 2026 ADUANEX SHOP &middot; BUENOS AIRES, ARGENTINA</span><span>DESPACHANTE MATRICULADO &middot; IMPORTACION GESTIONADA</span></div></footer>
 
 <script>
-// ===== PRICING DATA (valor nacionalizado x2) =====
-const PRICES = {
-  sea: { t1: '$29,800', t2: '$27,000', t3: '$25,000', days: '60-90 dias de entrega → Buenos Aires', basis_port: 'FOB Qingdao', label: 'Maritimo' }
-};
-const TIER_LABELS = { 1: '1 unidad', 2: '2 unidades (20ft)', 3: '5+ unidades (40ft)' };
+// ===== PRICING DATA =====
+const BASE_PRICE = 20003;
+const IVA_RATE = 0.105;
+const IVA_AMOUNT = Math.round(BASE_PRICE * IVA_RATE * 100) / 100;
+const TOTAL_PRICE = Math.round((BASE_PRICE + IVA_AMOUNT) * 100) / 100;
+const PRICE_LABEL = '$' + BASE_PRICE.toLocaleString('en-US');
+const DAYS_LABEL = '60-90 dias de entrega → Buenos Aires';
+const BASIS_PORT = 'FOB Qingdao';
 let currentMethod = 'sea';
-let currentTier = 3;
+let currentTier = 1;
 
 function updateDisplay() {
-  const p = PRICES.sea;
-  const price = p['t' + currentTier];
   const heroEl = document.getElementById('pb-amount');
   heroEl.style.opacity = '0'; heroEl.style.transform = 'translateY(6px)';
   setTimeout(() => {
-    heroEl.textContent = price;
-    document.getElementById('pb-basis').textContent = p.basis_port + ' · ' + TIER_LABELS[currentTier];
+    heroEl.textContent = PRICE_LABEL;
+    document.getElementById('pb-basis').textContent = BASIS_PORT + ' · 1 unidad';
     document.getElementById('pb-delivery').innerHTML =
-      '<svg viewBox="0 0 24 24" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>' + p.days;
-    document.getElementById('pv-1').textContent = p.t1;
-    document.getElementById('pv-2').textContent = p.t2;
-    document.getElementById('pv-3').textContent = p.t3;
+      '<svg viewBox="0 0 24 24" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>' + DAYS_LABEL;
     heroEl.style.opacity = '1'; heroEl.style.transform = 'translateY(0)';
   }, 140);
   const sp = document.querySelector('.sb-price');
-  if (sp) sp.textContent = 'Desde ' + p.t3 + ' USD';
+  if (sp) sp.textContent = PRICE_LABEL + ' + IVA';
   updateConfigTotal();
-}
-
-function selectTier(el) {
-  document.querySelectorAll('.pb-vol').forEach(v => v.classList.remove('active'));
-  el.classList.add('active');
-  currentTier = parseInt(el.dataset.tier);
-  document.querySelectorAll('.pb-vol-tag').forEach(t => t.innerHTML = '&nbsp;');
-  if (currentTier === 3) el.querySelector('.pb-vol-tag').textContent = 'MEJOR PRECIO';
-  updateDisplay();
 }
 
 // Tabs
@@ -1391,8 +1354,8 @@ function addToCart() {
     id: 'sephiroth-camper',
     name: 'SEPHIROTH™ Pickup Camper',
     category: 'Overlanding',
-    prices: { sea: { t1: 29800, t2: 27000, t3: 25000 } },
-    qty: currentTier === 3 ? 5 : currentTier === 2 ? 2 : 1,
+    prices: { sea: { t1: BASE_PRICE } },
+    qty: 1,
     method: currentMethod,
     image: '🚛'
   };
@@ -1434,8 +1397,9 @@ function updateConfigTotal() {
   let upgTotal = 0;
   selected.forEach(c => upgTotal += parseInt(c.dataset.price || 0));
 
-  const basePrice = parseInt(PRICES[currentMethod]['t' + currentTier].replace(/\D/g, ''));
-  const total = basePrice + upgTotal;
+  const subtotal = BASE_PRICE + upgTotal;
+  const iva = Math.round(subtotal * IVA_RATE * 100) / 100;
+  const total = Math.round((subtotal + iva) * 100) / 100;
 
   const cbBase = document.getElementById('cb-base-price');
   const cbUpgCount = document.getElementById('cb-upg-count');
@@ -1443,11 +1407,11 @@ function updateConfigTotal() {
   const cbUpgInfo = document.getElementById('cb-upgrades-info');
   const cbTotal = document.getElementById('cb-total');
 
-  if (cbBase) cbBase.textContent = '$' + basePrice.toLocaleString();
+  if (cbBase) cbBase.textContent = '$' + BASE_PRICE.toLocaleString('en-US');
   if (cbUpgCount) cbUpgCount.textContent = selected.length;
-  if (cbUpgTotal) cbUpgTotal.textContent = '$' + upgTotal.toLocaleString();
+  if (cbUpgTotal) cbUpgTotal.textContent = '$' + upgTotal.toLocaleString('en-US');
   if (cbUpgInfo) cbUpgInfo.style.display = selected.length > 0 ? 'flex' : 'none';
-  if (cbTotal) cbTotal.textContent = '$' + total.toLocaleString();
+  if (cbTotal) cbTotal.textContent = '$' + total.toLocaleString('en-US', { minimumFractionDigits: 2 });
 }
 
 // ===== CONFIG BAR VISIBILITY =====
@@ -1581,37 +1545,37 @@ document.getElementById('proforma-modal').addEventListener('click', function(e) 
 
 function buildProformaTable() {
   const tbody = document.getElementById('pf-table-body');
-  const basePrice = parseInt(PRICES[currentMethod]['t' + currentTier].replace(/\D/g, ''));
-  const qty = currentTier === 3 ? 5 : currentTier === 2 ? 2 : 1;
   const selected = document.querySelectorAll('.upg-card.selected');
 
-  let subtotal = basePrice;
+  let subtotal = BASE_PRICE;
   let rows = '';
 
   // Base item
-  rows += '<tr><td style="font-weight:600;color:var(--text)">SEPHIROTH&#8482; Pickup Camper</td><td>Configuracion base completa (3 modulos)</td><td style="text-align:center">1</td><td>$' + basePrice.toLocaleString() + '</td><td>$' + basePrice.toLocaleString() + '</td></tr>';
+  rows += '<tr><td style="font-weight:600;color:var(--text)">SEPHIROTH&#8482; Pickup Camper</td><td>Configuracion base completa (3 modulos)</td><td style="text-align:center">1</td><td>$' + BASE_PRICE.toLocaleString('en-US') + '</td><td>$' + BASE_PRICE.toLocaleString('en-US') + '</td></tr>';
 
   // Selected upgrades
   selected.forEach(card => {
     const name = card.querySelector('.upg-name').textContent;
     const price = parseInt(card.dataset.price);
     subtotal += price;
-    rows += '<tr><td style="padding-left:24px;color:var(--text-dim)">&#8627; ' + name + '</td><td>' + (card.querySelector('.upg-detail').textContent) + '</td><td style="text-align:center">1</td><td>$' + price.toLocaleString() + '</td><td>$' + price.toLocaleString() + '</td></tr>';
+    rows += '<tr><td style="padding-left:24px;color:var(--text-dim)">&#8627; ' + name + '</td><td>' + (card.querySelector('.upg-detail').textContent) + '</td><td style="text-align:center">1</td><td>$' + price.toLocaleString('en-US') + '</td><td>$' + price.toLocaleString('en-US') + '</td></tr>';
   });
 
-  // Subtotal (only show if there are upgrades)
-  if (selected.length > 0) {
-    rows += '<tr class="pf-row-sub"><td colspan="4" style="text-align:right;font-weight:600">Subtotal</td><td>$' + subtotal.toLocaleString() + '</td></tr>';
-  }
+  // Subtotal
+  rows += '<tr class="pf-row-sub"><td colspan="4" style="text-align:right;font-weight:600">Subtotal</td><td>$' + subtotal.toLocaleString('en-US') + '</td></tr>';
 
-  // Total (prices are already nationalized)
-  rows += '<tr class="pf-row-total"><td colspan="4" style="text-align:right">TOTAL</td><td>$' + subtotal.toLocaleString() + '</td></tr>';
+  // IVA
+  const iva = Math.round(subtotal * IVA_RATE * 100) / 100;
+  rows += '<tr class="pf-row-sub"><td colspan="4" style="text-align:right;font-weight:500;color:var(--text-dim)">IVA 10.5%</td><td style="color:var(--text-dim)">$' + iva.toLocaleString('en-US', { minimumFractionDigits: 2 }) + '</td></tr>';
+
+  // Total with IVA
+  const total = Math.round((subtotal + iva) * 100) / 100;
+  rows += '<tr class="pf-row-total"><td colspan="4" style="text-align:right">TOTAL (IVA incl.)</td><td>$' + total.toLocaleString('en-US', { minimumFractionDigits: 2 }) + '</td></tr>';
 
   tbody.innerHTML = rows;
 }
 
 function buildPackingList() {
-  const qty = currentTier === 3 ? 5 : currentTier === 2 ? 2 : 1;
   const selected = document.querySelectorAll('.upg-card.selected');
   const upgNames = [];
   selected.forEach(c => upgNames.push(c.querySelector('.upg-name').textContent));
@@ -1626,14 +1590,12 @@ function buildPackingList() {
   const slots = document.getElementById('pf-container-slots');
   const cbm = document.getElementById('pf-container-cbm');
 
-  const fillPct = Math.min((qty / 5) * 100, 100);
+  const fillPct = Math.min((1 / 5) * 100, 100);
   setTimeout(() => { if (fill) fill.style.width = fillPct + '%'; }, 200);
 
-  let unitsHtml = '';
-  for (let i = 0; i < qty; i++) unitsHtml += '<div class="pf-container-unit">&#128690;</div>';
-  if (units) units.innerHTML = unitsHtml;
-  if (slots) slots.textContent = qty + ' / 5 espacios ocupados';
-  if (cbm) cbm.textContent = (qty * 10.71).toFixed(1) + ' / 52.8 CBM';
+  if (units) units.innerHTML = '<div class="pf-container-unit">&#128690;</div>';
+  if (slots) slots.textContent = '1 / 5 espacios ocupados';
+  if (cbm) cbm.textContent = '10.7 / 52.8 CBM';
 }
 
 
@@ -1873,7 +1835,7 @@ async function sendWhatsApp() {
   waBtn.disabled = true;
 
   const selected = document.querySelectorAll('.upg-card.selected');
-  const basePrice = parseInt(PRICES[currentMethod]['t' + currentTier].replace(/\D/g, ''));
+  const basePrice = BASE_PRICE;
   let upgTotal = 0;
   const upgradesList = [];
   selected.forEach(c => {
@@ -1881,9 +1843,11 @@ async function sendWhatsApp() {
     upgTotal += price;
     upgradesList.push({ name: c.querySelector('.upg-name').textContent, price: price });
   });
-  const total = basePrice + upgTotal;
-  const qty = currentTier === 3 ? 5 : currentTier === 2 ? 2 : 1;
-  const method = PRICES[currentMethod].label;
+  const subtotal = basePrice + upgTotal;
+  const iva = Math.round(subtotal * IVA_RATE * 100) / 100;
+  const total = Math.round((subtotal + iva) * 100) / 100;
+  const qty = 1;
+  const method = 'Maritimo';
 
   // --- c) Save to Supabase ---
   try {
@@ -1893,16 +1857,18 @@ async function sendWhatsApp() {
       client_email: email,
       client_phone: telefono,
       client_company: empresa,
-      products_description: 'SEPHIROTH™ Pickup Camper - ' + method + ' - ' + qty + ' uds',
+      products_description: 'SEPHIROTH™ Pickup Camper - Maritimo - 1 unidad',
       products_data: {
         proforma_number: proformaNumber,
         base_price: basePrice,
-        method: currentMethod,
+        iva_rate: IVA_RATE,
+        iva_amount: iva,
+        method: 'sea',
         method_label: method,
-        tier: currentTier,
-        qty: qty,
+        qty: 1,
         upgrades: upgradesList,
         upgrades_total: upgTotal,
+        subtotal: subtotal,
         total: total,
         pickup_model: modeloPickup,
         city: ciudad,
@@ -1929,7 +1895,7 @@ async function sendWhatsApp() {
     upgText = '\n\nUpgrades seleccionados:';
     upgradesList.forEach(u => { upgText += '\n  - ' + u.name + ' ($' + u.price.toLocaleString() + ')'; });
   }
-  const msg = 'Hola Aduanex! Me interesa el SEPHIROTH Pickup Camper.\n\nProforma: ' + proformaNumber + '\nMetodo: ' + method + '\nModelo pickup: ' + (modeloPickup || 'No especificado') + '\nBase: $' + basePrice.toLocaleString() + ' USD' + (upgCount > 0 ? '\nUpgrades: ' + upgCount + ' ($' + upgTotal.toLocaleString() + ')' : '') + '\nTotal: $' + total.toLocaleString() + ' USD\nCiudad: ' + ciudad + '\nNombre: ' + nombre + (empresa ? '\nEmpresa: ' + empresa : '') + (cuit ? '\nCUIT: ' + cuit : '') + upgText;
+  const msg = 'Hola Aduanex! Me interesa el SEPHIROTH Pickup Camper.\n\nProforma: ' + proformaNumber + '\nMetodo: ' + method + '\nModelo pickup: ' + (modeloPickup || 'No especificado') + '\nSubtotal: $' + subtotal.toLocaleString('en-US') + ' USD' + (upgCount > 0 ? '\nUpgrades: ' + upgCount + ' ($' + upgTotal.toLocaleString('en-US') + ')' : '') + '\nIVA 10.5%: $' + iva.toLocaleString('en-US', {minimumFractionDigits:2}) + '\nTotal: $' + total.toLocaleString('en-US', {minimumFractionDigits:2}) + ' USD\nCiudad: ' + ciudad + '\nNombre: ' + nombre + (empresa ? '\nEmpresa: ' + empresa : '') + (cuit ? '\nCUIT: ' + cuit : '') + upgText;
 
   const waLink = 'https://wa.me/542257617922?text=' + encodeURIComponent(msg);
 
