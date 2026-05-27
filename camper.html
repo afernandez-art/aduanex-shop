@@ -585,18 +585,6 @@ select.pf-buyer-input{appearance:none;cursor:pointer}
         </div>
 
         <div class="price-block" id="price-block">
-          <!-- Toggle: Maritimo / Aereo -->
-          <div class="pb-toggle">
-            <button class="pb-toggle-btn active" data-method="sea" onclick="toggleShip(this)">
-              <svg viewBox="0 0 24 24"><path d="M2 20l.8-2.4A7.58 7.58 0 012 14.5C2 10.36 6.03 7 11 7s9 3.36 9 7.5a7 7 0 01-.8 3.1L20 20"/><path d="M6.5 7V4a1 1 0 011-1h3a1 1 0 011 1v3"/></svg>
-              Maritimo
-            </button>
-            <button class="pb-toggle-btn" data-method="air" onclick="toggleShip(this)">
-              <svg viewBox="0 0 24 24"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.4-.1.9.3 1.1L11 12l-2 3H6l-1 1 3 2 2 3 1-1v-3l3-2 3.7 7.3c.2.4.7.5 1.1.3l.5-.3c.4-.2.5-.6.5-1.1z"/></svg>
-              Aereo
-            </button>
-          </div>
-
           <!-- Big price -->
           <div class="pb-hero">
             <span class="pb-hero-amount" id="pb-amount">$25,000</span>
@@ -627,11 +615,6 @@ select.pf-buyer-input{appearance:none;cursor:pointer}
             </div>
           </div>
 
-          <!-- Savings hint -->
-          <div class="pb-savings" id="pb-savings">
-            <svg viewBox="0 0 24 24" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            Maritimo ahorra ~$8,800 USD vs aereo en 5+ uds
-          </div>
         </div>
 
         <button id="btn-add-cart" class="path-cta path-cta-primary" onclick="scrollToConfig()">Configurar mi camper &rarr;</button>
@@ -1012,7 +995,7 @@ select.pf-buyer-input{appearance:none;cursor:pointer}
   <div class="tab-panel" id="panel-faq">
     <h2 style="font-size:24px;font-weight:800;letter-spacing:-.03em;margin-bottom:32px">Preguntas frecuentes</h2>
     <div class="faq-grid">
-      <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')"><h3>Cual es el tiempo de entrega?</h3><svg viewBox="0 0 24 24" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><div class="faq-a"><div class="faq-a-inner">Por maritimo: 60-90 dias desde la confirmacion del pedido hasta tu domicilio en Argentina. Incluye produccion, transporte maritimo, despacho aduanero y entrega final. Por aereo: 15-20 dias. Tracking en vivo durante todo el proceso.</div></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')"><h3>Cual es el tiempo de entrega?</h3><svg viewBox="0 0 24 24" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><div class="faq-a"><div class="faq-a-inner">60-90 dias desde la confirmacion del pedido hasta tu domicilio en Argentina. Incluye produccion, transporte maritimo, despacho aduanero y entrega final. Tracking en vivo durante todo el proceso.</div></div></div>
       <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')"><h3>Que incluye el precio FOB?</h3><svg viewBox="0 0 24 24" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><div class="faq-a"><div class="faq-a-inner">El precio FOB incluye el camper completo con configuracion base (estructura, techo pop-up, cama, cocina, bateria, tanque de agua), embalaje para exportacion y entrega en puerto de Qingdao. El precio nacionalizado agrega flete, seguro, derechos de importacion, tasa estadistica, despacho aduanero y entrega final.</div></div></div>
       <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')"><h3>Con que pickups es compatible?</h3><svg viewBox="0 0 24 24" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><div class="faq-a"><div class="faq-a-inner">El SEPHIROTH Pickup Camper es compatible con Ford F150, RAM 1500, Toyota Hilux, KGM Rexton Sports y Kia Tasman. Tambien se puede adaptar a otras pickups full-size y mid-size. Consulta por tu modelo especifico.</div></div></div>
       <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')"><h3>Que certificaciones necesita para Argentina?</h3><svg viewBox="0 0 24 24" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><div class="faq-a"><div class="faq-a-inner">El camper puede requerir homologacion vehicular y certificacion de equipamiento electrico. Aduanex gestiona todas las certificaciones y tramites como parte del servicio de importacion, incluido en la cotizacion.</div></div></div>
@@ -1329,15 +1312,14 @@ select.pf-buyer-input{appearance:none;cursor:pointer}
 <script>
 // ===== PRICING DATA (valor nacionalizado x2) =====
 const PRICES = {
-  sea: { t1: '$29,800', t2: '$27,000', t3: '$25,000', days: '60-90 dias de entrega → Buenos Aires', basis_port: 'FOB Qingdao', label: 'Maritimo' },
-  air: { t1: '$39,600', t2: '$36,400', t3: '$33,800', days: '15-20 dias de entrega → Buenos Aires', basis_port: 'CIF Ezeiza', label: 'Aereo' }
+  sea: { t1: '$29,800', t2: '$27,000', t3: '$25,000', days: '60-90 dias de entrega → Buenos Aires', basis_port: 'FOB Qingdao', label: 'Maritimo' }
 };
 const TIER_LABELS = { 1: '1 unidad', 2: '2 unidades (20ft)', 3: '5+ unidades (40ft)' };
 let currentMethod = 'sea';
 let currentTier = 3;
 
 function updateDisplay() {
-  const p = PRICES[currentMethod];
+  const p = PRICES.sea;
   const price = p['t' + currentTier];
   const heroEl = document.getElementById('pb-amount');
   heroEl.style.opacity = '0'; heroEl.style.transform = 'translateY(6px)';
@@ -1349,40 +1331,11 @@ function updateDisplay() {
     document.getElementById('pv-1').textContent = p.t1;
     document.getElementById('pv-2').textContent = p.t2;
     document.getElementById('pv-3').textContent = p.t3;
-    // Savings
-    const seaNum = parseInt(PRICES.sea['t' + currentTier].replace(/\D/g, ''));
-    const airNum = parseInt(PRICES.air['t' + currentTier].replace(/\D/g, ''));
-    const diff = airNum - seaNum;
-    const savingsEl = document.getElementById('pb-savings');
-    if (currentMethod === 'sea') {
-      savingsEl.innerHTML = '<svg viewBox="0 0 24 24" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Maritimo ahorra ~$' + diff.toLocaleString() + ' USD vs aereo en ' + TIER_LABELS[currentTier];
-      savingsEl.style.display = 'flex';
-    } else {
-      savingsEl.style.display = 'none';
-    }
-    // Container gauge: show only for maritime
-    const gauge = document.getElementById('ctn-gauge');
-    if (gauge) gauge.style.display = currentMethod === 'sea' ? 'block' : 'none';
     heroEl.style.opacity = '1'; heroEl.style.transform = 'translateY(0)';
   }, 140);
-  // Sticky bar
   const sp = document.querySelector('.sb-price');
   if (sp) sp.textContent = 'Desde ' + p.t3 + ' USD';
-  // Update config total
   updateConfigTotal();
-}
-
-function toggleShip(btn) {
-  document.querySelectorAll('.pb-toggle-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  currentMethod = btn.dataset.method;
-  updateDisplay();
-  updateEmbarque();
-}
-
-function updateEmbarque() {
-  const el = document.getElementById('embarque-desc');
-  if (el) el.textContent = currentMethod === 'sea' ? 'Maritimo: 35-45 dias' : 'Aereo: 5-7 dias';
 }
 
 function selectTier(el) {
@@ -1446,7 +1399,7 @@ function addToCart() {
     id: 'sephiroth-camper',
     name: 'SEPHIROTH™ Pickup Camper',
     category: 'Overlanding',
-    prices: { sea: { t1: 29800, t2: 27000, t3: 25000 }, air: { t1: 39600, t2: 36400, t3: 33800 } },
+    prices: { sea: { t1: 29800, t2: 27000, t3: 25000 } },
     qty: currentTier === 3 ? 5 : currentTier === 2 ? 2 : 1,
     method: currentMethod,
     image: '🚛'
@@ -1940,7 +1893,7 @@ async function sendWhatsApp() {
       },
       notes: 'Proforma ' + proformaNumber + ' | Modelo: ' + modeloPickup + ' | Ciudad: ' + ciudad + (cuit ? ' | CUIT: ' + cuit : ''),
       origin_country: 'China',
-      transport_type: currentMethod === 'sea' ? 'maritime' : 'air',
+      transport_type: 'maritime',
       status: 'pendiente',
       priority: 'normal',
       source: 'shop'
