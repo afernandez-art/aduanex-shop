@@ -621,43 +621,33 @@ supa.auth.getSession().then(({ data: { session } }) => {
 });
 
 // ===== ANALYTICS TRACKER =====
-const _tk = (event, meta = {}) => {
-  supa.from('shop_events').insert({
-    event,
-    page: location.pathname,
-    referrer: document.referrer || null,
-    user_id: supa.auth.getUser ? null : null, // set below after session check
-    metadata: meta
-  }).then(() => {});
+let _uid = null;
+try {
+  supa.auth.getSession().then(({ data: { session } }) => { _uid = session?.user?.id || null; });
+} catch(e) {}
+
+window.aduanexTrack = function(event, meta) {
+  try {
+    supa.from('shop_events').insert({
+      event: event,
+      page: location.pathname,
+      referrer: document.referrer || null,
+      user_id: _uid,
+      metadata: meta || {}
+    }).then(function(res) {
+      if (res.error) console.warn('[track]', event, res.error.message);
+    });
+  } catch(e) { console.warn('[track] error', e); }
 };
-// Track page view
-(async () => {
-  const { data: { session } } = await supa.auth.getSession();
-  const uid = session?.user?.id || null;
-  supa.from('shop_events').insert({
-    event: 'page_view',
-    page: location.pathname,
-    referrer: document.referrer || null,
-    user_id: uid,
-    metadata: { screen: `${screen.width}x${screen.height}`, ua: navigator.userAgent.substring(0, 120) }
-  });
-})();
-// Expose tracker for other pages
-window.aduanexTrack = async (event, meta = {}) => {
-  const { data: { session } } = await supa.auth.getSession();
-  supa.from('shop_events').insert({
-    event,
-    page: location.pathname,
-    referrer: document.referrer || null,
-    user_id: session?.user?.id || null,
-    metadata: meta
-  });
-};
+
+// Track page view immediately
+window.aduanexTrack('page_view', { screen: screen.width + 'x' + screen.height });
+
 // Track product clicks
-document.querySelectorAll('.pcard a[href]').forEach(a => {
-  a.addEventListener('click', () => {
-    const card = a.closest('.pcard');
-    window.aduanexTrack('product_click', { product: card?.dataset.name || '' });
+document.querySelectorAll('.pcard a[href]').forEach(function(a) {
+  a.addEventListener('click', function() {
+    var card = a.closest('.pcard');
+    window.aduanexTrack('product_click', { product: card ? card.dataset.name : '' });
   });
 });
 

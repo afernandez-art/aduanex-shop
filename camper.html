@@ -1570,27 +1570,27 @@ const SUPA_KEY = 'sb_publishable_1kOHBeoCsSY1ufV1_1DjKw_GNt60bPd';
 const supa = supabase.createClient(SUPA_URL, SUPA_KEY);
 
 // ===== ANALYTICS TRACKER =====
-window.aduanexTrack = async (event, meta = {}) => {
-  const { data: { session } } = await supa.auth.getSession();
-  supa.from('shop_events').insert({
-    event,
-    page: location.pathname,
-    referrer: document.referrer || null,
-    user_id: session?.user?.id || null,
-    metadata: meta
-  });
+let _uid = null;
+try {
+  supa.auth.getSession().then(({ data: { session } }) => { _uid = session?.user?.id || null; });
+} catch(e) {}
+
+window.aduanexTrack = function(event, meta) {
+  try {
+    supa.from('shop_events').insert({
+      event: event,
+      page: location.pathname,
+      referrer: document.referrer || null,
+      user_id: _uid,
+      metadata: meta || {}
+    }).then(function(res) {
+      if (res.error) console.warn('[track]', event, res.error.message);
+    });
+  } catch(e) { console.warn('[track] error', e); }
 };
-// Track page view
-(async () => {
-  const { data: { session } } = await supa.auth.getSession();
-  supa.from('shop_events').insert({
-    event: 'page_view',
-    page: location.pathname,
-    referrer: document.referrer || null,
-    user_id: session?.user?.id || null,
-    metadata: { screen: `${screen.width}x${screen.height}` }
-  });
-})();
+
+// Track page view immediately
+window.aduanexTrack('page_view', { screen: screen.width + 'x' + screen.height });
 
 async function submitRFQ(form) {
   const btn = form.querySelector('.rfq-submit');
