@@ -445,6 +445,42 @@ select.pf-buyer-input{appearance:none;cursor:pointer}
 .pf-whatsapp-btn:hover{transform:scale(1.03);box-shadow:0 6px 28px rgba(37,211,102,.4)}
 .pf-submit-note{font-size:11px;color:var(--text-mute);font-family:var(--mono);margin-top:12px;text-align:center}
 
+/* ===== AUTH MODAL ===== */
+.auth-overlay{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.85);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity 300ms}
+.auth-overlay.open{opacity:1;pointer-events:all}
+.auth-modal{width:100%;max-width:440px;background:var(--bg-card);border:1px solid var(--line-strong);border-radius:20px;overflow:hidden;position:relative;transform:translateY(16px) scale(.97);transition:transform 300ms}
+.auth-overlay.open .auth-modal{transform:translateY(0) scale(1)}
+.auth-modal::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent 0%,var(--accent) 50%,transparent 100%)}
+.auth-modal-close{position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;background:var(--bg-elev);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;color:var(--text-dim);transition:border-color 200ms,color 200ms;z-index:1}
+.auth-modal-close:hover{border-color:var(--accent);color:var(--text)}
+.auth-modal-inner{padding:36px 32px 32px}
+.auth-modal-header{text-align:center;margin-bottom:24px}
+.auth-modal-header h2{font-size:22px;font-weight:800;letter-spacing:-.02em;margin-bottom:6px}
+.auth-modal-header h2 span{color:var(--accent)}
+.auth-modal-header p{font-size:13px;color:var(--text-dim);line-height:1.5}
+.am-form{display:flex;flex-direction:column;gap:12px}
+.am-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.am-group{display:flex;flex-direction:column;gap:4px}
+.am-label{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-mute)}
+.am-input{background:var(--bg-elev);border:1px solid var(--line-strong);border-radius:10px;padding:11px 14px;color:var(--text);font-family:var(--sans);font-size:14px;outline:none;transition:border-color 200ms,box-shadow 200ms}
+.am-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.am-input::placeholder{color:var(--text-mute)}
+.am-submit{padding:14px;background:var(--accent);color:var(--bg);border:none;border-radius:100px;font-size:14px;font-weight:600;cursor:pointer;transition:transform 150ms,opacity 150ms;margin-top:4px}
+.am-submit:hover:not(:disabled){transform:scale(1.03)}
+.am-submit:disabled{opacity:.6;cursor:not-allowed}
+.am-footer{text-align:center;margin-top:16px;font-size:13px;color:var(--text-dim)}
+.am-footer a{color:var(--accent);font-weight:500;cursor:pointer;transition:opacity 150ms}
+.am-footer a:hover{opacity:.8}
+.am-msg{padding:10px 14px;border-radius:8px;font-size:13px;text-align:center;display:none;margin-bottom:8px;line-height:1.4}
+.am-msg.error{display:block;background:rgba(255,107,107,.1);border:1px solid rgba(255,107,107,.25);color:#ff6b6b}
+.am-msg.success{display:block;background:var(--accent-soft);border:1px solid var(--accent-mid);color:var(--accent)}
+.am-divider{display:flex;align-items:center;gap:12px;margin:4px 0}
+.am-divider::before,.am-divider::after{content:'';flex:1;height:1px;background:var(--line)}
+.am-divider span{font-size:11px;color:var(--text-mute);font-family:var(--mono);letter-spacing:.05em}
+.am-forgot{text-align:center;margin-top:8px}
+.am-forgot a{font-size:12px;color:var(--text-mute);cursor:pointer;transition:color 150ms}
+.am-forgot a:hover{color:var(--accent)}
+
 /* ===== CONFIG BAR RESPONSIVE ===== */
 @media(max-width:768px){
   .config-bar{padding:10px 16px}
@@ -460,6 +496,8 @@ select.pf-buyer-input{appearance:none;cursor:pointer}
   .pf-table th,.pf-table td{padding:8px 6px}
   .pf-buyer-form{grid-template-columns:1fr}
   .pf-buyer-form .pf-field.full{grid-column:1}
+  .auth-modal-inner{padding:28px 20px 24px}
+  .am-row{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -1100,6 +1138,78 @@ select.pf-buyer-input{appearance:none;cursor:pointer}
   </div>
 </div>
 
+<!-- ===== AUTH MODAL ===== -->
+<div class="auth-overlay" id="auth-modal">
+  <div class="auth-modal">
+    <div class="auth-modal-close" onclick="closeAuthModal()">&times;</div>
+    <div class="auth-modal-inner">
+      <div class="am-msg" id="am-msg"></div>
+
+      <!-- LOGIN VIEW -->
+      <div id="am-login">
+        <div class="auth-modal-header">
+          <h2>Inicia <span>sesion</span></h2>
+          <p>Para generar tu proforma y gestionar tu importacion necesitas una cuenta</p>
+        </div>
+        <form class="am-form" onsubmit="event.preventDefault(); amLogin()">
+          <div class="am-group">
+            <label class="am-label">Email</label>
+            <input type="email" class="am-input" id="am-login-email" placeholder="email@empresa.com" required autocomplete="email">
+          </div>
+          <div class="am-group">
+            <label class="am-label">Contrasena</label>
+            <input type="password" class="am-input" id="am-login-password" placeholder="Tu contrasena" required autocomplete="current-password">
+          </div>
+          <button type="submit" class="am-submit" id="am-login-btn">Iniciar sesion</button>
+        </form>
+        <div class="am-forgot">
+          <a onclick="amReset()">Olvidaste tu contrasena?</a>
+        </div>
+        <div class="am-footer">
+          No tenes cuenta? <a onclick="amShowView('register')">Crear cuenta</a>
+        </div>
+      </div>
+
+      <!-- REGISTER VIEW -->
+      <div id="am-register" style="display:none">
+        <div class="auth-modal-header">
+          <h2>Crear <span>cuenta</span></h2>
+          <p>Registrate en 30 segundos para cotizar tu importacion</p>
+        </div>
+        <form class="am-form" onsubmit="event.preventDefault(); amRegister()">
+          <div class="am-row">
+            <div class="am-group">
+              <label class="am-label">Nombre completo *</label>
+              <input type="text" class="am-input" id="am-reg-name" placeholder="Tu nombre" required autocomplete="name">
+            </div>
+            <div class="am-group">
+              <label class="am-label">Empresa *</label>
+              <input type="text" class="am-input" id="am-reg-company" placeholder="Tu empresa" required autocomplete="organization">
+            </div>
+          </div>
+          <div class="am-group">
+            <label class="am-label">Email *</label>
+            <input type="email" class="am-input" id="am-reg-email" placeholder="email@empresa.com" required autocomplete="email">
+          </div>
+          <div class="am-group">
+            <label class="am-label">Telefono / WhatsApp</label>
+            <input type="tel" class="am-input" id="am-reg-phone" placeholder="+54 11..." autocomplete="tel">
+          </div>
+          <div class="am-group">
+            <label class="am-label">Contrasena *</label>
+            <input type="password" class="am-input" id="am-reg-password" placeholder="Minimo 6 caracteres" required minlength="6" autocomplete="new-password">
+          </div>
+          <button type="submit" class="am-submit" id="am-reg-btn">Crear cuenta</button>
+        </form>
+        <div class="am-footer">
+          Ya tenes cuenta? <a onclick="amShowView('login')">Inicia sesion</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <!-- ===== PROFORMA MODAL ===== -->
 <div class="proforma-overlay" id="proforma-modal">
   <div class="proforma-card">
@@ -1435,8 +1545,17 @@ updateConfigTotal();
 
 // ===== PROFORMA FUNCTIONS =====
 let proformaNumber = '';
+let currentUser = null;
 
 function openProforma() {
+  if (!currentUser) {
+    openAuthModal();
+    return;
+  }
+  _doOpenProforma();
+}
+
+function _doOpenProforma() {
   proformaNumber = 'PRO-' + new Date().getFullYear() + '-' + String(Math.floor(1000 + Math.random() * 9000));
   const dateStr = new Date().toLocaleDateString('es-AR', { year: 'numeric', month: 'long', day: 'numeric' });
 
@@ -1445,11 +1564,89 @@ function openProforma() {
   document.getElementById('pf-number-pl').textContent = proformaNumber;
   document.getElementById('pf-date-pl').textContent = dateStr;
 
+  prefillBuyerForm();
   buildProformaTable();
   buildPackingList();
 
   document.getElementById('proforma-modal').classList.add('open');
   document.body.style.overflow = 'hidden';
+}
+
+function prefillBuyerForm() {
+  if (!currentUser) return;
+  const meta = currentUser.user_metadata || {};
+  const el = (id) => document.getElementById(id);
+  if (meta.full_name && el('pf-buyer-name')) el('pf-buyer-name').value = meta.full_name;
+  if (currentUser.email && el('pf-buyer-email')) el('pf-buyer-email').value = currentUser.email;
+  if (meta.phone && el('pf-buyer-phone')) el('pf-buyer-phone').value = meta.phone;
+  if (meta.company && el('pf-buyer-company')) el('pf-buyer-company').value = meta.company;
+}
+
+// ===== AUTH MODAL (UI only — supa-dependent functions are in the second script block) =====
+function openAuthModal() {
+  amClearMsg();
+  amShowView('register');
+  document.getElementById('auth-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeAuthModal() {
+  document.getElementById('auth-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('auth-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeAuthModal();
+});
+
+function amShowView(view) {
+  amClearMsg();
+  document.getElementById('am-login').style.display = view === 'login' ? 'block' : 'none';
+  document.getElementById('am-register').style.display = view === 'register' ? 'block' : 'none';
+}
+
+function amShowMsg(text, type) {
+  const el = document.getElementById('am-msg');
+  el.textContent = text;
+  el.className = 'am-msg ' + type;
+}
+function amClearMsg() {
+  const el = document.getElementById('am-msg');
+  el.className = 'am-msg';
+  el.textContent = '';
+}
+
+function amTranslateError(msg) {
+  const map = {
+    'Invalid login credentials': 'Email o contrasena incorrectos.',
+    'Email not confirmed': 'Tu email no esta confirmado. Revisa tu bandeja de entrada.',
+    'User already registered': 'Ya existe una cuenta con este email.',
+    'Password should be at least 6 characters': 'La contrasena debe tener al menos 6 caracteres.',
+    'Unable to validate email address: invalid format': 'El formato del email no es valido.',
+    'Email rate limit exceeded': 'Demasiados intentos. Espera unos minutos.',
+    'Signups not allowed for this instance': 'El registro no esta habilitado. Contactanos por WhatsApp.',
+    'For security purposes, you can only request this once every 60 seconds': 'Por seguridad, solo podes solicitar esto una vez por minuto.'
+  };
+  return map[msg] || msg;
+}
+
+function onAuthSuccess() {
+  closeAuthModal();
+  updateNavAuth();
+  _doOpenProforma();
+}
+
+function updateNavAuth() {
+  const btn = document.getElementById('nav-auth-btn');
+  if (!btn) return;
+  if (currentUser) {
+    const name = (currentUser.user_metadata || {}).full_name || currentUser.email;
+    btn.textContent = name.split(' ')[0] || 'Mi cuenta';
+    btn.href = 'mis-pedidos.html';
+  } else {
+    btn.textContent = 'Iniciar sesion';
+    btn.href = 'login.html';
+  }
 }
 
 function closeProforma() {
@@ -1590,11 +1787,77 @@ async function loadContainerGauge() {
 }
 loadContainerGauge();
 
-// Auth state
+// Auth state — restore session on load
 supa.auth.getSession().then(({ data: { session } }) => {
-  const btn = document.getElementById('nav-auth-btn');
-  if (session && btn) { btn.textContent = 'Mi cuenta'; btn.href = 'mis-pedidos.html'; }
+  if (session) {
+    currentUser = session.user;
+    updateNavAuth();
+  }
 });
+
+// ===== AUTH MODAL — Supabase-dependent functions =====
+async function amLogin() {
+  const email = document.getElementById('am-login-email').value.trim();
+  const password = document.getElementById('am-login-password').value;
+  const btn = document.getElementById('am-login-btn');
+  if (!email || !password) { amShowMsg('Completa todos los campos.', 'error'); return; }
+
+  btn.disabled = true; btn.textContent = 'Ingresando...'; amClearMsg();
+  try {
+    const { data, error } = await supa.auth.signInWithPassword({ email, password });
+    if (error) { amShowMsg(amTranslateError(error.message), 'error'); btn.disabled = false; btn.textContent = 'Iniciar sesion'; return; }
+    currentUser = data.user;
+    onAuthSuccess();
+  } catch(e) {
+    amShowMsg('Error de conexion. Intenta de nuevo.', 'error');
+    btn.disabled = false; btn.textContent = 'Iniciar sesion';
+  }
+}
+
+async function amRegister() {
+  const full_name = document.getElementById('am-reg-name').value.trim();
+  const company = document.getElementById('am-reg-company').value.trim();
+  const email = document.getElementById('am-reg-email').value.trim();
+  const phone = document.getElementById('am-reg-phone').value.trim();
+  const password = document.getElementById('am-reg-password').value;
+  const btn = document.getElementById('am-reg-btn');
+
+  if (!full_name || !company || !email || !password) { amShowMsg('Completa todos los campos obligatorios.', 'error'); return; }
+  if (password.length < 6) { amShowMsg('La contrasena debe tener al menos 6 caracteres.', 'error'); return; }
+
+  btn.disabled = true; btn.textContent = 'Creando cuenta...'; amClearMsg();
+  try {
+    const { data, error } = await supa.auth.signUp({
+      email, password,
+      options: { data: { full_name, company, phone } }
+    });
+    if (error) { amShowMsg(amTranslateError(error.message), 'error'); btn.disabled = false; btn.textContent = 'Crear cuenta'; return; }
+
+    if (data.session) {
+      currentUser = data.user;
+      onAuthSuccess();
+      return;
+    }
+
+    amShowMsg('Cuenta creada! Revisa tu email para confirmar y luego inicia sesion.', 'success');
+    btn.textContent = 'Cuenta creada';
+    setTimeout(() => { amShowView('login'); btn.disabled = false; btn.textContent = 'Crear cuenta'; }, 3000);
+  } catch(e) {
+    amShowMsg('Error de conexion. Intenta de nuevo.', 'error');
+    btn.disabled = false; btn.textContent = 'Crear cuenta';
+  }
+}
+
+async function amReset() {
+  const email = document.getElementById('am-login-email').value.trim();
+  if (!email) { amShowMsg('Ingresa tu email primero.', 'error'); return; }
+  amClearMsg();
+  try {
+    const { error } = await supa.auth.resetPasswordForEmail(email, { redirectTo: window.location.origin + '/login.html' });
+    if (error) { amShowMsg(amTranslateError(error.message), 'error'); return; }
+    amShowMsg('Te enviamos un email para restablecer tu contrasena.', 'success');
+  } catch(e) { amShowMsg('Error de conexion.', 'error'); }
+}
 
 // ===== SEND WHATSAPP (validate + save to Supabase + open WhatsApp) =====
 async function sendWhatsApp() {
@@ -1648,6 +1911,7 @@ async function sendWhatsApp() {
   // --- c) Save to Supabase ---
   try {
     const insertData = {
+      user_id: currentUser ? currentUser.id : null,
       client_name: nombre,
       client_email: email,
       client_phone: telefono,
