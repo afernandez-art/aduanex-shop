@@ -1,0 +1,23 @@
+{
+  "name": "aduanex-shop",
+  "version": "1.0.0",
+  "description": "Aduanex Shop - Importa productos desde China",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npx http-server -p 3000",
+    "build": "echo 'Static site - no build needed'",
+    "lint": "echo 'No linter configured for static HTML'"
+  },
+  "dependencies": {
+    "@vercel/analytics": "^1.4.1"
+  },
+  "devDependencies": {},
+  "keywords": [
+    "ecommerce",
+    "shop",
+    "import"
+  ],
+  "author": "",
+  "license": "ISC"
+}

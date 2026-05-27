@@ -5,3 +5,4 @@ aduanex-hero-bg-opt.mp4
 # System
 .DS_Store
 .vercel
+node_modules/
