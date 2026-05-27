@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Politica de Privacidad — Aduanex Shop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#000;--bg-elev:#0a0c0a;--bg-card:#111311;--bg-card-hover:#191b19;
+  --text:#F3F4F1;--text-dim:#8B8E89;--text-mute:#5C5F5A;
+  --line:rgba(243,244,241,.07);--line-strong:rgba(243,244,241,.12);
+  --accent:#88CE02;--accent-soft:rgba(136,206,2,.08);--accent-mid:rgba(136,206,2,.18);
+  --sans:'Geist',-apple-system,sans-serif;--mono:'Geist Mono',monospace;
+  --radius:14px;--radius-sm:8px;--max-w:1200px;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased}
+html{background:var(--bg);overflow-x:hidden;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:400;line-height:1.5}
+::selection{background:var(--accent);color:var(--bg)}
+a{text-decoration:none;color:inherit}img{display:block;max-width:100%}
+button,input,select{font-family:var(--sans)}button{cursor:pointer}
+
+/* TOPBAR */
+.topbar{background:var(--accent);color:var(--bg);text-align:center;padding:7px 16px;font-size:12px;font-weight:600;letter-spacing:.02em}
+.topbar span{opacity:.7;font-weight:400}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:rgba(0,0,0,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.nav-inner{max-width:var(--max-w);margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:20px}
+.logo{font-size:18px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;flex-shrink:0}
+.logo-a{color:var(--accent)}
+.logo-badge{font-size:9px;font-family:var(--mono);letter-spacing:.1em;color:var(--accent);margin-left:6px;padding:2px 8px;border:1px solid var(--accent-mid);border-radius:100px;text-transform:uppercase;vertical-align:middle}
+.nav-actions{display:flex;align-items:center;gap:16px;margin-left:auto}
+.nav-link{font-size:13px;color:var(--text-dim);font-weight:500;transition:color 150ms;white-space:nowrap}
+.nav-link:hover{color:var(--text)}
+.nav-cta{padding:8px 18px;background:var(--accent);color:var(--bg);border-radius:100px;font-weight:600;font-size:12px;border:none;transition:transform 150ms;white-space:nowrap}
+.nav-cta:hover{transform:scale(1.03)}
+.nav-cart{position:relative;display:flex;align-items:center}
+.cart-badge{position:absolute;top:-8px;right:-10px;width:18px;height:18px;border-radius:50%;background:var(--accent);color:var(--bg);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:var(--mono)}
+
+/* LEGAL CONTENT */
+.legal-page{max-width:800px;margin:0 auto;padding:48px 24px 80px}
+.legal-page h1{font-size:28px;font-weight:800;letter-spacing:-.02em;margin-bottom:6px}
+.legal-page h1 span{color:var(--accent)}
+.legal-updated{font-size:12px;color:var(--text-mute);font-family:var(--mono);margin-bottom:32px;padding-bottom:20px;border-bottom:1px solid var(--line)}
+.legal-page h2{font-size:18px;font-weight:700;color:var(--accent);margin-top:36px;margin-bottom:12px;letter-spacing:-.01em}
+.legal-page p{font-size:14px;color:var(--text-dim);line-height:1.7;margin-bottom:14px}
+.legal-page ul,.legal-page ol{font-size:14px;color:var(--text-dim);line-height:1.7;margin-bottom:14px;padding-left:24px}
+.legal-page li{margin-bottom:6px}
+.legal-page strong{color:var(--text);font-weight:600}
+.legal-page a.inline-link{color:var(--accent);text-decoration:underline;text-underline-offset:2px}
+.legal-page a.inline-link:hover{opacity:.8}
+.legal-page table{width:100%;border-collapse:collapse;margin-bottom:14px;font-size:13px}
+.legal-page table th{text-align:left;padding:10px 12px;background:var(--bg-card);color:var(--text);font-weight:600;border:1px solid var(--line)}
+.legal-page table td{padding:10px 12px;color:var(--text-dim);border:1px solid var(--line)}
+
+/* FOOTER */
+.footer{border-top:1px solid var(--line);padding:32px 0 24px}
+.footer-inner{max-width:var(--max-w);margin:0 auto;padding:0 24px}
+.footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:32px;padding-bottom:24px;border-bottom:1px solid var(--line);margin-bottom:16px}
+.footer-brand .footer-logo{font-size:16px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;margin-bottom:8px}
+.footer-brand .footer-logo .a{color:var(--accent)}
+.footer-brand p{font-size:11px;color:var(--text-mute);line-height:1.5;max-width:280px;margin-bottom:12px}
+.footer-wa{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;background:var(--accent-soft);border:1px solid var(--accent-mid);border-radius:100px;font-size:11px;font-weight:600;color:var(--accent);transition:all 150ms}
+.footer-wa:hover{background:var(--accent-mid)}
+.footer-wa svg{width:14px;height:14px;fill:var(--accent)}
+.footer-col h5{font-size:10px;font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--text-mute);margin-bottom:10px}
+.footer-col a{display:block;font-size:12px;color:var(--text-dim);padding:3px 0;transition:color 150ms}
+.footer-col a:hover{color:var(--accent)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center}
+.footer-copy{font-size:10px;color:var(--text-mute);font-family:var(--mono)}
+.footer-badges{display:flex;gap:12px;align-items:center}
+.footer-badges span{font-size:9px;font-family:var(--mono);letter-spacing:.05em;color:var(--text-mute);padding:3px 10px;border:1px solid var(--line);border-radius:100px}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .footer-top{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .nav-inner{flex-wrap:wrap;gap:10px;padding:10px 16px}
+  .nav-actions .nav-link{display:none}
+  .legal-page{padding:32px 16px 60px}
+  .legal-page h1{font-size:22px}
+  .legal-page h2{font-size:16px}
+  .legal-page table{font-size:12px}
+  .legal-page table th,.legal-page table td{padding:8px}
+  .footer-top{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;gap:10px;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">Importacion gestionada de China a Argentina <span>· Precio nacionalizado en 24hs · Despachante matriculado</span></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">ADUA<span class="logo-a">NEX</span><span class="logo-badge">Shop</span></a>
+    <div class="nav-actions">
+      <a href="index.html#como" class="nav-link">Como funciona</a>
+      <a href="index.html#por-que" class="nav-link">Por que Aduanex</a>
+      <a href="carrito.html" class="nav-link nav-cart">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="22" height="14" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/><line x1="12" y1="3" x2="12" y2="17"/><path d="M1 20h22"/></svg>
+        Mi Importacion
+        <span class="cart-badge" style="display:none">0</span>
+      </a>
+      <a href="login.html" class="nav-cta" id="nav-auth-btn">Iniciar sesion</a>
+    </div>
+  </div>
+</nav>
+
+<!-- CONTENT -->
+<div class="legal-page">
+
+  <h1>Politica de <span>Privacidad</span></h1>
+  <div class="legal-updated">Ultima actualizacion: 27 de mayo de 2026</div>
+
+  <h2>1. Responsable del tratamiento</h2>
+  <p>El responsable del tratamiento de tus datos personales es <strong>CLUB DE IMPORTADORES S.R.L.</strong>, CUIT 30-71908875-5, con domicilio legal en Avenida Corrientes 1464, Buenos Aires, Argentina.</p>
+  <p>Esta Politica de Privacidad se aplica a la plataforma Aduanex Shop (<strong>shop.aduanex.com.ar</strong>) y describe como recopilamos, usamos, almacenamos y protegemos tu informacion personal, en cumplimiento con la <strong>Ley 25.326 de Proteccion de Datos Personales</strong> de la Republica Argentina y sus normas reglamentarias.</p>
+
+  <h2>2. Datos que recopilamos</h2>
+  <p>Recopilamos los siguientes tipos de informacion:</p>
+
+  <p><strong>2.1. Datos de registro</strong></p>
+  <p>Cuando creas una cuenta en la Plataforma, recopilamos:</p>
+  <ul>
+    <li>Nombre completo</li>
+    <li>Direccion de correo electronico</li>
+    <li>Numero de telefono</li>
+    <li>Nombre de la empresa</li>
+    <li>Ciudad</li>
+    <li>CUIT</li>
+    <li>Modelo de retiro preferido</li>
+  </ul>
+
+  <p><strong>2.2. Datos de proformas y pedidos</strong></p>
+  <p>Cuando generas una proforma o realizas un pedido, registramos:</p>
+  <ul>
+    <li>Productos seleccionados y cantidades</li>
+    <li>Detalles de la proforma (precios, condiciones)</li>
+    <li>Historial de pedidos y estado de operaciones</li>
+    <li>Comunicaciones relacionadas con la operacion</li>
+  </ul>
+
+  <p><strong>2.3. Datos de analitica y uso</strong></p>
+  <p>Recopilamos automaticamente informacion sobre como utilizas la Plataforma:</p>
+  <table>
+    <tr><th>Evento</th><th>Descripcion</th></tr>
+    <tr><td>page_view</td><td>Paginas visitadas, URL de referencia</td></tr>
+    <tr><td>product_click</td><td>Productos consultados por el usuario</td></tr>
+    <tr><td>registration</td><td>Momento y datos del registro</td></tr>
+    <tr><td>proforma_created</td><td>Generacion de proformas</td></tr>
+    <tr><td>cart_add / cart_remove</td><td>Interacciones con el carrito de importacion</td></tr>
+  </table>
+  <p>Estos eventos se registran con fines analiticos para mejorar la experiencia del usuario y el funcionamiento de la Plataforma. Tambien registramos informacion tecnica basica como resolucion de pantalla y tipo de navegador.</p>
+
+  <h2>3. Finalidad del tratamiento</h2>
+  <p>Utilizamos tus datos personales para:</p>
+  <ul>
+    <li><strong>Gestionar tu cuenta:</strong> crear y administrar tu perfil de usuario.</li>
+    <li><strong>Procesar operaciones:</strong> generar proformas, coordinar pedidos y gestionar importaciones.</li>
+    <li><strong>Comunicaciones:</strong> enviarte actualizaciones sobre tus pedidos, cambios en el servicio o informacion relevante.</li>
+    <li><strong>Mejorar el servicio:</strong> analizar el uso de la Plataforma para optimizar funcionalidades y la experiencia del usuario.</li>
+    <li><strong>Cumplimiento legal:</strong> cumplir con obligaciones legales, regulatorias y fiscales aplicables al comercio exterior.</li>
+    <li><strong>Seguridad:</strong> prevenir fraudes y proteger la integridad de la Plataforma.</li>
+  </ul>
+
+  <h2>4. Base legal del tratamiento</h2>
+  <p>El tratamiento de tus datos se fundamenta en:</p>
+  <ul>
+    <li><strong>Consentimiento:</strong> al registrarte en la Plataforma y aceptar esta Politica, prestas tu consentimiento libre, expreso e informado para el tratamiento de tus datos conforme al articulo 5 de la Ley 25.326.</li>
+    <li><strong>Ejecucion contractual:</strong> el tratamiento es necesario para gestionar las operaciones de importacion solicitadas.</li>
+    <li><strong>Interes legitimo:</strong> utilizamos datos analiticos para mejorar el servicio y la experiencia del usuario, respetando siempre tus derechos fundamentales.</li>
+    <li><strong>Obligacion legal:</strong> cumplimiento de normativas aduaneras, fiscales y de comercio exterior argentinas.</li>
+  </ul>
+
+  <h2>5. Almacenamiento de datos</h2>
+  <p>Tus datos personales se almacenan en servidores gestionados por <strong>Supabase</strong> (infraestructura cloud). La Plataforma esta alojada en <strong>Vercel</strong>. Ambos proveedores implementan medidas de seguridad tecnicas y organizativas adecuadas para proteger la informacion.</p>
+  <p>Implementamos las siguientes medidas de proteccion:</p>
+  <ul>
+    <li>Cifrado de datos en transito (HTTPS/TLS)</li>
+    <li>Autenticacion segura mediante tokens</li>
+    <li>Control de acceso basado en roles</li>
+    <li>Monitoreo y registro de accesos a la base de datos</li>
+  </ul>
+
+  <h2>6. Conservacion de datos</h2>
+  <p>Conservamos tus datos personales durante el tiempo que sea necesario para cumplir con las finalidades descritas, y en particular:</p>
+  <ul>
+    <li><strong>Datos de cuenta:</strong> mientras tu cuenta este activa, y hasta 12 meses despues de la cancelacion o inactividad.</li>
+    <li><strong>Datos de operaciones:</strong> por el plazo legal exigido por las normas contables, fiscales y aduaneras (minimo 10 anos segun la legislacion argentina).</li>
+    <li><strong>Datos de analitica:</strong> por un maximo de 24 meses, luego de lo cual se anonimizan o eliminan.</li>
+  </ul>
+
+  <h2>7. Derechos del titular (Ley 25.326)</h2>
+  <p>De acuerdo con la Ley 25.326 de Proteccion de Datos Personales, tenes derecho a:</p>
+  <ul>
+    <li><strong>Acceso:</strong> solicitar informacion sobre los datos que tenemos almacenados sobre vos (art. 14).</li>
+    <li><strong>Rectificacion:</strong> corregir datos inexactos o incompletos (art. 16).</li>
+    <li><strong>Supresion:</strong> solicitar la eliminacion de tus datos cuando ya no sean necesarios para la finalidad para la que fueron recopilados (art. 16).</li>
+    <li><strong>Confidencialidad:</strong> que tus datos sean tratados con la debida reserva (art. 10).</li>
+  </ul>
+  <p>Para ejercer estos derechos, contactanos a traves de <a href="mailto:afernandez@gallanoworldwide.com" class="inline-link">afernandez@gallanoworldwide.com</a> indicando tu nombre, email registrado y el derecho que deseas ejercer. Responderemos dentro de los 10 dias habiles establecidos por la ley.</p>
+  <p>La <strong>Agencia de Acceso a la Informacion Publica</strong>, en su caracter de Organo de Control de la Ley 25.326, tiene la atribucion de atender las denuncias y reclamos que interpongan quienes resulten afectados en sus derechos por incumplimiento de las normas vigentes en materia de proteccion de datos personales.</p>
+
+  <h2>8. Cookies y tecnologias similares</h2>
+  <p>La Plataforma utiliza cookies de forma <strong>minima y esencial</strong>, unicamente para:</p>
+  <ul>
+    <li><strong>Autenticacion:</strong> mantener tu sesion activa (cookies de Supabase Auth).</li>
+    <li><strong>Preferencias locales:</strong> almacenamiento local (localStorage) para el carrito de importacion y preferencias de visualizacion.</li>
+  </ul>
+  <p>No utilizamos cookies de terceros con fines publicitarios ni de seguimiento entre sitios. No implementamos tecnologias de fingerprinting ni tracking invasivo.</p>
+
+  <h2>9. Terceros y proveedores de servicio</h2>
+  <p>Compartimos datos unicamente con los siguientes terceros, de forma necesaria para operar el servicio:</p>
+  <ul>
+    <li><strong>Supabase (Supabase Inc.):</strong> autenticacion de usuarios, almacenamiento de datos y registro de eventos analiticos.</li>
+    <li><strong>Vercel (Vercel Inc.):</strong> alojamiento y distribucion de la Plataforma.</li>
+    <li><strong>WhatsApp (Meta Platforms):</strong> comunicacion y coordinacion de pedidos. Los mensajes que envies a traves de WhatsApp se rigen por la politica de privacidad de Meta.</li>
+  </ul>
+  <p>No vendemos, alquilamos ni compartimos tus datos personales con terceros para fines de marketing.</p>
+
+  <h2>10. Transferencias internacionales de datos</h2>
+  <p>Dado que utilizamos proveedores de servicios con infraestructura global (Supabase y Vercel), tus datos pueden ser procesados en servidores ubicados fuera de la Republica Argentina, incluyendo Estados Unidos.</p>
+  <p>Estas transferencias se realizan con las garantias adecuadas conforme a la normativa vigente, y los proveedores cumplen con estandares de seguridad y privacidad reconocidos internacionalmente. Nos aseguramos de que todo procesamiento en el exterior mantenga un nivel de proteccion adecuado conforme a lo exigido por la Ley 25.326 y la Disposicion 60-E/2016 de la Agencia de Acceso a la Informacion Publica.</p>
+
+  <h2>11. Menores de edad</h2>
+  <p>La Plataforma esta dirigida exclusivamente a <strong>empresas y profesionales (B2B)</strong>. No recopilamos intencionalmente datos de menores de 18 anos. Si tomamos conocimiento de que hemos recopilado datos de un menor, procederemos a eliminarlos de inmediato.</p>
+
+  <h2>12. Seguridad de la informacion</h2>
+  <p>Implementamos medidas tecnicas y organizativas razonables para proteger tus datos personales contra acceso no autorizado, alteracion, divulgacion o destruccion. Sin embargo, ningun sistema de transmision o almacenamiento de datos es completamente seguro, por lo que no podemos garantizar la seguridad absoluta.</p>
+
+  <h2>13. Modificaciones a esta Politica</h2>
+  <p>Nos reservamos el derecho de actualizar esta Politica de Privacidad en cualquier momento. Las modificaciones se publicaran en esta pagina con la nueva fecha de actualizacion. Te recomendamos revisar esta Politica periodicamente.</p>
+
+  <h2>14. Contacto</h2>
+  <p>Para consultas, reclamos o ejercicio de derechos relacionados con la proteccion de tus datos personales:</p>
+  <ul>
+    <li><strong>Email:</strong> <a href="mailto:afernandez@gallanoworldwide.com" class="inline-link">afernandez@gallanoworldwide.com</a></li>
+    <li><strong>WhatsApp:</strong> +54 2257 617922</li>
+    <li><strong>Domicilio legal:</strong> Avenida Corrientes 1464, Buenos Aires, Argentina</li>
+    <li><strong>Responsable:</strong> CLUB DE IMPORTADORES S.R.L. — CUIT 30-71908875-5</li>
+  </ul>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">ADUA<span class="a">NEX</span> SHOP</div>
+        <p>Marketplace B2B de importacion gestionada. Conectamos empresas argentinas con fabricas chinas verificadas.</p>
+        <a href="https://wa.me/542257617922?text=Hola%20Aduanex!%20Me%20interesa%20un%20producto%20del%20shop" class="footer-wa" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+          WhatsApp
+        </a>
+      </div>
+      <div class="footer-col">
+        <h5>Catalogo</h5>
+        <a href="index.html">Overlanding</a>
+        <a href="index.html">Campers</a>
+        <a href="index.html">Accesorios</a>
+        <a href="index.html">Equipamiento</a>
+      </div>
+      <div class="footer-col">
+        <h5>Empresa</h5>
+        <a href="index.html#por-que">Por que Aduanex</a>
+        <a href="index.html#como">Como funciona</a>
+        <a href="camper.html#contacto">Contacto</a>
+      </div>
+      <div class="footer-col">
+        <h5>Legal</h5>
+        <a href="terminos.html">Terminos y condiciones</a>
+        <a href="privacidad.html">Politica de privacidad</a>
+        <a href="envios.html">Politica de envios</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">&copy; 2026 Aduanex. Todos los derechos reservados.</div>
+      <div class="footer-badges">
+        <span>AFIP Inscripto</span>
+        <span>Despachante Matriculado</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+const SUPA_URL = 'https://qsirhluidhpmrpnejwdp.supabase.co';
+const SUPA_KEY = 'sb_publishable_1kOHBeoCsSY1ufV1_1DjKw_GNt60bPd';
+const supa = supabase.createClient(SUPA_URL, SUPA_KEY);
+
+// Cart badge
+function getCart() { return JSON.parse(localStorage.getItem('aduanex_cart') || '[]'); }
+function updateCartBadge() {
+  const count = getCart().reduce((sum, i) => sum + (i.qty || 1), 0);
+  document.querySelectorAll('.cart-badge').forEach(b => {
+    b.textContent = count;
+    b.style.display = count > 0 ? 'flex' : 'none';
+  });
+}
+// Auth state
+supa.auth.getSession().then(({ data: { session } }) => {
+  const btn = document.getElementById('nav-auth-btn');
+  if (session && btn) { btn.textContent = 'Mi cuenta'; btn.href = 'mis-pedidos.html'; }
+});
+updateCartBadge();
+
+// Analytics
+(async () => {
+  const { data: { session } } = await supa.auth.getSession();
+  supa.from('shop_events').insert({
+    event: 'page_view',
+    page: location.pathname,
+    referrer: document.referrer || null,
+    user_id: session?.user?.id || null,
+    metadata: { screen: `${screen.width}x${screen.height}` }
+  });
+})();
+</script>
+
+</body>
+</html>

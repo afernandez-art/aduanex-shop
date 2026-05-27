@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Politica de Envios — Aduanex Shop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#000;--bg-elev:#0a0c0a;--bg-card:#111311;--bg-card-hover:#191b19;
+  --text:#F3F4F1;--text-dim:#8B8E89;--text-mute:#5C5F5A;
+  --line:rgba(243,244,241,.07);--line-strong:rgba(243,244,241,.12);
+  --accent:#88CE02;--accent-soft:rgba(136,206,2,.08);--accent-mid:rgba(136,206,2,.18);
+  --sans:'Geist',-apple-system,sans-serif;--mono:'Geist Mono',monospace;
+  --radius:14px;--radius-sm:8px;--max-w:1200px;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased}
+html{background:var(--bg);overflow-x:hidden;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:400;line-height:1.5}
+::selection{background:var(--accent);color:var(--bg)}
+a{text-decoration:none;color:inherit}img{display:block;max-width:100%}
+button,input,select{font-family:var(--sans)}button{cursor:pointer}
+
+/* TOPBAR */
+.topbar{background:var(--accent);color:var(--bg);text-align:center;padding:7px 16px;font-size:12px;font-weight:600;letter-spacing:.02em}
+.topbar span{opacity:.7;font-weight:400}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:rgba(0,0,0,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.nav-inner{max-width:var(--max-w);margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:20px}
+.logo{font-size:18px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;flex-shrink:0}
+.logo-a{color:var(--accent)}
+.logo-badge{font-size:9px;font-family:var(--mono);letter-spacing:.1em;color:var(--accent);margin-left:6px;padding:2px 8px;border:1px solid var(--accent-mid);border-radius:100px;text-transform:uppercase;vertical-align:middle}
+.nav-actions{display:flex;align-items:center;gap:16px;margin-left:auto}
+.nav-link{font-size:13px;color:var(--text-dim);font-weight:500;transition:color 150ms;white-space:nowrap}
+.nav-link:hover{color:var(--text)}
+.nav-cta{padding:8px 18px;background:var(--accent);color:var(--bg);border-radius:100px;font-weight:600;font-size:12px;border:none;transition:transform 150ms;white-space:nowrap}
+.nav-cta:hover{transform:scale(1.03)}
+.nav-cart{position:relative;display:flex;align-items:center}
+.cart-badge{position:absolute;top:-8px;right:-10px;width:18px;height:18px;border-radius:50%;background:var(--accent);color:var(--bg);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:var(--mono)}
+
+/* LEGAL CONTENT */
+.legal-page{max-width:800px;margin:0 auto;padding:48px 24px 80px}
+.legal-page h1{font-size:28px;font-weight:800;letter-spacing:-.02em;margin-bottom:6px}
+.legal-page h1 span{color:var(--accent)}
+.legal-updated{font-size:12px;color:var(--text-mute);font-family:var(--mono);margin-bottom:32px;padding-bottom:20px;border-bottom:1px solid var(--line)}
+.legal-page h2{font-size:18px;font-weight:700;color:var(--accent);margin-top:36px;margin-bottom:12px;letter-spacing:-.01em}
+.legal-page p{font-size:14px;color:var(--text-dim);line-height:1.7;margin-bottom:14px}
+.legal-page ul,.legal-page ol{font-size:14px;color:var(--text-dim);line-height:1.7;margin-bottom:14px;padding-left:24px}
+.legal-page li{margin-bottom:6px}
+.legal-page strong{color:var(--text);font-weight:600}
+.legal-page a.inline-link{color:var(--accent);text-decoration:underline;text-underline-offset:2px}
+.legal-page a.inline-link:hover{opacity:.8}
+
+/* TIMELINE */
+.timeline{display:flex;gap:2px;margin:20px 0 24px}
+.timeline-step{flex:1;background:var(--bg-card);padding:18px 14px;text-align:center;position:relative}
+.timeline-step:first-child{border-radius:var(--radius) 0 0 var(--radius)}
+.timeline-step:last-child{border-radius:0 var(--radius) var(--radius) 0}
+.timeline-num{font-family:var(--mono);font-size:20px;font-weight:800;color:var(--accent);margin-bottom:4px}
+.timeline-label{font-size:12px;font-weight:600;margin-bottom:2px}
+.timeline-desc{font-size:10px;color:var(--text-dim);line-height:1.35}
+
+/* INFO BOX */
+.info-box{background:var(--bg-card);border:1px solid var(--accent-mid);border-radius:var(--radius);padding:20px 24px;margin:20px 0}
+.info-box p{margin-bottom:0}
+
+/* FOOTER */
+.footer{border-top:1px solid var(--line);padding:32px 0 24px}
+.footer-inner{max-width:var(--max-w);margin:0 auto;padding:0 24px}
+.footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:32px;padding-bottom:24px;border-bottom:1px solid var(--line);margin-bottom:16px}
+.footer-brand .footer-logo{font-size:16px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;margin-bottom:8px}
+.footer-brand .footer-logo .a{color:var(--accent)}
+.footer-brand p{font-size:11px;color:var(--text-mute);line-height:1.5;max-width:280px;margin-bottom:12px}
+.footer-wa{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;background:var(--accent-soft);border:1px solid var(--accent-mid);border-radius:100px;font-size:11px;font-weight:600;color:var(--accent);transition:all 150ms}
+.footer-wa:hover{background:var(--accent-mid)}
+.footer-wa svg{width:14px;height:14px;fill:var(--accent)}
+.footer-col h5{font-size:10px;font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--text-mute);margin-bottom:10px}
+.footer-col a{display:block;font-size:12px;color:var(--text-dim);padding:3px 0;transition:color 150ms}
+.footer-col a:hover{color:var(--accent)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center}
+.footer-copy{font-size:10px;color:var(--text-mute);font-family:var(--mono)}
+.footer-badges{display:flex;gap:12px;align-items:center}
+.footer-badges span{font-size:9px;font-family:var(--mono);letter-spacing:.05em;color:var(--text-mute);padding:3px 10px;border:1px solid var(--line);border-radius:100px}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .footer-top{grid-template-columns:1fr 1fr}
+  .timeline{flex-wrap:wrap}
+  .timeline-step{flex:1 1 45%}
+  .timeline-step:first-child{border-radius:var(--radius) 0 0 0}
+  .timeline-step:nth-child(2){border-radius:0 var(--radius) 0 0}
+  .timeline-step:nth-child(3){border-radius:0 0 0 var(--radius)}
+  .timeline-step:last-child{border-radius:0 0 var(--radius) 0}
+}
+@media(max-width:600px){
+  .nav-inner{flex-wrap:wrap;gap:10px;padding:10px 16px}
+  .nav-actions .nav-link{display:none}
+  .legal-page{padding:32px 16px 60px}
+  .legal-page h1{font-size:22px}
+  .legal-page h2{font-size:16px}
+  .timeline-step{flex:1 1 100%}
+  .timeline-step:first-child{border-radius:var(--radius) var(--radius) 0 0}
+  .timeline-step:nth-child(2),.timeline-step:nth-child(3){border-radius:0}
+  .timeline-step:last-child{border-radius:0 0 var(--radius) var(--radius)}
+  .footer-top{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;gap:10px;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">Importacion gestionada de China a Argentina <span>· Precio nacionalizado en 24hs · Despachante matriculado</span></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">ADUA<span class="logo-a">NEX</span><span class="logo-badge">Shop</span></a>
+    <div class="nav-actions">
+      <a href="index.html#como" class="nav-link">Como funciona</a>
+      <a href="index.html#por-que" class="nav-link">Por que Aduanex</a>
+      <a href="carrito.html" class="nav-link nav-cart">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="22" height="14" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/><line x1="12" y1="3" x2="12" y2="17"/><path d="M1 20h22"/></svg>
+        Mi Importacion
+        <span class="cart-badge" style="display:none">0</span>
+      </a>
+      <a href="login.html" class="nav-cta" id="nav-auth-btn">Iniciar sesion</a>
+    </div>
+  </div>
+</nav>
+
+<!-- CONTENT -->
+<div class="legal-page">
+
+  <h1>Politica de <span>Envios</span></h1>
+  <div class="legal-updated">Ultima actualizacion: 27 de mayo de 2026</div>
+
+  <h2>1. Metodo de envio</h2>
+  <p>Todas las importaciones gestionadas a traves de Aduanex Shop se realizan <strong>exclusivamente por via maritima</strong>, desde el puerto de <strong>Qingdao, China</strong> (condicion FOB Qingdao) hacia puertos argentinos.</p>
+  <p>Este metodo nos permite ofrecer el mejor equilibrio entre costo y capacidad, especialmente para productos de gran volumen o peso como equipamiento de overlanding, campers y accesorios.</p>
+
+  <h2>2. Plazos de entrega estimados</h2>
+  <p>El plazo total estimado desde la confirmacion del pedido hasta la entrega en destino es de <strong>60 a 90 dias</strong>, distribuido aproximadamente de la siguiente manera:</p>
+
+  <div class="timeline">
+    <div class="timeline-step">
+      <div class="timeline-num">01</div>
+      <div class="timeline-label">Produccion</div>
+      <div class="timeline-desc">15-30 dias en fabrica (si aplica)</div>
+    </div>
+    <div class="timeline-step">
+      <div class="timeline-num">02</div>
+      <div class="timeline-label">Consolidacion</div>
+      <div class="timeline-desc">5-10 dias en puerto de origen</div>
+    </div>
+    <div class="timeline-step">
+      <div class="timeline-num">03</div>
+      <div class="timeline-label">Transito maritimo</div>
+      <div class="timeline-desc">30-40 dias de navegacion</div>
+    </div>
+    <div class="timeline-step">
+      <div class="timeline-num">04</div>
+      <div class="timeline-label">Aduana + entrega</div>
+      <div class="timeline-desc">10-15 dias despacho y distribucion</div>
+    </div>
+  </div>
+
+  <p>Estos plazos son estimativos y pueden variar segun el tipo de producto, la disponibilidad en fabrica, la epoca del ano y factores logisticos. Ante variaciones significativas, te notificaremos oportunamente a traves de WhatsApp.</p>
+
+  <h2>3. Alcance de la entrega</h2>
+  <p>La entrega es <strong>puerta a puerta en todo el territorio de la Republica Argentina</strong>. Esto significa que tu pedido llega directamente a la direccion que indiques al momento de confirmar la operacion, sin que tengas que gestionar ningun tramite intermedio.</p>
+
+  <h2>4. Que incluye el precio nacionalizado</h2>
+  <p>El precio publicado en la Plataforma es un <strong>precio nacionalizado</strong> que incluye todos los costos asociados a la importacion:</p>
+  <ul>
+    <li><strong>Valor FOB:</strong> precio del producto en puerto de origen (Qingdao)</li>
+    <li><strong>Flete maritimo internacional:</strong> transporte desde China hasta puerto argentino</li>
+    <li><strong>Seguro de carga:</strong> cobertura contra danos y perdidas durante el transito</li>
+    <li><strong>Derechos de importacion:</strong> aranceles y tasas aduaneras aplicables</li>
+    <li><strong>IVA:</strong> Impuesto al Valor Agregado (10,5%)</li>
+    <li><strong>Honorarios de despachante:</strong> gestion profesional del despacho aduanero</li>
+    <li><strong>Transporte domestico:</strong> distribucion desde puerto argentino hasta tu puerta</li>
+  </ul>
+  <div class="info-box">
+    <p><strong>Sin costos ocultos.</strong> El precio que ves en la proforma es el precio final. No hay cargos sorpresa ni gastos adicionales al momento de la entrega.</p>
+  </div>
+
+  <h2>5. Despacho aduanero</h2>
+  <p>El despacho aduanero de tu importacion es gestionado integramente por <strong>Aduanex como despachante de aduanas matriculado</strong>. Esto incluye:</p>
+  <ul>
+    <li>Clasificacion arancelaria del producto</li>
+    <li>Preparacion y presentacion de toda la documentacion aduanera</li>
+    <li>Liquidacion y pago de derechos de importacion e impuestos</li>
+    <li>Gestion de intervenciones previas si el producto lo requiere (certificaciones, homologaciones)</li>
+    <li>Coordinacion con terminales portuarias y organismos de control</li>
+  </ul>
+  <p>No tenes que hacer ningun tramite aduanero. Nos encargamos de todo.</p>
+
+  <h2>6. Contenedor consolidado</h2>
+  <p>Para optimizar costos y hacer viable la importacion de volumenes menores, trabajamos con <strong>contenedor consolidado (LCL — Less than Container Load)</strong>. Esto significa que tu carga comparte espacio de contenedor con pedidos de otros clientes, lo que permite:</p>
+  <ul>
+    <li>Importar cantidades menores sin necesidad de completar un contenedor completo.</li>
+    <li>Reducir significativamente el costo de flete por unidad.</li>
+    <li>Aprovechar despachos regulares con frecuencia programada.</li>
+  </ul>
+  <p>En la pagina principal de Aduanex Shop podes ver el estado del proximo contenedor consolidado y su porcentaje de ocupacion en tiempo real.</p>
+
+  <h2>7. Inspeccion y embalaje en origen</h2>
+  <p>Antes del embarque, nuestro equipo gestiona los siguientes controles de calidad en China:</p>
+  <ul>
+    <li><strong>Inspeccion visual:</strong> verificacion del estado general del producto y conformidad con las especificaciones del pedido.</li>
+    <li><strong>Control de cantidad:</strong> confirmacion de que las cantidades coinciden con lo pactado.</li>
+    <li><strong>Registro fotografico:</strong> documentacion visual del producto y su embalaje antes del despacho.</li>
+    <li><strong>Embalaje para exportacion:</strong> verificacion de que el empaque es adecuado para transporte maritimo internacional (proteccion contra humedad, golpes y vibraciones).</li>
+  </ul>
+
+  <h2>8. Seguimiento de tu importacion</h2>
+  <p>Una vez confirmada tu operacion, recibis <strong>actualizaciones en tiempo real</strong> sobre el estado de tu importacion a traves de WhatsApp. Los hitos principales que comunicamos son:</p>
+  <ol>
+    <li>Confirmacion de produccion o disponibilidad en fabrica</li>
+    <li>Inspeccion completada y aprobada</li>
+    <li>Carga despachada en puerto de origen</li>
+    <li>Arribo estimado a puerto argentino</li>
+    <li>Inicio del despacho aduanero</li>
+    <li>Liberacion de aduana y programacion de entrega</li>
+    <li>Entrega en destino final</li>
+  </ol>
+  <p>Tambien podes consultar el estado de tu pedido en cualquier momento a traves de la seccion <strong>Mi Importacion</strong> en la Plataforma.</p>
+
+  <h2>9. Recepcion y confirmacion de entrega</h2>
+  <p>Al momento de la entrega:</p>
+  <ul>
+    <li>Es necesario que una persona autorizada este presente para recibir la mercaderia en la direccion indicada.</li>
+    <li>Se recomienda realizar una <strong>inspeccion visual del embalaje</strong> antes de firmar el conforme de entrega.</li>
+    <li>Si el embalaje presenta danos visibles, se debe dejar constancia escrita en el remito de entrega y notificar a Aduanex de inmediato.</li>
+    <li>La firma del conforme de entrega constituye la aceptacion de la mercaderia en las condiciones recibidas.</li>
+  </ul>
+
+  <h2>10. Reclamos por danos o faltantes</h2>
+  <p>En caso de recibir mercaderia danada o con faltantes:</p>
+  <ul>
+    <li>Comunicate con nuestro equipo dentro de las <strong>48 horas</strong> posteriores a la recepcion.</li>
+    <li>Envia por WhatsApp fotos del producto danado, del embalaje y del remito de entrega.</li>
+    <li>Aduanex iniciara la gestion del reclamo con el seguro de carga y/o el proveedor en origen.</li>
+    <li>La resolucion del reclamo (reposicion, credito o devolucion) se coordina de forma individual segun el caso.</li>
+  </ul>
+  <p>El seguro de carga internacional incluido en el precio cubre danos y perdidas durante el transito maritimo. Las condiciones especificas de la cobertura se detallan en la proforma de cada operacion.</p>
+
+  <h2>11. Fuerza mayor y demoras</h2>
+  <p>Los plazos de entrega pueden verse afectados por situaciones de fuerza mayor fuera de nuestro control, incluyendo:</p>
+  <ul>
+    <li>Condiciones climaticas adversas o desastres naturales</li>
+    <li>Conflictos belicos, sanciones internacionales o restricciones comerciales</li>
+    <li>Huelgas portuarias, congestion en terminales o demoras en terminales</li>
+    <li>Pandemias o crisis sanitarias que afecten la cadena logistica</li>
+    <li>Cambios en regulaciones aduaneras o gubernamentales</li>
+    <li>Inspecciones extraordinarias por parte de organismos de control</li>
+  </ul>
+  <p>En estos casos, Aduanex notificara al cliente a la brevedad posible y gestionara las alternativas disponibles. No seremos responsables por danos o perjuicios derivados de demoras causadas por fuerza mayor.</p>
+
+  <h2>12. Productos restringidos</h2>
+  <p>Algunos productos pueden requerir certificaciones, homologaciones o intervenciones previas de organismos argentinos (ANMAT, INTI, SENASA, etc.) antes de su liberacion aduanera. En estos casos:</p>
+  <ul>
+    <li>Te informaremos antes de confirmar la operacion si el producto requiere alguna gestion adicional.</li>
+    <li>Los tiempos de certificacion o homologacion se suman al plazo de entrega habitual.</li>
+    <li>Los costos asociados a estas gestiones estan incluidos en el precio nacionalizado, salvo que se indique expresamente lo contrario en la proforma.</li>
+  </ul>
+
+  <h2>13. Contacto</h2>
+  <p>Para consultas sobre envios, seguimiento de pedidos o reclamos:</p>
+  <ul>
+    <li><strong>WhatsApp:</strong> +54 2257 617922</li>
+    <li><strong>Email:</strong> <a href="mailto:afernandez@gallanoworldwide.com" class="inline-link">afernandez@gallanoworldwide.com</a></li>
+  </ul>
+  <p>Consulta tambien nuestros <a href="terminos.html" class="inline-link">Terminos y Condiciones</a> para informacion adicional sobre la operatoria general de la Plataforma.</p>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">ADUA<span class="a">NEX</span> SHOP</div>
+        <p>Marketplace B2B de importacion gestionada. Conectamos empresas argentinas con fabricas chinas verificadas.</p>
+        <a href="https://wa.me/542257617922?text=Hola%20Aduanex!%20Me%20interesa%20un%20producto%20del%20shop" class="footer-wa" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+          WhatsApp
+        </a>
+      </div>
+      <div class="footer-col">
+        <h5>Catalogo</h5>
+        <a href="index.html">Overlanding</a>
+        <a href="index.html">Campers</a>
+        <a href="index.html">Accesorios</a>
+        <a href="index.html">Equipamiento</a>
+      </div>
+      <div class="footer-col">
+        <h5>Empresa</h5>
+        <a href="index.html#por-que">Por que Aduanex</a>
+        <a href="index.html#como">Como funciona</a>
+        <a href="camper.html#contacto">Contacto</a>
+      </div>
+      <div class="footer-col">
+        <h5>Legal</h5>
+        <a href="terminos.html">Terminos y condiciones</a>
+        <a href="privacidad.html">Politica de privacidad</a>
+        <a href="envios.html">Politica de envios</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">&copy; 2026 Aduanex. Todos los derechos reservados.</div>
+      <div class="footer-badges">
+        <span>AFIP Inscripto</span>
+        <span>Despachante Matriculado</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+const SUPA_URL = 'https://qsirhluidhpmrpnejwdp.supabase.co';
+const SUPA_KEY = 'sb_publishable_1kOHBeoCsSY1ufV1_1DjKw_GNt60bPd';
+const supa = supabase.createClient(SUPA_URL, SUPA_KEY);
+
+// Cart badge
+function getCart() { return JSON.parse(localStorage.getItem('aduanex_cart') || '[]'); }
+function updateCartBadge() {
+  const count = getCart().reduce((sum, i) => sum + (i.qty || 1), 0);
+  document.querySelectorAll('.cart-badge').forEach(b => {
+    b.textContent = count;
+    b.style.display = count > 0 ? 'flex' : 'none';
+  });
+}
+// Auth state
+supa.auth.getSession().then(({ data: { session } }) => {
+  const btn = document.getElementById('nav-auth-btn');
+  if (session && btn) { btn.textContent = 'Mi cuenta'; btn.href = 'mis-pedidos.html'; }
+});
+updateCartBadge();
+
+// Analytics
+(async () => {
+  const { data: { session } } = await supa.auth.getSession();
+  supa.from('shop_events').insert({
+    event: 'page_view',
+    page: location.pathname,
+    referrer: document.referrer || null,
+    user_id: session?.user?.id || null,
+    metadata: { screen: `${screen.width}x${screen.height}` }
+  });
+})();
+</script>
+
+</body>
+</html>

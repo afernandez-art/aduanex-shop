@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terminos y Condiciones — Aduanex Shop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#000;--bg-elev:#0a0c0a;--bg-card:#111311;--bg-card-hover:#191b19;
+  --text:#F3F4F1;--text-dim:#8B8E89;--text-mute:#5C5F5A;
+  --line:rgba(243,244,241,.07);--line-strong:rgba(243,244,241,.12);
+  --accent:#88CE02;--accent-soft:rgba(136,206,2,.08);--accent-mid:rgba(136,206,2,.18);
+  --sans:'Geist',-apple-system,sans-serif;--mono:'Geist Mono',monospace;
+  --radius:14px;--radius-sm:8px;--max-w:1200px;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased}
+html{background:var(--bg);overflow-x:hidden;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:400;line-height:1.5}
+::selection{background:var(--accent);color:var(--bg)}
+a{text-decoration:none;color:inherit}img{display:block;max-width:100%}
+button,input,select{font-family:var(--sans)}button{cursor:pointer}
+
+/* TOPBAR */
+.topbar{background:var(--accent);color:var(--bg);text-align:center;padding:7px 16px;font-size:12px;font-weight:600;letter-spacing:.02em}
+.topbar span{opacity:.7;font-weight:400}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:rgba(0,0,0,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.nav-inner{max-width:var(--max-w);margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:20px}
+.logo{font-size:18px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;flex-shrink:0}
+.logo-a{color:var(--accent)}
+.logo-badge{font-size:9px;font-family:var(--mono);letter-spacing:.1em;color:var(--accent);margin-left:6px;padding:2px 8px;border:1px solid var(--accent-mid);border-radius:100px;text-transform:uppercase;vertical-align:middle}
+.nav-actions{display:flex;align-items:center;gap:16px;margin-left:auto}
+.nav-link{font-size:13px;color:var(--text-dim);font-weight:500;transition:color 150ms;white-space:nowrap}
+.nav-link:hover{color:var(--text)}
+.nav-cta{padding:8px 18px;background:var(--accent);color:var(--bg);border-radius:100px;font-weight:600;font-size:12px;border:none;transition:transform 150ms;white-space:nowrap}
+.nav-cta:hover{transform:scale(1.03)}
+.nav-cart{position:relative;display:flex;align-items:center}
+.cart-badge{position:absolute;top:-8px;right:-10px;width:18px;height:18px;border-radius:50%;background:var(--accent);color:var(--bg);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:var(--mono)}
+
+/* LEGAL CONTENT */
+.legal-page{max-width:800px;margin:0 auto;padding:48px 24px 80px}
+.legal-page h1{font-size:28px;font-weight:800;letter-spacing:-.02em;margin-bottom:6px}
+.legal-page h1 span{color:var(--accent)}
+.legal-updated{font-size:12px;color:var(--text-mute);font-family:var(--mono);margin-bottom:32px;padding-bottom:20px;border-bottom:1px solid var(--line)}
+.legal-page h2{font-size:18px;font-weight:700;color:var(--accent);margin-top:36px;margin-bottom:12px;letter-spacing:-.01em}
+.legal-page p{font-size:14px;color:var(--text-dim);line-height:1.7;margin-bottom:14px}
+.legal-page ul,.legal-page ol{font-size:14px;color:var(--text-dim);line-height:1.7;margin-bottom:14px;padding-left:24px}
+.legal-page li{margin-bottom:6px}
+.legal-page strong{color:var(--text);font-weight:600}
+.legal-page a.inline-link{color:var(--accent);text-decoration:underline;text-underline-offset:2px}
+.legal-page a.inline-link:hover{opacity:.8}
+
+/* FOOTER */
+.footer{border-top:1px solid var(--line);padding:32px 0 24px}
+.footer-inner{max-width:var(--max-w);margin:0 auto;padding:0 24px}
+.footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:32px;padding-bottom:24px;border-bottom:1px solid var(--line);margin-bottom:16px}
+.footer-brand .footer-logo{font-size:16px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;margin-bottom:8px}
+.footer-brand .footer-logo .a{color:var(--accent)}
+.footer-brand p{font-size:11px;color:var(--text-mute);line-height:1.5;max-width:280px;margin-bottom:12px}
+.footer-wa{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;background:var(--accent-soft);border:1px solid var(--accent-mid);border-radius:100px;font-size:11px;font-weight:600;color:var(--accent);transition:all 150ms}
+.footer-wa:hover{background:var(--accent-mid)}
+.footer-wa svg{width:14px;height:14px;fill:var(--accent)}
+.footer-col h5{font-size:10px;font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--text-mute);margin-bottom:10px}
+.footer-col a{display:block;font-size:12px;color:var(--text-dim);padding:3px 0;transition:color 150ms}
+.footer-col a:hover{color:var(--accent)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center}
+.footer-copy{font-size:10px;color:var(--text-mute);font-family:var(--mono)}
+.footer-badges{display:flex;gap:12px;align-items:center}
+.footer-badges span{font-size:9px;font-family:var(--mono);letter-spacing:.05em;color:var(--text-mute);padding:3px 10px;border:1px solid var(--line);border-radius:100px}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .footer-top{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .nav-inner{flex-wrap:wrap;gap:10px;padding:10px 16px}
+  .nav-actions .nav-link{display:none}
+  .legal-page{padding:32px 16px 60px}
+  .legal-page h1{font-size:22px}
+  .legal-page h2{font-size:16px}
+  .footer-top{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;gap:10px;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">Importacion gestionada de China a Argentina <span>· Precio nacionalizado en 24hs · Despachante matriculado</span></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">ADUA<span class="logo-a">NEX</span><span class="logo-badge">Shop</span></a>
+    <div class="nav-actions">
+      <a href="index.html#como" class="nav-link">Como funciona</a>
+      <a href="index.html#por-que" class="nav-link">Por que Aduanex</a>
+      <a href="carrito.html" class="nav-link nav-cart">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="22" height="14" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/><line x1="12" y1="3" x2="12" y2="17"/><path d="M1 20h22"/></svg>
+        Mi Importacion
+        <span class="cart-badge" style="display:none">0</span>
+      </a>
+      <a href="login.html" class="nav-cta" id="nav-auth-btn">Iniciar sesion</a>
+    </div>
+  </div>
+</nav>
+
+<!-- CONTENT -->
+<div class="legal-page">
+
+  <h1>Terminos y <span>Condiciones</span></h1>
+  <div class="legal-updated">Ultima actualizacion: 27 de mayo de 2026</div>
+
+  <h2>1. Introduccion</h2>
+  <p>Los presentes Terminos y Condiciones regulan el uso de la plataforma Aduanex Shop (en adelante, "la Plataforma"), accesible a traves de <strong>shop.aduanex.com.ar</strong>, operada por <strong>CLUB DE IMPORTADORES S.R.L.</strong>, CUIT 30-71908875-5, con domicilio legal en Avenida Corrientes 1464, Buenos Aires, Argentina.</p>
+  <p>Al acceder, registrarte o utilizar la Plataforma, aceptas estos Terminos en su totalidad. Si no estas de acuerdo con alguna clausula, te pedimos que no utilices el servicio.</p>
+
+  <h2>2. Naturaleza del servicio</h2>
+  <p>Aduanex Shop es un <strong>marketplace B2B de importacion gestionada</strong>. Actuamos como intermediarios y despachantes de aduanas matriculados, facilitando la importacion de productos desde China hacia Argentina. Es importante entender que:</p>
+  <ul>
+    <li>Aduanex <strong>no es el vendedor ni fabricante</strong> de los productos publicados. Actuamos como gestores de la operacion de importacion.</li>
+    <li>Los productos exhibidos en la Plataforma provienen de fabricas y proveedores verificados en China.</li>
+    <li>Nuestro servicio incluye la gestion integral de la cadena de importacion: negociacion con proveedores, logistica internacional, despacho aduanero, seguros y entrega puerta a puerta.</li>
+    <li>La Plataforma funciona como canal de cotizacion y generacion de proformas. La confirmacion y coordinacion de cada operacion se realiza a traves de WhatsApp.</li>
+  </ul>
+
+  <h2>3. Registro de usuario</h2>
+  <p>Para generar una proforma o realizar un pedido, es necesario crear una cuenta en la Plataforma. Al registrarte, te comprometes a:</p>
+  <ul>
+    <li>Proporcionar informacion veraz, completa y actualizada, incluyendo: nombre completo, email, telefono, empresa, ciudad, CUIT y modelo de retiro.</li>
+    <li>Mantener la confidencialidad de tus credenciales de acceso.</li>
+    <li>Notificarnos de inmediato ante cualquier uso no autorizado de tu cuenta.</li>
+    <li>Utilizar la Plataforma unicamente con fines comerciales legitimos (operaciones B2B).</li>
+  </ul>
+  <p>Nos reservamos el derecho de rechazar registros o suspender cuentas que no cumplan con estos requisitos o que proporcionen informacion falsa.</p>
+
+  <h2>4. Proceso de compra y proformas</h2>
+  <p>El proceso de importacion funciona de la siguiente manera:</p>
+  <ol>
+    <li><strong>Seleccion:</strong> El usuario navega el catalogo y selecciona los productos de interes.</li>
+    <li><strong>Proforma:</strong> Se genera una proforma con el detalle del precio nacionalizado, que incluye valor del producto, flete, seguro, impuestos, aranceles, IVA y honorarios de despachante.</li>
+    <li><strong>Confirmacion:</strong> La confirmacion del pedido se realiza exclusivamente a traves de WhatsApp, donde se coordinan los detalles finales de la operacion.</li>
+    <li><strong>Gestion:</strong> Una vez confirmada, Aduanex gestiona la compra al proveedor, la logistica, el despacho aduanero y la entrega.</li>
+  </ol>
+  <p>La generacion de una proforma no constituye un compromiso de compra hasta que sea confirmada por ambas partes a traves de WhatsApp.</p>
+
+  <h2>5. Precios y moneda</h2>
+  <p>Los precios publicados en la Plataforma estan expresados en <strong>dolares estadounidenses (USD)</strong> mas IVA (10,5%). El precio nacionalizado incluye:</p>
+  <ul>
+    <li>Valor FOB del producto (precio en fabrica)</li>
+    <li>Flete maritimo internacional</li>
+    <li>Seguro de carga</li>
+    <li>Derechos de importacion y tasas aduaneras</li>
+    <li>IVA e impuestos aplicables</li>
+    <li>Honorarios del despachante de aduanas</li>
+    <li>Entrega puerta a puerta en Argentina</li>
+  </ul>
+  <p>Los precios pueden variar debido a fluctuaciones en el tipo de cambio, costos de flete o cambios en las regulaciones aduaneras. El precio confirmado en la proforma final es el que rige la operacion.</p>
+
+  <h2>6. Forma de pago</h2>
+  <p>Los detalles y condiciones de pago se coordinan <strong>exclusivamente a traves de WhatsApp</strong>, de manera directa entre el usuario y nuestro equipo comercial. La Plataforma no procesa pagos ni almacena informacion financiera o bancaria.</p>
+
+  <h2>7. Plazos de entrega</h2>
+  <p>El envio se realiza <strong>unicamente por via maritima</strong>, con origen en el puerto de Qingdao, China. Los plazos estimados son:</p>
+  <ul>
+    <li><strong>60 a 90 dias</strong> desde la confirmacion del pedido hasta la entrega en destino.</li>
+    <li>Este plazo incluye: produccion (si aplica), consolidacion, transito maritimo, despacho aduanero y distribucion domestica.</li>
+  </ul>
+  <p>Los plazos son estimativos y pueden verse afectados por factores ajenos a nuestro control, como demoras portuarias, inspecciones aduaneras o condiciones climaticas. Ante cualquier demora significativa, el usuario sera notificado oportunamente.</p>
+
+  <h2>8. Entrega</h2>
+  <p>La entrega es <strong>puerta a puerta</strong> en todo el territorio de la Republica Argentina. El usuario debera proporcionar una direccion de entrega valida y estar disponible para recibir la mercaderia en la fecha coordinada. Consulta nuestra <a href="envios.html" class="inline-link">Politica de Envios</a> para mas detalles.</p>
+
+  <h2>9. Propiedad intelectual</h2>
+  <p>Todo el contenido de la Plataforma, incluyendo textos, imagenes, logotipos, diseno grafico, codigo fuente y estructura, es propiedad de CLUB DE IMPORTADORES S.R.L. o de sus respectivos titulares, y esta protegido por las leyes de propiedad intelectual vigentes en Argentina.</p>
+  <p>Queda prohibida la reproduccion, distribucion, modificacion o uso no autorizado de cualquier contenido de la Plataforma sin consentimiento previo por escrito.</p>
+
+  <h2>10. Limitacion de responsabilidad</h2>
+  <p>Aduanex Shop actua como intermediario en operaciones de importacion. En consecuencia:</p>
+  <ul>
+    <li>No somos responsables por defectos de fabricacion, diferencias menores en especificaciones o cambios realizados por el fabricante sin previo aviso.</li>
+    <li>Realizamos inspecciones de calidad en origen, pero no ofrecemos garantia de fabricante. Las reclamaciones de garantia se gestionan directamente con el proveedor, con nuestra intermediacion.</li>
+    <li>No somos responsables por demoras ocasionadas por causas de fuerza mayor, incluyendo pero no limitado a: desastres naturales, pandemias, conflictos belicos, huelgas portuarias, cambios regulatorios o restricciones gubernamentales.</li>
+    <li>Nuestra responsabilidad total esta limitada al monto efectivamente abonado por el usuario para la operacion en cuestion.</li>
+  </ul>
+
+  <h2>11. Cancelaciones y devoluciones</h2>
+  <p>Debido a la naturaleza del servicio de importacion a medida:</p>
+  <ul>
+    <li>Las cancelaciones solo son posibles antes de que se efectue el pago al proveedor en origen.</li>
+    <li>Una vez iniciada la produccion o el despacho, no se aceptan cancelaciones ni devoluciones.</li>
+    <li>En caso de mercaderia danada durante el transito, la reclamacion se gestiona a traves del seguro de carga incluido en la operacion.</li>
+  </ul>
+
+  <h2>12. Ley aplicable y jurisdiccion</h2>
+  <p>Estos Terminos se rigen por las leyes de la <strong>Republica Argentina</strong>. Para cualquier controversia que surja de la interpretacion o cumplimiento de estos Terminos, las partes se someten a la jurisdiccion de los Tribunales Ordinarios en lo Comercial de la Ciudad Autonoma de Buenos Aires, renunciando a cualquier otro fuero que pudiera corresponderles.</p>
+
+  <h2>13. Resolucion de disputas</h2>
+  <p>Ante cualquier reclamo o disputa, el usuario debera contactarse primero con nuestro equipo a traves de los canales oficiales (WhatsApp al <strong>+54 2257 617922</strong> o email a <strong>afernandez@gallanoworldwide.com</strong>). Nos comprometemos a buscar una solucion amistosa en un plazo razonable antes de recurrir a la via judicial.</p>
+
+  <h2>14. Suspension y terminacion de cuenta</h2>
+  <p>Nos reservamos el derecho de suspender o cancelar cuentas de usuario en los siguientes casos:</p>
+  <ul>
+    <li>Incumplimiento de estos Terminos y Condiciones.</li>
+    <li>Provision de informacion falsa o fraudulenta.</li>
+    <li>Uso indebido de la Plataforma o conducta que perjudique a otros usuarios o a Aduanex.</li>
+    <li>Inactividad prolongada de la cuenta (mas de 12 meses sin operaciones).</li>
+    <li>Solicitud expresa del usuario.</li>
+  </ul>
+
+  <h2>15. Modificaciones a los Terminos</h2>
+  <p>CLUB DE IMPORTADORES S.R.L. se reserva el derecho de modificar estos Terminos y Condiciones en cualquier momento. Las modificaciones seran publicadas en esta misma pagina con la fecha de actualizacion correspondiente. El uso continuado de la Plataforma despues de la publicacion de cambios implica la aceptacion de los Terminos modificados.</p>
+  <p>Se recomienda revisar esta pagina periodicamente para estar al tanto de cualquier actualizacion.</p>
+
+  <h2>16. Contacto</h2>
+  <p>Para consultas sobre estos Terminos y Condiciones, podes contactarnos a traves de:</p>
+  <ul>
+    <li><strong>WhatsApp:</strong> +54 2257 617922</li>
+    <li><strong>Email:</strong> <a href="mailto:afernandez@gallanoworldwide.com" class="inline-link">afernandez@gallanoworldwide.com</a></li>
+    <li><strong>Domicilio legal:</strong> Avenida Corrientes 1464, Buenos Aires, Argentina</li>
+  </ul>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">ADUA<span class="a">NEX</span> SHOP</div>
+        <p>Marketplace B2B de importacion gestionada. Conectamos empresas argentinas con fabricas chinas verificadas.</p>
+        <a href="https://wa.me/542257617922?text=Hola%20Aduanex!%20Me%20interesa%20un%20producto%20del%20shop" class="footer-wa" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+          WhatsApp
+        </a>
+      </div>
+      <div class="footer-col">
+        <h5>Catalogo</h5>
+        <a href="index.html">Overlanding</a>
+        <a href="index.html">Campers</a>
+        <a href="index.html">Accesorios</a>
+        <a href="index.html">Equipamiento</a>
+      </div>
+      <div class="footer-col">
+        <h5>Empresa</h5>
+        <a href="index.html#por-que">Por que Aduanex</a>
+        <a href="index.html#como">Como funciona</a>
+        <a href="camper.html#contacto">Contacto</a>
+      </div>
+      <div class="footer-col">
+        <h5>Legal</h5>
+        <a href="terminos.html">Terminos y condiciones</a>
+        <a href="privacidad.html">Politica de privacidad</a>
+        <a href="envios.html">Politica de envios</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">&copy; 2026 Aduanex. Todos los derechos reservados.</div>
+      <div class="footer-badges">
+        <span>AFIP Inscripto</span>
+        <span>Despachante Matriculado</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+const SUPA_URL = 'https://qsirhluidhpmrpnejwdp.supabase.co';
+const SUPA_KEY = 'sb_publishable_1kOHBeoCsSY1ufV1_1DjKw_GNt60bPd';
+const supa = supabase.createClient(SUPA_URL, SUPA_KEY);
+
+// Cart badge
+function getCart() { return JSON.parse(localStorage.getItem('aduanex_cart') || '[]'); }
+function updateCartBadge() {
+  const count = getCart().reduce((sum, i) => sum + (i.qty || 1), 0);
+  document.querySelectorAll('.cart-badge').forEach(b => {
+    b.textContent = count;
+    b.style.display = count > 0 ? 'flex' : 'none';
+  });
+}
+// Auth state
+supa.auth.getSession().then(({ data: { session } }) => {
+  const btn = document.getElementById('nav-auth-btn');
+  if (session && btn) { btn.textContent = 'Mi cuenta'; btn.href = 'mis-pedidos.html'; }
+});
+updateCartBadge();
+
+// Analytics
+(async () => {
+  const { data: { session } } = await supa.auth.getSession();
+  supa.from('shop_events').insert({
+    event: 'page_view',
+    page: location.pathname,
+    referrer: document.referrer || null,
+    user_id: session?.user?.id || null,
+    metadata: { screen: `${screen.width}x${screen.height}` }
+  });
+})();
+</script>
+
+</body>
+</html>
