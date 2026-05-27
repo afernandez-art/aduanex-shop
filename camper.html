@@ -1489,6 +1489,7 @@ function _doOpenProforma() {
 
   document.getElementById('proforma-modal').classList.add('open');
   document.body.style.overflow = 'hidden';
+  if (window.aduanexTrack) aduanexTrack('proforma_open', { product: 'SEPHIROTH Pickup Camper', tier: currentTier, qty: currentQty });
 }
 
 function prefillBuyerForm() {
@@ -1644,6 +1645,29 @@ const SUPA_URL = 'https://qsirhluidhpmrpnejwdp.supabase.co';
 const SUPA_KEY = 'sb_publishable_1kOHBeoCsSY1ufV1_1DjKw_GNt60bPd';
 const supa = supabase.createClient(SUPA_URL, SUPA_KEY);
 
+// ===== ANALYTICS TRACKER =====
+window.aduanexTrack = async (event, meta = {}) => {
+  const { data: { session } } = await supa.auth.getSession();
+  supa.from('shop_events').insert({
+    event,
+    page: location.pathname,
+    referrer: document.referrer || null,
+    user_id: session?.user?.id || null,
+    metadata: meta
+  });
+};
+// Track page view
+(async () => {
+  const { data: { session } } = await supa.auth.getSession();
+  supa.from('shop_events').insert({
+    event: 'page_view',
+    page: location.pathname,
+    referrer: document.referrer || null,
+    user_id: session?.user?.id || null,
+    metadata: { screen: `${screen.width}x${screen.height}` }
+  });
+})();
+
 async function submitRFQ(form) {
   const btn = form.querySelector('.rfq-submit');
   const origText = btn.textContent;
@@ -1726,6 +1750,7 @@ async function amLogin() {
     const { data, error } = await supa.auth.signInWithPassword({ email, password });
     if (error) { amShowMsg(amTranslateError(error.message), 'error'); btn.disabled = false; btn.textContent = 'Iniciar sesion'; return; }
     currentUser = data.user;
+    if (window.aduanexTrack) aduanexTrack('login', { method: 'email' });
     onAuthSuccess();
   } catch(e) {
     amShowMsg('Error de conexion. Intenta de nuevo.', 'error');
@@ -1783,6 +1808,7 @@ async function amRegister() {
       }
     });
     if (error) { amShowMsg(amTranslateError(error.message), 'error'); btn.disabled = false; btn.textContent = 'Crear cuenta'; return; }
+    if (window.aduanexTrack) aduanexTrack('register', { method: 'email' });
 
     if (data.session) {
       currentUser = data.user;
@@ -1910,6 +1936,8 @@ async function sendWhatsApp() {
   // --- e) Success state and open WhatsApp ---
   waBtn.innerHTML = '✓ Redirigiendo a WhatsApp...';
   waBtn.style.background = '#2ecc40';
+
+  if (window.aduanexTrack) aduanexTrack('whatsapp_click', { product: 'SEPHIROTH Pickup Camper', total, tier: currentTier, qty, upgrades: upgCount });
 
   setTimeout(() => {
     window.open(waLink, '_blank');

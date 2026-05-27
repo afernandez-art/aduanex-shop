@@ -266,8 +266,8 @@ button,input,select{font-family:var(--sans)}button{cursor:pointer}
   <!-- HERO MINI -->
   <div class="hero-mini">
     <div class="hero-mini-left">
-      <h1>Importa tu <span>camper</span> directo de fabrica</h1>
-      <p>SEPHIROTH™ Pickup Camper con techo elevable, cocina y bateria de litio. Importacion gestionada desde China, puerta a puerta.</p>
+      <h1>Importa <span>directo de fabrica</span></h1>
+      <p>Productos seleccionados de China con precio nacionalizado. Importacion gestionada de puerta a puerta por despachante matriculado.</p>
     </div>
     <div class="hero-mini-stats">
       <div class="hero-mini-stat">
@@ -637,6 +637,47 @@ supa.auth.getSession().then(({ data: { session } }) => {
   if (session && btn) { btn.textContent = 'Mi cuenta'; btn.href = 'mis-pedidos.html'; }
 });
 updateCartBadge();
+
+// ===== ANALYTICS TRACKER =====
+const _tk = (event, meta = {}) => {
+  supa.from('shop_events').insert({
+    event,
+    page: location.pathname,
+    referrer: document.referrer || null,
+    user_id: supa.auth.getUser ? null : null, // set below after session check
+    metadata: meta
+  }).then(() => {});
+};
+// Track page view
+(async () => {
+  const { data: { session } } = await supa.auth.getSession();
+  const uid = session?.user?.id || null;
+  supa.from('shop_events').insert({
+    event: 'page_view',
+    page: location.pathname,
+    referrer: document.referrer || null,
+    user_id: uid,
+    metadata: { screen: `${screen.width}x${screen.height}`, ua: navigator.userAgent.substring(0, 120) }
+  });
+})();
+// Expose tracker for other pages
+window.aduanexTrack = async (event, meta = {}) => {
+  const { data: { session } } = await supa.auth.getSession();
+  supa.from('shop_events').insert({
+    event,
+    page: location.pathname,
+    referrer: document.referrer || null,
+    user_id: session?.user?.id || null,
+    metadata: meta
+  });
+};
+// Track product clicks
+document.querySelectorAll('.pcard a[href]').forEach(a => {
+  a.addEventListener('click', () => {
+    const card = a.closest('.pcard');
+    window.aduanexTrack('product_click', { product: card?.dataset.name || '' });
+  });
+});
 
 // Container gauge
 supa.rpc('get_public_container_status').then(({ data }) => {
