@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verificando... — Aduanex Shop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#000;--bg-card:#111311;--text:#F3F4F1;--text-dim:#8B8E89;--accent:#88CE02;--accent-soft:rgba(136,206,2,.08);--accent-mid:rgba(136,206,2,.18);--line:rgba(243,244,241,.07);--sans:'Geist',-apple-system,sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.card{text-align:center;max-width:420px;width:100%;background:var(--bg-card);border:1px solid var(--line);border-radius:20px;padding:48px 36px;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--accent),transparent)}
+.spinner{width:40px;height:40px;border:3px solid var(--line);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 24px}
+@keyframes spin{to{transform:rotate(360deg)}}
+h1{font-size:20px;font-weight:800;margin-bottom:8px}
+h1 span{color:var(--accent)}
+p{font-size:14px;color:var(--text-dim);line-height:1.5;margin-bottom:16px}
+.msg{padding:12px 16px;border-radius:10px;font-size:13px;display:none;margin-top:16px;line-height:1.4}
+.msg.error{display:block;background:rgba(255,107,107,.1);border:1px solid rgba(255,107,107,.25);color:#ff6b6b}
+.msg.success{display:block;background:var(--accent-soft);border:1px solid var(--accent-mid);color:var(--accent)}
+a{color:var(--accent);font-weight:600;text-decoration:none}
+a:hover{opacity:.8}
+.hidden{display:none}
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="spinner" id="spinner"></div>
+  <h1>Verificando tu <span>cuenta</span></h1>
+  <p id="status-text">Confirmando tu email, espera un momento...</p>
+  <div class="msg" id="msg"></div>
+  <p id="fallback" class="hidden" style="margin-top:16px;font-size:13px">
+    <a href="login.html">Ir a iniciar sesion</a> · <a href="camper.html">Volver al producto</a>
+  </p>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+const SUPA_URL = 'https://qsirhluidhpmrpnejwdp.supabase.co';
+const SUPA_KEY = 'sb_publishable_1kOHBeoCsSY1ufV1_1DjKw_GNt60bPd';
+const supa = supabase.createClient(SUPA_URL, SUPA_KEY);
+
+(async function handleCallback() {
+  const hash = window.location.hash;
+  const params = new URLSearchParams(hash.substring(1));
+  const accessToken = params.get('access_token');
+  const refreshToken = params.get('refresh_token');
+  const type = params.get('type');
+
+  if (accessToken && refreshToken) {
+    try {
+      const { data, error } = await supa.auth.setSession({
+        access_token: accessToken,
+        refresh_token: refreshToken
+      });
+
+      if (error) throw error;
+
+      window.history.replaceState(null, '', window.location.pathname);
+      document.getElementById('spinner').style.display = 'none';
+      document.getElementById('status-text').textContent = 'Email confirmado correctamente!';
+
+      const msg = document.getElementById('msg');
+      msg.className = 'msg success';
+      msg.textContent = type === 'recovery'
+        ? 'Redirigiendo para cambiar tu contrasena...'
+        : 'Bienvenido a Aduanex Shop! Redirigiendo...';
+
+      const redirect = type === 'recovery' ? 'login.html' : 'camper.html';
+      setTimeout(() => { window.location.href = redirect; }, 1500);
+    } catch(e) {
+      showError('No pudimos verificar tu cuenta. El enlace puede haber expirado.');
+    }
+  } else {
+    const qp = new URLSearchParams(window.location.search);
+    const tokenHash = qp.get('token_hash');
+    const qType = qp.get('type');
+    if (tokenHash && qType) {
+      try {
+        const { data, error } = await supa.auth.verifyOtp({
+          token_hash: tokenHash,
+          type: qType
+        });
+        if (error) throw error;
+
+        document.getElementById('spinner').style.display = 'none';
+        document.getElementById('status-text').textContent = 'Email confirmado correctamente!';
+        const msg = document.getElementById('msg');
+        msg.className = 'msg success';
+        msg.textContent = 'Bienvenido a Aduanex Shop! Redirigiendo...';
+        setTimeout(() => { window.location.href = 'camper.html'; }, 1500);
+      } catch(e) {
+        showError('No pudimos verificar tu cuenta. El enlace puede haber expirado.');
+      }
+    } else {
+      showError('Enlace de verificacion invalido.');
+    }
+  }
+})();
+
+function showError(text) {
+  document.getElementById('spinner').style.display = 'none';
+  document.getElementById('status-text').textContent = 'Hubo un problema';
+  const msg = document.getElementById('msg');
+  msg.className = 'msg error';
+  msg.textContent = text;
+  document.getElementById('fallback').classList.remove('hidden');
+}
+</script>
+
+</body>
+</html>

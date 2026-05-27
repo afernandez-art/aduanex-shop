@@ -182,8 +182,12 @@ button,input,select{font-family:var(--sans)}button{cursor:pointer}
           </div>
           <div class="auth-group">
             <label class="auth-label">Contrasena</label>
-            <input type="password" class="auth-input" id="reg-password" placeholder="Minimo 6 caracteres" required minlength="6" autocomplete="new-password">
+            <input type="password" class="auth-input" id="reg-password" placeholder="Minimo 8 caracteres" required minlength="8" autocomplete="new-password" oninput="checkPwStrength(this.value)">
+            <div style="height:3px;border-radius:2px;background:var(--line);margin-top:4px;overflow:hidden"><div id="pw-bar" style="height:100%;border-radius:2px;width:0;transition:width 300ms,background 300ms"></div></div>
+            <div id="pw-label" style="font-family:var(--mono);font-size:9px;letter-spacing:.05em;margin-top:3px;color:var(--text-mute)"></div>
           </div>
+          <!-- honeypot -->
+          <div style="position:absolute;left:-9999px;opacity:0;height:0;width:0;overflow:hidden;pointer-events:none" aria-hidden="true"><input type="text" id="reg-website" tabindex="-1" autocomplete="off"></div>
           <button type="submit" class="auth-submit" id="register-btn">Crear cuenta</button>
         </form>
         <div class="auth-footer">
@@ -246,9 +250,24 @@ const supa = supabase.createClient(SUPA_URL, SUPA_KEY);
 // ===== REDIRECT HELPER =====
 const _redirect = new URLSearchParams(window.location.search).get('redirect') || 'mis-pedidos.html';
 
-// ===== CHECK SESSION =====
+// ===== CHECK SESSION + HANDLE AUTH CALLBACK =====
 (async function checkSession() {
   try {
+    const hash = window.location.hash;
+    if (hash && (hash.includes('access_token') || hash.includes('type=signup') || hash.includes('type=recovery'))) {
+      const params = new URLSearchParams(hash.substring(1));
+      const accessToken = params.get('access_token');
+      const refreshToken = params.get('refresh_token');
+      if (accessToken && refreshToken) {
+        const { error } = await supa.auth.setSession({ access_token: accessToken, refresh_token: refreshToken });
+        if (!error) {
+          window.history.replaceState(null, '', window.location.pathname + window.location.search);
+          showMsg('Email confirmado. Redirigiendo...', 'success');
+          setTimeout(() => { window.location.href = _redirect; }, 1000);
+          return;
+        }
+      }
+    }
     const { data: { session } } = await supa.auth.getSession();
     if (session) window.location.href = _redirect;
   } catch(e) { /* not logged in */ }
@@ -304,8 +323,34 @@ async function handleLogin() {
   }
 }
 
+// ===== PASSWORD STRENGTH =====
+function checkPwStrength(pw) {
+  let score = 0;
+  if (pw.length >= 8) score++;
+  if (pw.length >= 12) score++;
+  if (/[A-Z]/.test(pw)) score++;
+  if (/[0-9]/.test(pw)) score++;
+  if (/[^A-Za-z0-9]/.test(pw)) score++;
+  const bar = document.getElementById('pw-bar');
+  const label = document.getElementById('pw-label');
+  const levels = [
+    { w: '0%', c: 'var(--line)', t: '', tc: 'var(--text-mute)' },
+    { w: '20%', c: '#ff4444', t: 'Muy debil', tc: '#ff4444' },
+    { w: '40%', c: '#ff8800', t: 'Debil', tc: '#ff8800' },
+    { w: '60%', c: '#ffcc00', t: 'Aceptable', tc: '#ffcc00' },
+    { w: '80%', c: '#88CE02', t: 'Buena', tc: '#88CE02' },
+    { w: '100%', c: '#00cc44', t: 'Excelente', tc: '#00cc44' }
+  ];
+  const l = levels[Math.min(score, 5)];
+  bar.style.width = l.w; bar.style.background = l.c;
+  label.textContent = l.t; label.style.color = l.tc;
+}
+
 // ===== REGISTER =====
 async function handleRegister() {
+  const honeypot = document.getElementById('reg-website');
+  if (honeypot && honeypot.value) return;
+
   const full_name = document.getElementById('reg-name').value.trim();
   const company = document.getElementById('reg-company').value.trim();
   const email = document.getElementById('reg-email').value.trim();
@@ -317,8 +362,20 @@ async function handleRegister() {
     showMsg('Completa todos los campos obligatorios.', 'error');
     return;
   }
-  if (password.length < 6) {
-    showMsg('La contrasena debe tener al menos 6 caracteres.', 'error');
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    showMsg('Ingresa un email valido.', 'error');
+    return;
+  }
+  if (full_name.length < 3) {
+    showMsg('Ingresa tu nombre completo.', 'error');
+    return;
+  }
+  if (password.length < 8) {
+    showMsg('La contrasena debe tener al menos 8 caracteres.', 'error');
+    return;
+  }
+  if (!/[A-Z]/.test(password) || !/[0-9]/.test(password)) {
+    showMsg('La contrasena debe incluir al menos una mayuscula y un numero.', 'error');
     return;
   }
 
@@ -331,7 +388,8 @@ async function handleRegister() {
       email,
       password,
       options: {
-        data: { full_name, company, phone }
+        data: { full_name, company, phone },
+        emailRedirectTo: window.location.origin + '/auth-callback.html'
       }
     });
 
@@ -342,30 +400,14 @@ async function handleRegister() {
       return;
     }
 
-    // Insert into clients table
-    if (data.user) {
-      try {
-        await supa.from('clients').insert([{
-          user_id: data.user.id,
-          full_name,
-          company,
-          email,
-          phone,
-          source: 'shop_register'
-        }]);
-      } catch(e) { /* non-blocking */ }
-    }
-
-    // If session exists, email confirm is disabled — redirect immediately
     if (data.session) {
       showMsg('Cuenta creada. Redirigiendo...', 'success');
       setTimeout(() => { window.location.href = _redirect; }, 800);
       return;
     }
 
-    // Otherwise email confirm is required
-    showMsg('Cuenta creada. Revisa tu email para confirmar tu cuenta.', 'success');
-    btn.textContent = 'Cuenta creada';
+    showMsg('Cuenta creada! Revisa tu email (' + email + ') para confirmar tu cuenta.', 'success');
+    btn.textContent = 'Cuenta creada — revisa tu email';
     document.getElementById('register-form').reset();
 
     setTimeout(() => {

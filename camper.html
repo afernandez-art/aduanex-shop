@@ -480,6 +480,10 @@ select.pf-buyer-input{appearance:none;cursor:pointer}
 .am-forgot{text-align:center;margin-top:8px}
 .am-forgot a{font-size:12px;color:var(--text-mute);cursor:pointer;transition:color 150ms}
 .am-forgot a:hover{color:var(--accent)}
+.am-pw-strength{height:3px;border-radius:2px;background:var(--line);margin-top:4px;overflow:hidden}
+.am-pw-bar{height:100%;border-radius:2px;width:0;transition:width 300ms,background 300ms}
+.am-pw-label{font-family:var(--mono);font-size:9px;letter-spacing:.05em;margin-top:3px;transition:color 200ms}
+.am-honeypot{position:absolute;left:-9999px;opacity:0;height:0;width:0;overflow:hidden;pointer-events:none;tabindex:-1}
 
 /* ===== CONFIG BAR RESPONSIVE ===== */
 @media(max-width:768px){
@@ -1197,8 +1201,12 @@ select.pf-buyer-input{appearance:none;cursor:pointer}
           </div>
           <div class="am-group">
             <label class="am-label">Contrasena *</label>
-            <input type="password" class="am-input" id="am-reg-password" placeholder="Minimo 6 caracteres" required minlength="6" autocomplete="new-password">
+            <input type="password" class="am-input" id="am-reg-password" placeholder="Minimo 8 caracteres" required minlength="8" autocomplete="new-password" oninput="amCheckPw(this.value)">
+            <div class="am-pw-strength"><div class="am-pw-bar" id="am-pw-bar"></div></div>
+            <div class="am-pw-label" id="am-pw-label" style="color:var(--text-mute)"></div>
           </div>
+          <!-- honeypot -->
+          <div class="am-honeypot" aria-hidden="true"><input type="text" id="am-reg-website" tabindex="-1" autocomplete="off"></div>
           <button type="submit" class="am-submit" id="am-reg-btn">Crear cuenta</button>
         </form>
         <div class="am-footer">
@@ -1814,7 +1822,33 @@ async function amLogin() {
   }
 }
 
+function amCheckPw(pw) {
+  let score = 0;
+  if (pw.length >= 8) score++;
+  if (pw.length >= 12) score++;
+  if (/[A-Z]/.test(pw)) score++;
+  if (/[0-9]/.test(pw)) score++;
+  if (/[^A-Za-z0-9]/.test(pw)) score++;
+
+  const bar = document.getElementById('am-pw-bar');
+  const label = document.getElementById('am-pw-label');
+  const levels = [
+    { w: '0%', c: 'var(--line)', t: '', tc: 'var(--text-mute)' },
+    { w: '20%', c: '#ff4444', t: 'Muy debil', tc: '#ff4444' },
+    { w: '40%', c: '#ff8800', t: 'Debil', tc: '#ff8800' },
+    { w: '60%', c: '#ffcc00', t: 'Aceptable', tc: '#ffcc00' },
+    { w: '80%', c: '#88CE02', t: 'Buena', tc: '#88CE02' },
+    { w: '100%', c: '#00cc44', t: 'Excelente', tc: '#00cc44' }
+  ];
+  const l = levels[Math.min(score, 5)];
+  bar.style.width = l.w; bar.style.background = l.c;
+  label.textContent = l.t; label.style.color = l.tc;
+}
+
 async function amRegister() {
+  const honeypot = document.getElementById('am-reg-website');
+  if (honeypot && honeypot.value) return;
+
   const full_name = document.getElementById('am-reg-name').value.trim();
   const company = document.getElementById('am-reg-company').value.trim();
   const email = document.getElementById('am-reg-email').value.trim();
@@ -1823,13 +1857,19 @@ async function amRegister() {
   const btn = document.getElementById('am-reg-btn');
 
   if (!full_name || !company || !email || !password) { amShowMsg('Completa todos los campos obligatorios.', 'error'); return; }
-  if (password.length < 6) { amShowMsg('La contrasena debe tener al menos 6 caracteres.', 'error'); return; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { amShowMsg('Ingresa un email valido.', 'error'); return; }
+  if (password.length < 8) { amShowMsg('La contrasena debe tener al menos 8 caracteres.', 'error'); return; }
+  if (!/[A-Z]/.test(password) || !/[0-9]/.test(password)) { amShowMsg('La contrasena debe incluir al menos una mayuscula y un numero.', 'error'); return; }
+  if (full_name.length < 3) { amShowMsg('Ingresa tu nombre completo.', 'error'); return; }
 
   btn.disabled = true; btn.textContent = 'Creando cuenta...'; amClearMsg();
   try {
     const { data, error } = await supa.auth.signUp({
       email, password,
-      options: { data: { full_name, company, phone } }
+      options: {
+        data: { full_name, company, phone },
+        emailRedirectTo: window.location.origin + '/auth-callback.html'
+      }
     });
     if (error) { amShowMsg(amTranslateError(error.message), 'error'); btn.disabled = false; btn.textContent = 'Crear cuenta'; return; }
 
@@ -1839,9 +1879,9 @@ async function amRegister() {
       return;
     }
 
-    amShowMsg('Cuenta creada! Revisa tu email para confirmar y luego inicia sesion.', 'success');
-    btn.textContent = 'Cuenta creada';
-    setTimeout(() => { amShowView('login'); btn.disabled = false; btn.textContent = 'Crear cuenta'; }, 3000);
+    amShowMsg('Cuenta creada! Revisa tu email (' + email + ') para confirmar tu cuenta.', 'success');
+    btn.textContent = 'Cuenta creada — revisa tu email';
+    setTimeout(() => { amShowView('login'); btn.disabled = false; btn.textContent = 'Crear cuenta'; }, 5000);
   } catch(e) {
     amShowMsg('Error de conexion. Intenta de nuevo.', 'error');
     btn.disabled = false; btn.textContent = 'Crear cuenta';
