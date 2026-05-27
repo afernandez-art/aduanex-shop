@@ -43,8 +43,6 @@ button,input,select{font-family:var(--sans)}button{cursor:pointer}
 .nav-link:hover{color:var(--text)}
 .nav-cta{padding:8px 18px;background:var(--accent);color:var(--bg);border-radius:100px;font-weight:600;font-size:12px;border:none;transition:transform 150ms;white-space:nowrap}
 .nav-cta:hover{transform:scale(1.03)}
-.nav-cart{position:relative;display:flex;align-items:center}
-.cart-badge{position:absolute;top:-8px;right:-10px;width:18px;height:18px;border-radius:50%;background:var(--accent);color:var(--bg);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:var(--mono)}
 
 /* PAGE */
 .page{max-width:var(--max-w);margin:0 auto;padding:0 24px}
@@ -251,11 +249,6 @@ button,input,select{font-family:var(--sans)}button{cursor:pointer}
     <div class="nav-actions">
       <a href="#como" class="nav-link">Como funciona</a>
       <a href="#por-que" class="nav-link">Por que Aduanex</a>
-      <a href="carrito.html" class="nav-link nav-cart">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="22" height="14" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/><line x1="12" y1="3" x2="12" y2="17"/><path d="M1 20h22"/></svg>
-        Mi Importacion
-        <span class="cart-badge" style="display:none">0</span>
-      </a>
       <a href="login.html" class="nav-cta" id="nav-auth-btn">Iniciar sesion</a>
     </div>
   </div>
@@ -621,22 +614,11 @@ const SUPA_URL = 'https://qsirhluidhpmrpnejwdp.supabase.co';
 const SUPA_KEY = 'sb_publishable_1kOHBeoCsSY1ufV1_1DjKw_GNt60bPd';
 const supa = supabase.createClient(SUPA_URL, SUPA_KEY);
 
-// Cart helpers
-function getCart() { return JSON.parse(localStorage.getItem('aduanex_cart') || '[]'); }
-function saveCart(cart) { localStorage.setItem('aduanex_cart', JSON.stringify(cart)); updateCartBadge(); }
-function updateCartBadge() {
-  const count = getCart().reduce((sum, i) => sum + (i.qty || 1), 0);
-  document.querySelectorAll('.cart-badge').forEach(b => {
-    b.textContent = count;
-    b.style.display = count > 0 ? 'flex' : 'none';
-  });
-}
 // Auth state
 supa.auth.getSession().then(({ data: { session } }) => {
   const btn = document.getElementById('nav-auth-btn');
   if (session && btn) { btn.textContent = 'Mi cuenta'; btn.href = 'mis-pedidos.html'; }
 });
-updateCartBadge();
 
 // ===== ANALYTICS TRACKER =====
 const _tk = (event, meta = {}) => {

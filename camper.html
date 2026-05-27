@@ -159,8 +159,8 @@ button{font-family:var(--sans);cursor:pointer}
 .video-section{margin-top:64px}
 .video-title{font-size:24px;font-weight:800;letter-spacing:-.03em;margin-bottom:6px}
 .video-sub{font-size:14px;color:var(--text-dim);margin-bottom:24px}
-.video-wrap{position:relative;max-width:600px;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);background:var(--bg-card)}
-.video-wrap video{width:100%;display:block;border-radius:var(--radius)}
+.video-wrap{position:relative;max-width:360px;margin:0 auto;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);background:var(--bg-card);aspect-ratio:9/16}
+.video-wrap video{width:100%;height:100%;object-fit:cover;display:block;border-radius:var(--radius)}
 
 /* PRICE BLOCK */
 .price-block{margin-bottom:18px}
@@ -227,7 +227,9 @@ button{font-family:var(--sans);cursor:pointer}
 .usecases-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
 .uc-card{background:var(--bg-card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:border-color 300ms,transform 300ms}
 .uc-card:hover{border-color:var(--accent);transform:translateY(-3px)}
-.uc-img{aspect-ratio:3/2;background:var(--bg-elev);display:flex;align-items:center;justify-content:center}
+.uc-img{aspect-ratio:3/2;background:var(--bg-elev);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.uc-img img{width:100%;height:100%;object-fit:cover;opacity:.85;transition:opacity 300ms,transform 300ms}
+.uc-card:hover .uc-img img{opacity:1;transform:scale(1.05)}
 .uc-img-icon{font-size:32px;opacity:.4}
 .uc-body{padding:16px}
 .uc-name{font-size:14px;font-weight:700;margin-bottom:4px}
@@ -503,11 +505,6 @@ select.pf-buyer-input{appearance:none;cursor:pointer}
     <a href="index.html" class="nav-link">Catalogo</a>
     <a href="#overview" class="nav-link">Producto</a>
     <a href="#specs" class="nav-link">Specs</a>
-    <a href="carrito.html" class="nav-link nav-cart" style="display:inline-flex;align-items:center;gap:6px">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="22" height="14" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/><line x1="12" y1="3" x2="12" y2="17"/><path d="M1 20h22"/></svg>
-      Mi Importacion
-      <span class="cart-badge" style="display:none">0</span>
-    </a>
     <a href="login.html" class="nav-cta" id="nav-auth-btn">Iniciar sesion</a>
   </div>
 </nav>
@@ -564,23 +561,15 @@ select.pf-buyer-input{appearance:none;cursor:pointer}
     <!-- PRICING PATHS -->
     <div class="pricing-paths">
 
-      <!-- PATH 1: MAYORISTA -->
+      <!-- PRICING -->
       <div class="path-card path-mayorista">
-        <div class="path-header">
-          <div class="path-icon">&#128230;</div>
-          <div>
-            <div class="path-title">Importacion por mayor</div>
-            <div class="path-subtitle">Para negocios e importadores</div>
-          </div>
-        </div>
-
         <div class="price-block" id="price-block">
           <!-- Big price -->
           <div class="pb-hero">
             <span class="pb-hero-amount" id="pb-amount">$20,003</span>
             <span class="pb-hero-cur">USD + IVA</span>
           </div>
-          <div class="pb-hero-basis" id="pb-basis">FOB Qingdao &middot; 1 unidad</div>
+          <div class="pb-hero-basis" id="pb-basis">Precio nacionalizado &middot; 1 unidad</div>
           <div class="pb-hero-delivery" id="pb-delivery">
             <svg viewBox="0 0 24 24" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             60-90 dias de entrega &rarr; Buenos Aires
@@ -615,7 +604,7 @@ select.pf-buyer-input{appearance:none;cursor:pointer}
         <div class="ctn-meta-left">
           <div class="ctn-meta-item">
             <svg viewBox="0 0 24 24" stroke-linecap="round"><rect x="1" y="3" width="22" height="14" rx="2"/></svg>
-            40ft &middot; Qingdao
+            40ft &middot; China
           </div>
           <div class="ctn-meta-item">
             <svg viewBox="0 0 24 24" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -687,10 +676,10 @@ select.pf-buyer-input{appearance:none;cursor:pointer}
     <h2 class="usecases-title">Escenarios de uso</h2>
     <p class="usecases-sub">Diseno pensado para aventura, familia, trabajo y libertad</p>
     <div class="usecases-grid">
-      <div class="uc-card"><div class="uc-img"><span class="uc-img-icon">&#127956;</span></div><div class="uc-body"><div class="uc-name">Overlanding Patagonia</div><div class="uc-detail">Rutas off-road, autonomia total. Tu casa donde termina el asfalto.</div></div></div>
-      <div class="uc-card"><div class="uc-img"><span class="uc-img-icon">&#127957;</span></div><div class="uc-body"><div class="uc-name">Camping familiar</div><div class="uc-detail">Cama doble, cocina, energia. Todo lo que necesitas para la familia.</div></div></div>
-      <div class="uc-card"><div class="uc-img"><span class="uc-img-icon">&#128739;</span></div><div class="uc-body"><div class="uc-name">Viaje por ruta</div><div class="uc-detail">Road trip sin reservar alojamiento. Para donde quieras, dormi donde quieras.</div></div></div>
-      <div class="uc-card"><div class="uc-img"><span class="uc-img-icon">&#128187;</span></div><div class="uc-body"><div class="uc-name">Trabajo remoto</div><div class="uc-detail">Oficina movil con energia de litio. Trabaja desde cualquier ubicacion.</div></div></div>
+      <div class="uc-card"><div class="uc-img"><img src="https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=400&h=267&fit=crop" alt="Overlanding Patagonia"></div><div class="uc-body"><div class="uc-name">Overlanding Patagonia</div><div class="uc-detail">Rutas off-road, autonomia total. Tu casa donde termina el asfalto.</div></div></div>
+      <div class="uc-card"><div class="uc-img"><img src="https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?w=400&h=267&fit=crop" alt="Camping familiar"></div><div class="uc-body"><div class="uc-name">Camping familiar</div><div class="uc-detail">Cama doble, cocina, energia. Todo lo que necesitas para la familia.</div></div></div>
+      <div class="uc-card"><div class="uc-img"><img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=400&h=267&fit=crop" alt="Viaje por ruta"></div><div class="uc-body"><div class="uc-name">Viaje por ruta</div><div class="uc-detail">Road trip sin reservar alojamiento. Para donde quieras, dormi donde quieras.</div></div></div>
+      <div class="uc-card"><div class="uc-img"><img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=267&fit=crop" alt="Trabajo remoto"></div><div class="uc-body"><div class="uc-name">Trabajo remoto</div><div class="uc-detail">Oficina movil con energia de litio. Trabaja desde cualquier ubicacion.</div></div></div>
     </div>
 
     <!-- VARIANTES POR MODELO -->
@@ -735,8 +724,8 @@ select.pf-buyer-input{appearance:none;cursor:pointer}
 
     <!-- VIDEO REEL -->
     <div class="video-section">
-      <h2 class="video-title">Miralo en accion</h2>
-      <p class="video-sub">Asi se ve el SEPHIROTH en la ruta</p>
+      <h2 class="video-title" style="text-align:center">Te mostramos como se ve por dentro</h2>
+      <p class="video-sub" style="text-align:center">Recorre el interior del SEPHIROTH Pickup Camper</p>
       <div class="video-wrap">
         <video controls preload="metadata" poster="assets/camper/variant_1.png">
           <source src="assets/camper/video-reel.mp4" type="video/mp4">
@@ -877,7 +866,7 @@ select.pf-buyer-input{appearance:none;cursor:pointer}
       <div>
         <div class="specs-group-title">GENERAL</div>
         <div class="spec-row"><span class="spec-label">Modelo</span><span class="spec-value">SEPHIROTH&trade; Pickup Camper</span></div>
-        <div class="spec-row"><span class="spec-label">Fabricante</span><span class="spec-value">SEPHIROTH RV (est. 2020, Qingdao)</span></div>
+        <div class="spec-row"><span class="spec-label">Fabricante</span><span class="spec-value">SEPHIROTH RV (est. 2020, China)</span></div>
         <div class="spec-row"><span class="spec-label">Patentes</span><span class="spec-value"><span class="accent">19 patentes registradas</span></span></div>
         <div class="spec-row"><span class="spec-label">Compatibilidad</span><span class="spec-value">F150, RAM 1500, Hilux, Rexton, Tasman</span></div>
         <div class="spec-row"><span class="spec-label">Peso total</span><span class="spec-value"><span class="accent">~550 kg</span></span></div>
@@ -962,7 +951,7 @@ select.pf-buyer-input{appearance:none;cursor:pointer}
     <h2 style="font-size:24px;font-weight:800;letter-spacing:-.03em;margin-bottom:32px">Preguntas frecuentes</h2>
     <div class="faq-grid">
       <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')"><h3>Cual es el tiempo de entrega?</h3><svg viewBox="0 0 24 24" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><div class="faq-a"><div class="faq-a-inner">60-90 dias desde la confirmacion del pedido hasta tu domicilio en Argentina. Incluye produccion, transporte maritimo, despacho aduanero y entrega final. Tracking en vivo durante todo el proceso.</div></div></div>
-      <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')"><h3>Que incluye el precio FOB?</h3><svg viewBox="0 0 24 24" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><div class="faq-a"><div class="faq-a-inner">El precio FOB incluye el camper completo con configuracion base (estructura, techo pop-up, cama, cocina, bateria, tanque de agua), embalaje para exportacion y entrega en puerto de Qingdao. El precio nacionalizado agrega flete, seguro, derechos de importacion, tasa estadistica, despacho aduanero y entrega final.</div></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')"><h3>Que incluye el precio nacionalizado?</h3><svg viewBox="0 0 24 24" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><div class="faq-a"><div class="faq-a-inner">El precio nacionalizado incluye el camper completo con configuracion base (estructura, techo pop-up, cama, cocina, bateria, tanque de agua), embalaje para exportacion, flete maritimo, seguro de carga, derechos de importacion, tasa estadistica, despacho aduanero y entrega puerta a puerta en Argentina. El IVA se detalla por separado en la proforma.</div></div></div>
       <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')"><h3>Con que pickups es compatible?</h3><svg viewBox="0 0 24 24" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><div class="faq-a"><div class="faq-a-inner">El SEPHIROTH Pickup Camper es compatible con Ford F150, RAM 1500, Toyota Hilux, KGM Rexton Sports y Kia Tasman. Tambien se puede adaptar a otras pickups full-size y mid-size. Consulta por tu modelo especifico.</div></div></div>
       <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')"><h3>Que certificaciones necesita para Argentina?</h3><svg viewBox="0 0 24 24" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><div class="faq-a"><div class="faq-a-inner">El camper puede requerir homologacion vehicular y certificacion de equipamiento electrico. Aduanex gestiona todas las certificaciones y tramites como parte del servicio de importacion, incluido en la cotizacion.</div></div></div>
       <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')"><h3>Tiene garantia?</h3><svg viewBox="0 0 24 24" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><div class="faq-a"><div class="faq-a-inner">Si. SEPHIROTH RV ofrece garantia de fabrica. Con 19 patentes y desde 2020, es un fabricante establecido. Los terminos exactos se detallan en cada cotizacion. Aduanex gestiona cualquier reclamo directamente con el fabricante.</div></div></div>
@@ -1034,7 +1023,7 @@ select.pf-buyer-input{appearance:none;cursor:pointer}
           <div class="envio-card-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
           <div class="envio-card-title">Que incluye el precio</div>
           <ul class="envio-card-list">
-            <li>Producto FOB Qingdao</li>
+            <li>Producto nacionalizado</li>
             <li>Flete internacional</li>
             <li>Seguro de carga</li>
             <li>Despacho de aduana</li>
@@ -1283,7 +1272,7 @@ const IVA_AMOUNT = Math.round(BASE_PRICE * IVA_RATE * 100) / 100;
 const TOTAL_PRICE = Math.round((BASE_PRICE + IVA_AMOUNT) * 100) / 100;
 const PRICE_LABEL = '$' + BASE_PRICE.toLocaleString('en-US');
 const DAYS_LABEL = '60-90 dias de entrega → Buenos Aires';
-const BASIS_PORT = 'FOB Qingdao';
+const BASIS_PORT = 'Precio nacionalizado';
 let currentMethod = 'sea';
 let currentTier = 1;
 
@@ -1339,33 +1328,6 @@ new IntersectionObserver(([e]) => {
   fill.style.width = '0%';
 })();
 
-// Cart helpers
-function getCart() { return JSON.parse(localStorage.getItem('aduanex_cart') || '[]'); }
-function saveCart(cart) { localStorage.setItem('aduanex_cart', JSON.stringify(cart)); updateCartBadge(); }
-function updateCartBadge() {
-  const count = getCart().reduce((sum, i) => sum + (i.qty || 1), 0);
-  document.querySelectorAll('.cart-badge').forEach(b => {
-    b.textContent = count;
-    b.style.display = count > 0 ? 'flex' : 'none';
-  });
-}
-function addToCart() {
-  const item = {
-    id: 'sephiroth-camper',
-    name: 'SEPHIROTH™ Pickup Camper',
-    category: 'Overlanding',
-    prices: { sea: { t1: BASE_PRICE } },
-    qty: 1,
-    method: currentMethod,
-    image: '🚛'
-  };
-  const cart = getCart();
-  const existing = cart.find(c => c.id === item.id);
-  if (existing) { existing.qty = item.qty; existing.method = item.method; }
-  else cart.push(item);
-  saveCart(cart);
-}
-updateCartBadge();
 
 // ===== SCROLL TO CONFIG =====
 function scrollToConfig() {
@@ -1582,7 +1544,7 @@ function buildPackingList() {
   const desc = 'SEPHIROTH&#8482; Pickup Camper' + (upgNames.length > 0 ? ' + ' + upgNames.length + ' upgrades' : '');
 
   const tbody = document.getElementById('pf-packing-body');
-  tbody.innerHTML = '<tr><td style="text-align:center;font-weight:600">1</td><td>' + desc + '</td><td>340 x 180 x 175</td><td>580 kg</td><td>550 kg</td><td>10.71</td></tr>';
+  tbody.innerHTML = '<tr><td style="text-align:center;font-weight:600">1</td><td>' + desc + '</td><td>340 x 180 x 175</td><td>580 kg</td><td>550 kg</td><td>15.00</td></tr>';
 
   // Container visualization
   const fill = document.getElementById('pf-container-fill');
@@ -1590,12 +1552,12 @@ function buildPackingList() {
   const slots = document.getElementById('pf-container-slots');
   const cbm = document.getElementById('pf-container-cbm');
 
-  const fillPct = Math.min((1 / 5) * 100, 100);
+  const fillPct = Math.min((15 / 52.8) * 100, 100);
   setTimeout(() => { if (fill) fill.style.width = fillPct + '%'; }, 200);
 
   if (units) units.innerHTML = '<div class="pf-container-unit">&#128690;</div>';
   if (slots) slots.textContent = '1 / 5 espacios ocupados';
-  if (cbm) cbm.textContent = '10.7 / 52.8 CBM';
+  if (cbm) cbm.textContent = '15.0 / 52.8 CBM';
 }
 
 
@@ -1907,12 +1869,10 @@ async function sendWhatsApp() {
 
   setTimeout(() => {
     window.open(waLink, '_blank');
-    // Reset after a delay
+    // Redirect to orders page after sending
     setTimeout(() => {
-      waBtn.innerHTML = origHtml;
-      waBtn.disabled = false;
-      waBtn.style.background = '';
-    }, 4000);
+      window.location.href = 'mis-pedidos.html';
+    }, 1500);
   }, 500);
 }
 </script>
