@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Iniciar sesion — Aduanex Shop</title>
+<title>Iniciar sesión — Aduanex Shop</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -115,7 +115,7 @@ button,input,select{font-family:var(--sans)}button{cursor:pointer}
   <div class="nav-inner">
     <a href="index.html" class="logo">ADUA<span class="logo-a">NEX</span><span class="logo-badge">Shop</span></a>
     <div class="nav-actions">
-      <a href="index.html" class="nav-link">Catalogo</a>
+      <a href="index.html" class="nav-link">Catálogo</a>
       <a href="producto.html#contacto" class="nav-link">Cotizar</a>
       <a href="producto.html#contacto" class="nav-cta">Cotizar importacion</a>
     </div>
@@ -143,12 +143,12 @@ button,input,select{font-family:var(--sans)}button{cursor:pointer}
           </div>
           <div class="auth-group">
             <label class="auth-label">Contrasena</label>
-            <input type="password" class="auth-input" id="login-password" placeholder="Tu contrasena" required autocomplete="current-password">
+            <input type="password" class="auth-input" id="login-password" placeholder="Tu contraseña" required autocomplete="current-password">
           </div>
-          <button type="submit" class="auth-submit" id="login-btn">Iniciar sesion</button>
+          <button type="submit" class="auth-submit" id="login-btn">Iniciar sesión</button>
         </form>
         <div class="auth-forgot">
-          <a href="#" onclick="event.preventDefault(); handleReset()">Olvidaste tu contrasena?</a>
+          <a href="#" onclick="event.preventDefault(); handleReset()">Olvidaste tu contraseña?</a>
         </div>
         <div class="auth-footer">
           No tenes cuenta? <a href="#" onclick="event.preventDefault(); showView('register')">Registrate</a>
@@ -205,14 +205,14 @@ button,input,select{font-family:var(--sans)}button{cursor:pointer}
     <div class="footer-top">
       <div class="footer-brand">
         <div class="footer-logo">ADUA<span class="a">NEX</span> SHOP</div>
-        <p>Marketplace B2B de importacion gestionada. Conectamos empresas argentinas con fabricas chinas verificadas.</p>
+        <p>Marketplace B2B de importación gestionada. Conectamos empresas argentinas con fábricas chinas verificadas.</p>
         <a href="https://wa.me/5491100000000" class="footer-wa" target="_blank">
           <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
           WhatsApp
         </a>
       </div>
       <div class="footer-col">
-        <h5>Catalogo</h5>
+        <h5>Catálogo</h5>
         <a href="index.html">Todos los productos</a>
         <a href="index.html">Robotica & Vending</a>
         <a href="index.html">Maquinas expendedoras</a>
@@ -221,7 +221,7 @@ button,input,select{font-family:var(--sans)}button{cursor:pointer}
       <div class="footer-col">
         <h5>Empresa</h5>
         <a href="index.html#por-que">Por que Aduanex</a>
-        <a href="index.html#como">Como funciona</a>
+        <a href="index.html#como">Cómo funciona</a>
         <a href="producto.html#contacto">Contacto</a>
       </div>
       <div class="footer-col">
@@ -312,14 +312,14 @@ async function handleLogin() {
     if (error) {
       showMsg(translateError(error.message), 'error');
       btn.disabled = false;
-      btn.textContent = 'Iniciar sesion';
+      btn.textContent = 'Iniciar sesión';
       return;
     }
     window.location.href = _redirect;
   } catch(e) {
-    showMsg('Error de conexion. Intenta de nuevo.', 'error');
+    showMsg('Error de conexión. Intenta de nuevo.', 'error');
     btn.disabled = false;
-    btn.textContent = 'Iniciar sesion';
+    btn.textContent = 'Iniciar sesión';
   }
 }
 
@@ -371,11 +371,11 @@ async function handleRegister() {
     return;
   }
   if (password.length < 8) {
-    showMsg('La contrasena debe tener al menos 8 caracteres.', 'error');
+    showMsg('La contraseña debe tener al menos 8 caracteres.', 'error');
     return;
   }
   if (!/[A-Z]/.test(password) || !/[0-9]/.test(password)) {
-    showMsg('La contrasena debe incluir al menos una mayuscula y un numero.', 'error');
+    showMsg('La contraseña debe incluir al menos una mayuscula y un número.', 'error');
     return;
   }
 
@@ -416,7 +416,7 @@ async function handleRegister() {
     }, 5000);
 
   } catch(e) {
-    showMsg('Error de conexion. Intenta de nuevo.', 'error');
+    showMsg('Error de conexión. Intenta de nuevo.', 'error');
     btn.disabled = false;
     btn.textContent = 'Crear cuenta';
   }
@@ -426,7 +426,7 @@ async function handleRegister() {
 async function handleReset() {
   const email = document.getElementById('login-email').value.trim();
   if (!email) {
-    showMsg('Ingresa tu email primero y luego hace click en "Olvidaste tu contrasena?".', 'error');
+    showMsg('Ingresa tu email primero y luego hace click en "Olvidaste tu contraseña?".', 'error');
     return;
   }
 
@@ -442,19 +442,19 @@ async function handleReset() {
       return;
     }
 
-    showMsg('Te enviamos un email para restablecer tu contrasena. Revisa tu bandeja de entrada.', 'success');
+    showMsg('Te enviamos un email para restablecer tu contraseña. Revisa tu bandeja de entrada.', 'success');
   } catch(e) {
-    showMsg('Error de conexion. Intenta de nuevo.', 'error');
+    showMsg('Error de conexión. Intenta de nuevo.', 'error');
   }
 }
 
 // ===== ERROR TRANSLATION =====
 function translateError(msg) {
   const map = {
-    'Invalid login credentials': 'Email o contrasena incorrectos.',
+    'Invalid login credentials': 'Email o contraseña incorrectos.',
     'Email not confirmed': 'Tu email no esta confirmado. Revisa tu bandeja de entrada.',
     'User already registered': 'Ya existe una cuenta con este email.',
-    'Password should be at least 6 characters': 'La contrasena debe tener al menos 6 caracteres.',
+    'Password should be at least 6 characters': 'La contraseña debe tener al menos 6 caracteres.',
     'Unable to validate email address: invalid format': 'El formato del email no es valido.',
     'Email rate limit exceeded': 'Demasiados intentos. Espera unos minutos.',
     'For security purposes, you can only request this once every 60 seconds': 'Por seguridad, solo podes solicitar esto una vez por minuto.'

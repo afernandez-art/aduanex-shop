@@ -34,7 +34,7 @@ a:hover{opacity:.8}
   <p id="status-text">Confirmando tu email, espera un momento...</p>
   <div class="msg" id="msg"></div>
   <p id="fallback" class="hidden" style="margin-top:16px;font-size:13px">
-    <a href="login.html">Ir a iniciar sesion</a> · <a href="camper.html">Volver al producto</a>
+    <a href="login.html">Ir a iniciar sesión</a> · <a href="camper.html">Volver al producto</a>
   </p>
 </div>
 
@@ -67,7 +67,7 @@ const supa = supabase.createClient(SUPA_URL, SUPA_KEY);
       const msg = document.getElementById('msg');
       msg.className = 'msg success';
       msg.textContent = type === 'recovery'
-        ? 'Redirigiendo para cambiar tu contrasena...'
+        ? 'Redirigiendo para cambiar tu contraseña...'
         : 'Bienvenido a Aduanex Shop! Redirigiendo...';
 
       const redirect = type === 'recovery' ? 'login.html' : 'camper.html';
@@ -97,7 +97,7 @@ const supa = supabase.createClient(SUPA_URL, SUPA_KEY);
         showError('No pudimos verificar tu cuenta. El enlace puede haber expirado.');
       }
     } else {
-      showError('Enlace de verificacion invalido.');
+      showError('Enlace de verificación invalido.');
     }
   }
 })();

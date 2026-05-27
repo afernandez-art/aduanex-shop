@@ -33,14 +33,11 @@ button,input,select{font-family:var(--sans)}button{cursor:pointer}
 .logo{font-size:18px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;flex-shrink:0}
 .logo-a{color:var(--accent)}
 .logo-badge{font-size:9px;font-family:var(--mono);letter-spacing:.1em;color:var(--accent);margin-left:6px;padding:2px 8px;border:1px solid var(--accent-mid);border-radius:100px;text-transform:uppercase;vertical-align:middle}
-.nav-actions{display:flex;align-items:center;gap:16px;margin-left:auto}
+.nav-right{display:flex;align-items:center;gap:16px;margin-left:auto}
 .nav-link{font-size:13px;color:var(--text-dim);font-weight:500;transition:color 150ms;white-space:nowrap}
 .nav-link:hover{color:var(--text)}
 .nav-cta{padding:8px 18px;background:var(--accent);color:var(--bg);border-radius:100px;font-weight:600;font-size:12px;border:none;transition:transform 150ms;white-space:nowrap}
 .nav-cta:hover{transform:scale(1.03)}
-.nav-cart{position:relative;display:flex;align-items:center}
-.cart-badge{position:absolute;top:-8px;right:-10px;width:18px;height:18px;border-radius:50%;background:var(--accent);color:var(--bg);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:var(--mono)}
-
 /* LEGAL CONTENT */
 .legal-page{max-width:800px;margin:0 auto;padding:48px 24px 80px}
 .legal-page h1{font-size:28px;font-weight:800;letter-spacing:-.02em;margin-bottom:6px}
@@ -97,7 +94,7 @@ button,input,select{font-family:var(--sans)}button{cursor:pointer}
 }
 @media(max-width:600px){
   .nav-inner{flex-wrap:wrap;gap:10px;padding:10px 16px}
-  .nav-actions .nav-link{display:none}
+  .nav-right .nav-link{display:none}
   .legal-page{padding:32px 16px 60px}
   .legal-page h1{font-size:22px}
   .legal-page h2{font-size:16px}
@@ -113,21 +110,15 @@ button,input,select{font-family:var(--sans)}button{cursor:pointer}
 <body>
 
 <!-- TOPBAR -->
-<div class="topbar">Importacion gestionada de China a Argentina <span>· Precio nacionalizado en 24hs · Despachante matriculado</span></div>
+<div class="topbar">Importación gestionada de China a Argentina <span>· Precio nacionalizado en 24hs · Despachante matriculado</span></div>
 
 <!-- NAV -->
 <nav class="nav">
   <div class="nav-inner">
     <a href="index.html" class="logo">ADUA<span class="logo-a">NEX</span><span class="logo-badge">Shop</span></a>
-    <div class="nav-actions">
-      <a href="index.html#como" class="nav-link">Como funciona</a>
-      <a href="index.html#por-que" class="nav-link">Por que Aduanex</a>
-      <a href="carrito.html" class="nav-link nav-cart">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="22" height="14" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/><line x1="12" y1="3" x2="12" y2="17"/><path d="M1 20h22"/></svg>
-        Mi Importacion
-        <span class="cart-badge" style="display:none">0</span>
-      </a>
-      <a href="login.html" class="nav-cta" id="nav-auth-btn">Iniciar sesion</a>
+    <div class="nav-right">
+      <a href="index.html" class="nav-link">Catálogo</a>
+      <a href="login.html" class="nav-cta" id="nav-auth-btn">Iniciar sesión</a>
     </div>
   </div>
 </nav>
@@ -136,18 +127,18 @@ button,input,select{font-family:var(--sans)}button{cursor:pointer}
 <div class="legal-page">
 
   <h1>Politica de <span>Envios</span></h1>
-  <div class="legal-updated">Ultima actualizacion: 27 de mayo de 2026</div>
+  <div class="legal-updated">Ultima actualización: 27 de mayo de 2026</div>
 
-  <h2>1. Metodo de envio</h2>
+  <h2>1. Método de envio</h2>
   <p>Las importaciones gestionadas a traves de Aduanex Shop se realizan desde China con dos modalidades disponibles:</p>
   <ul>
-    <li><strong>Maritimo:</strong> ideal para productos de gran volumen o peso. Plazo estimado de 60 a 90 dias.</li>
+    <li><strong>Marítimo:</strong> ideal para productos de gran volumen o peso. Plazo estimado de 60 a 90 dias.</li>
     <li><strong>Aereo:</strong> para envios urgentes o productos de menor volumen. Plazo estimado de 15 a 30 dias. Sujeto a disponibilidad y tipo de producto.</li>
   </ul>
   <p>La modalidad de envio se define con el cliente segun el tipo de producto, urgencia y costo.</p>
 
   <h2>2. Plazos de entrega estimados</h2>
-  <p>El plazo total estimado desde la confirmacion del pedido hasta la entrega en destino es de <strong>60 a 90 dias</strong>, distribuido aproximadamente de la siguiente manera:</p>
+  <p>El plazo total estimado desde la confirmación del pedido hasta la entrega en destino es de <strong>60 a 90 dias</strong>, distribuido aproximadamente de la siguiente manera:</p>
 
   <div class="timeline">
     <div class="timeline-step">
@@ -162,8 +153,8 @@ button,input,select{font-family:var(--sans)}button{cursor:pointer}
     </div>
     <div class="timeline-step">
       <div class="timeline-num">03</div>
-      <div class="timeline-label">Transito maritimo</div>
-      <div class="timeline-desc">30-40 dias de navegacion</div>
+      <div class="timeline-label">Transito marítimo</div>
+      <div class="timeline-desc">30-40 dias de navegación</div>
     </div>
     <div class="timeline-step">
       <div class="timeline-num">04</div>
@@ -172,59 +163,59 @@ button,input,select{font-family:var(--sans)}button{cursor:pointer}
     </div>
   </div>
 
-  <p>Estos plazos son estimativos y pueden variar segun el tipo de producto, la disponibilidad en fabrica, la epoca del ano y factores logisticos. Ante variaciones significativas, te notificaremos oportunamente a traves de WhatsApp.</p>
+  <p>Estos plazos son estimativos y pueden variar segun el tipo de producto, la disponibilidad en fabrica, la epoca del año y factores logisticos. Ante variaciones significativas, te notificaremos oportunamente a traves de WhatsApp.</p>
 
   <h2>3. Alcance de la entrega</h2>
-  <p>La entrega es <strong>puerta a puerta en todo el territorio de la Republica Argentina</strong>. Esto significa que tu pedido llega directamente a la direccion que indiques al momento de confirmar la operacion, sin que tengas que gestionar ningun tramite intermedio.</p>
+  <p>La entrega es <strong>puerta a puerta en todo el territorio de la Republica Argentina</strong>. Esto significa que tu pedido llega directamente a la dirección que indiques al momento de confirmar la operacion, sin que tengas que gestionar ningun tramite intermedio.</p>
 
   <h2>4. Que incluye el precio nacionalizado</h2>
   <p>El precio publicado en la Plataforma es un <strong>precio nacionalizado</strong> que incluye todos los costos asociados a la importacion:</p>
   <ul>
     <li><strong>Valor FOB:</strong> precio del producto en origen</li>
-    <li><strong>Flete maritimo internacional:</strong> transporte desde China hasta puerto argentino</li>
+    <li><strong>Flete marítimo internacional:</strong> transporte desde China hasta puerto argentino</li>
     <li><strong>Seguro de carga:</strong> cobertura contra danos y perdidas durante el transito</li>
     <li><strong>Derechos de importacion:</strong> aranceles y tasas aduaneras aplicables</li>
     <li><strong>IVA:</strong> Impuesto al Valor Agregado (10,5%)</li>
-    <li><strong>Honorarios de despachante:</strong> gestion profesional del despacho aduanero</li>
-    <li><strong>Transporte domestico:</strong> distribucion desde puerto argentino hasta tu puerta</li>
+    <li><strong>Honorarios de despachante:</strong> gestión profesional del despacho aduanero</li>
+    <li><strong>Transporte domestico:</strong> distribución desde puerto argentino hasta tu puerta</li>
   </ul>
   <div class="info-box">
     <p><strong>Sin costos ocultos.</strong> El precio que ves en la proforma es el precio final. No hay cargos sorpresa ni gastos adicionales al momento de la entrega.</p>
   </div>
 
   <h2>5. Despacho aduanero</h2>
-  <p>El despacho aduanero de tu importacion es gestionado integramente por <strong>Aduanex como despachante de aduanas matriculado</strong>. Esto incluye:</p>
+  <p>El despacho aduanero de tu importación es gestionado integramente por <strong>Aduanex como despachante de aduanas matriculado</strong>. Esto incluye:</p>
   <ul>
     <li>Clasificacion arancelaria del producto</li>
     <li>Preparacion y presentacion de toda la documentacion aduanera</li>
-    <li>Liquidacion y pago de derechos de importacion e impuestos</li>
-    <li>Gestion de intervenciones previas si el producto lo requiere (certificaciones, homologaciones)</li>
+    <li>Liquidacion y pago de derechos de importación e impuestos</li>
+    <li>Gestion de intervenciónes previas si el producto lo requiere (certificaciones, homologaciones)</li>
     <li>Coordinacion con terminales portuarias y organismos de control</li>
   </ul>
   <p>No tenes que hacer ningun tramite aduanero. Nos encargamos de todo.</p>
 
   <h2>6. Contenedor consolidado</h2>
-  <p>Para optimizar costos y hacer viable la importacion de volumenes menores, trabajamos con <strong>contenedor consolidado (LCL — Less than Container Load)</strong>. Esto significa que tu carga comparte espacio de contenedor con pedidos de otros clientes, lo que permite:</p>
+  <p>Para optimizar costos y hacer viable la importación de volumenes menores, trabajamos con <strong>contenedor consolidado (LCL — Less than Container Load)</strong>. Esto significa que tu carga comparte espacio de contenedor con pedidos de otros clientes, lo que permite:</p>
   <ul>
     <li>Importar cantidades menores sin necesidad de completar un contenedor completo.</li>
     <li>Reducir significativamente el costo de flete por unidad.</li>
     <li>Aprovechar despachos regulares con frecuencia programada.</li>
   </ul>
-  <p>En la pagina principal de Aduanex Shop podes ver el estado del proximo contenedor consolidado y su porcentaje de ocupacion en tiempo real.</p>
+  <p>En la página principal de Aduanex Shop podes ver el estado del proximo contenedor consolidado y su porcentaje de ocupacion en tiempo real.</p>
 
   <h2>7. Inspeccion y embalaje en origen</h2>
   <p>Antes del embarque, nuestro equipo gestiona los siguientes controles de calidad en China:</p>
   <ul>
-    <li><strong>Inspeccion visual:</strong> verificacion del estado general del producto y conformidad con las especificaciones del pedido.</li>
-    <li><strong>Control de cantidad:</strong> confirmacion de que las cantidades coinciden con lo pactado.</li>
+    <li><strong>Inspeccion visual:</strong> verificación del estado general del producto y conformidad con las especificaciones del pedido.</li>
+    <li><strong>Control de cantidad:</strong> confirmación de que las cantidades coinciden con lo pactado.</li>
     <li><strong>Registro fotografico:</strong> documentacion visual del producto y su embalaje antes del despacho.</li>
-    <li><strong>Embalaje para exportacion:</strong> verificacion de que el empaque es adecuado para transporte maritimo internacional (proteccion contra humedad, golpes y vibraciones).</li>
+    <li><strong>Embalaje para exportacion:</strong> verificación de que el empaque es adecuado para transporte marítimo internacional (protección contra humedad, golpes y vibraciones).</li>
   </ul>
 
   <h2>8. Seguimiento de tu importacion</h2>
-  <p>Una vez confirmada tu operacion, recibis <strong>actualizaciones en tiempo real</strong> sobre el estado de tu importacion a traves de WhatsApp. Los hitos principales que comunicamos son:</p>
+  <p>Una vez confirmada tu operacion, recibis <strong>actualizaciónes en tiempo real</strong> sobre el estado de tu importación a traves de WhatsApp. Los hitos principales que comunicamos son:</p>
   <ol>
-    <li>Confirmacion de produccion o disponibilidad en fabrica</li>
+    <li>Confirmacion de producción o disponibilidad en fabrica</li>
     <li>Inspeccion completada y aprobada</li>
     <li>Carga despachada en puerto de origen</li>
     <li>Arribo estimado a puerto argentino</li>
@@ -234,11 +225,11 @@ button,input,select{font-family:var(--sans)}button{cursor:pointer}
   </ol>
   <p>Tambien podes consultar el estado de tu pedido en cualquier momento a traves de la seccion <strong>Mi Importacion</strong> en la Plataforma.</p>
 
-  <h2>9. Recepcion y confirmacion de entrega</h2>
+  <h2>9. Recepcion y confirmación de entrega</h2>
   <p>Al momento de la entrega:</p>
   <ul>
-    <li>Es necesario que una persona autorizada este presente para recibir la mercaderia en la direccion indicada.</li>
-    <li>Se recomienda realizar una <strong>inspeccion visual del embalaje</strong> antes de firmar el conforme de entrega.</li>
+    <li>Es necesario que una persona autorizada este presente para recibir la mercaderia en la dirección indicada.</li>
+    <li>Se recomienda realizar una <strong>inspección visual del embalaje</strong> antes de firmar el conforme de entrega.</li>
     <li>Si el embalaje presenta danos visibles, se debe dejar constancia escrita en el remito de entrega y notificar a Aduanex de inmediato.</li>
     <li>La firma del conforme de entrega constituye la aceptacion de la mercaderia en las condiciones recibidas.</li>
   </ul>
@@ -248,27 +239,27 @@ button,input,select{font-family:var(--sans)}button{cursor:pointer}
   <ul>
     <li>Comunicate con nuestro equipo dentro de las <strong>48 horas</strong> posteriores a la recepcion.</li>
     <li>Envia por WhatsApp fotos del producto danado, del embalaje y del remito de entrega.</li>
-    <li>Aduanex iniciara la gestion del reclamo con el seguro de carga y/o el proveedor en origen.</li>
-    <li>La resolucion del reclamo (reposicion, credito o devolucion) se coordina de forma individual segun el caso.</li>
+    <li>Aduanex iniciara la gestión del reclamo con el seguro de carga y/o el proveedor en origen.</li>
+    <li>La resolución del reclamo (reposicion, crédito o devolucion) se coordina de forma individual segun el caso.</li>
   </ul>
-  <p>El seguro de carga internacional incluido en el precio cubre danos y perdidas durante el transito maritimo. Las condiciones especificas de la cobertura se detallan en la proforma de cada operacion.</p>
+  <p>El seguro de carga internacional incluido en el precio cubre danos y perdidas durante el transito marítimo. Las condiciones especificas de la cobertura se detallan en la proforma de cada operación.</p>
 
   <h2>11. Fuerza mayor y demoras</h2>
   <p>Los plazos de entrega pueden verse afectados por situaciones de fuerza mayor fuera de nuestro control, incluyendo:</p>
   <ul>
     <li>Condiciones climaticas adversas o desastres naturales</li>
     <li>Conflictos belicos, sanciones internacionales o restricciones comerciales</li>
-    <li>Huelgas portuarias, congestion en terminales o demoras en terminales</li>
-    <li>Pandemias o crisis sanitarias que afecten la cadena logistica</li>
-    <li>Cambios en regulaciones aduaneras o gubernamentales</li>
+    <li>Huelgas portuarias, congestión en terminales o demoras en terminales</li>
+    <li>Pandemias o crisis sanitarias que afecten la cadena logística</li>
+    <li>Cambios en regulaciónes aduaneras o gubernamentales</li>
     <li>Inspecciones extraordinarias por parte de organismos de control</li>
   </ul>
   <p>En estos casos, Aduanex notificara al cliente a la brevedad posible y gestionara las alternativas disponibles. No seremos responsables por danos o perjuicios derivados de demoras causadas por fuerza mayor.</p>
 
   <h2>12. Productos restringidos</h2>
-  <p>Algunos productos pueden requerir certificaciones, homologaciones o intervenciones previas de organismos argentinos (ANMAT, INTI, SENASA, etc.) antes de su liberacion aduanera. En estos casos:</p>
+  <p>Algunos productos pueden requerir certificaciones, homologaciones o intervenciónes previas de organismos argentinos (ANMAT, INTI, SENASA, etc.) antes de su liberacion aduanera. En estos casos:</p>
   <ul>
-    <li>Te informaremos antes de confirmar la operacion si el producto requiere alguna gestion adicional.</li>
+    <li>Te informaremos antes de confirmar la operación si el producto requiere alguna gestión adicional.</li>
     <li>Los tiempos de certificacion o homologacion se suman al plazo de entrega habitual.</li>
     <li>Los costos asociados a estas gestiones estan incluidos en el precio nacionalizado, salvo que se indique expresamente lo contrario en la proforma.</li>
   </ul>
@@ -279,7 +270,7 @@ button,input,select{font-family:var(--sans)}button{cursor:pointer}
     <li><strong>WhatsApp:</strong> +54 2257 617922</li>
     <li><strong>Email:</strong> <a href="mailto:marketing@aduanex.com.ar" class="inline-link">marketing@aduanex.com.ar</a></li>
   </ul>
-  <p>Consulta tambien nuestros <a href="terminos.html" class="inline-link">Terminos y Condiciones</a> para informacion adicional sobre la operatoria general de la Plataforma.</p>
+  <p>Consulta tambien nuestros <a href="términos.html" class="inline-link">Terminos y Condiciones</a> para información adicional sobre la operatoria general de la Plataforma.</p>
 
 </div>
 
@@ -289,14 +280,14 @@ button,input,select{font-family:var(--sans)}button{cursor:pointer}
     <div class="footer-top">
       <div class="footer-brand">
         <div class="footer-logo">ADUA<span class="a">NEX</span> SHOP</div>
-        <p>Marketplace B2B de importacion gestionada. Conectamos empresas argentinas con fabricas chinas verificadas.</p>
+        <p>Marketplace B2B de importación gestionada. Conectamos empresas argentinas con fábricas chinas verificadas.</p>
         <a href="https://wa.me/542257617922?text=Hola%20Aduanex!%20Me%20interesa%20un%20producto%20del%20shop" class="footer-wa" target="_blank">
           <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
           WhatsApp
         </a>
       </div>
       <div class="footer-col">
-        <h5>Catalogo</h5>
+        <h5>Catálogo</h5>
         <a href="index.html">Overlanding</a>
         <a href="index.html">Campers</a>
         <a href="index.html">Accesorios</a>
@@ -305,12 +296,12 @@ button,input,select{font-family:var(--sans)}button{cursor:pointer}
       <div class="footer-col">
         <h5>Empresa</h5>
         <a href="index.html#por-que">Por que Aduanex</a>
-        <a href="index.html#como">Como funciona</a>
+        <a href="index.html#como">Cómo funciona</a>
         <a href="camper.html#contacto">Contacto</a>
       </div>
       <div class="footer-col">
         <h5>Legal</h5>
-        <a href="terminos.html">Terminos y condiciones</a>
+        <a href="términos.html">Terminos y condiciones</a>
         <a href="privacidad.html">Politica de privacidad</a>
         <a href="envios.html">Politica de envios</a>
       </div>
@@ -331,21 +322,11 @@ const SUPA_URL = 'https://qsirhluidhpmrpnejwdp.supabase.co';
 const SUPA_KEY = 'sb_publishable_1kOHBeoCsSY1ufV1_1DjKw_GNt60bPd';
 const supa = supabase.createClient(SUPA_URL, SUPA_KEY);
 
-// Cart badge
-function getCart() { return JSON.parse(localStorage.getItem('aduanex_cart') || '[]'); }
-function updateCartBadge() {
-  const count = getCart().reduce((sum, i) => sum + (i.qty || 1), 0);
-  document.querySelectorAll('.cart-badge').forEach(b => {
-    b.textContent = count;
-    b.style.display = count > 0 ? 'flex' : 'none';
-  });
-}
 // Auth state
 supa.auth.getSession().then(({ data: { session } }) => {
   const btn = document.getElementById('nav-auth-btn');
   if (session && btn) { btn.textContent = 'Mi cuenta'; btn.href = 'mis-pedidos.html'; }
 });
-updateCartBadge();
 
 // Analytics
 (async () => {
